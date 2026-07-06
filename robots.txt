@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://jorsonbei.github.io/wuxing-theory-book3/sitemap.xml
