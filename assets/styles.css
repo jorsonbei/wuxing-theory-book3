@@ -148,12 +148,19 @@ a {
   font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
 
-.stats span {
+.stats span,
+.stats a {
   padding: 8px 12px;
   border: 1px solid rgba(23, 77, 120, 0.14);
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.62);
   color: var(--muted);
+  text-decoration: none;
+}
+
+.stats a:hover {
+  border-color: rgba(23, 77, 120, 0.34);
+  background: rgba(255, 255, 255, 0.88);
 }
 
 .stats strong {
@@ -341,6 +348,194 @@ a {
   color: var(--muted);
   font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
   font-size: 14px;
+}
+
+.standalone-page {
+  padding: clamp(30px, 6vw, 78px) clamp(20px, 7vw, 96px);
+}
+
+.resource-content {
+  min-width: 0;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(26px, 4vw, 54px);
+  border: 1px solid rgba(23, 77, 120, 0.1);
+  border-radius: 10px;
+  background: var(--paper);
+  box-shadow: 0 18px 60px rgba(18, 30, 42, 0.08);
+}
+
+.resource-content h1 {
+  margin: 0;
+  color: var(--blue);
+  font-size: clamp(38px, 5.2vw, 64px);
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+.resource-content h2 {
+  margin: 34px 0 12px;
+  color: var(--blue-2);
+  font-size: 28px;
+  line-height: 1.35;
+}
+
+.resource-lead {
+  max-width: 880px;
+  margin: 24px 0 0;
+  color: #27303a;
+  font-size: 21px;
+  line-height: 1.9;
+}
+
+.resource-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.resource-meta,
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 30px;
+}
+
+.resource-meta div,
+.resource-card {
+  display: grid;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8f4ec;
+}
+
+.resource-meta strong,
+.resource-card strong {
+  color: var(--blue-2);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 18px;
+  line-height: 1.45;
+}
+
+.resource-meta span,
+.resource-card span {
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.resource-card {
+  min-height: 144px;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.resource-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(23, 77, 120, 0.32);
+  box-shadow: 0 12px 34px rgba(18, 30, 42, 0.08);
+}
+
+.resource-note {
+  margin-top: 34px;
+  padding: 22px;
+  border-left: 4px solid var(--gold);
+  background: #f7f0e4;
+}
+
+.resource-note p {
+  margin: 0 0 16px;
+  font-size: 19px;
+  line-height: 1.9;
+}
+
+.formula-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 34px;
+  min-width: 0;
+}
+
+.formula-card {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid rgba(23, 77, 120, 0.14);
+  border-radius: 8px;
+  background: #fffdf8;
+}
+
+.formula-card-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  min-width: 0;
+}
+
+.formula-card-head span {
+  color: var(--gold);
+  font-weight: 800;
+}
+
+.formula-card-head strong {
+  color: var(--blue-2);
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.formula-card pre {
+  overflow-x: auto;
+  margin: 0 0 16px;
+  padding: 14px 16px;
+  border-left: 4px solid var(--blue);
+  border-radius: 6px;
+  background: #f2f6f9;
+  color: #102235;
+  max-width: 100%;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.formula-card code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Noto Sans Math", monospace;
+  font-size: 15px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.formula-card dl {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 18px;
+  margin: 0;
+  min-width: 0;
+}
+
+.formula-card dl div {
+  min-width: 0;
+}
+
+.formula-card dt {
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.formula-card dd {
+  margin: 3px 0 0;
+  color: #22282d;
+  font-size: 15px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
 }
 
 .reader-shell {
@@ -542,7 +737,10 @@ a {
   }
 
   .catalog-grid,
-  .material-grid {
+  .material-grid,
+  .resource-meta,
+  .resource-grid,
+  .formula-card dl {
     grid-template-columns: 1fr;
   }
 }
@@ -574,5 +772,21 @@ a {
 
   .chapter-content p {
     text-indent: 0;
+  }
+
+  .standalone-page {
+    padding: 24px 12px;
+  }
+
+  .resource-content {
+    padding: 24px 18px;
+  }
+
+  .formula-card {
+    padding: 14px;
+  }
+
+  .formula-card pre {
+    padding: 12px;
   }
 }

@@ -10,6 +10,9 @@ https://jorsonbei.github.io/wuxing-theory-book3/
 
 - `index.html`：公開閱讀網站首頁
 - `chapters/`：逐章 HTML 閱讀頁
+- `resources/formula-canon.html`：104條公式正典網頁版
+- `resources/reproduction.html`：公開復演入口
+- `resources/FormulaOperatorCanon.json`：104條公式正典 JSON
 - `book/wuxing-theory-book3.md`：Markdown 原稿
 - `book/wuxing-theory-book3.docx`：KDP DOCX 書稿
 - `assets/`：封面、樣式與搜尋索引

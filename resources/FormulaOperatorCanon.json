@@ -1,0 +1,3262 @@
+{
+  "route": "LF25-001_FormulaOperatorCanon",
+  "generated_at": "2026-07-03T08:17:56.021730+00:00",
+  "source": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+  "formula_count": 104,
+  "formulas": [
+    {
+      "formula_id": "LF25-F001",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3181,
+      "section_path": [
+        "第八章｜先有母结构，再有子公式",
+        "8.3 物性论母结构的九个部件",
+        "第二，物性状态"
+      ],
+      "formula": "\\Phi(x)",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F002",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3275,
+      "section_path": [
+        "第八章｜先有母结构，再有子公式",
+        "8.3 物性论母结构的九个部件",
+        "第八，E_show 显化门"
+      ],
+      "formula": "E_{show}=f(\\phi,\\Omega,\\Delta\\sigma,\\tau,\\Pi)",
+      "category": "old_physics_reduction",
+      "operator_role": "manifestation_gate",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "phi",
+        "Omega",
+        "Delta_sigma",
+        "tau",
+        "Pi"
+      ],
+      "output_variables": [
+        "E_show_gate_value",
+        "manifestation_status"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F003",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3293,
+      "section_path": [
+        "第八章｜先有母结构，再有子公式",
+        "8.3 物性论母结构的九个部件",
+        "第九，作用量"
+      ],
+      "formula": "S=\\int L\\,dt",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F004",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3327,
+      "section_path": [
+        "第八章｜先有母结构，再有子公式",
+        "8.4 什么叫“约化”",
+        ""
+      ],
+      "formula": "\\text{标准公式} = E_{show} \\big( \\mathcal{M}_{WX},Q,\\Omega,\\Delta\\sigma,\\Pi,\\eta \\big) \\quad\\text{在某个约化条件下}",
+      "category": "old_physics_reduction",
+      "operator_role": "manifestation_gate",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "phi",
+        "Omega",
+        "Delta_sigma",
+        "tau",
+        "Pi"
+      ],
+      "output_variables": [
+        "E_show_gate_value",
+        "manifestation_status"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F005",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3458,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.1 拉格朗日方程：一条路为什么会被系统选中",
+        "公式出现"
+      ],
+      "formula": "S[q]=\\int_{t_1}^{t_2}L(q,\\dot q,t)\\,dt",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F006",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3474,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.1 拉格朗日方程：一条路为什么会被系统选中",
+        "公式出现"
+      ],
+      "formula": "\\delta S=0",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F007",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3480,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.1 拉格朗日方程：一条路为什么会被系统选中",
+        "公式出现"
+      ],
+      "formula": "\\frac{d}{dt}\\left(\\frac{\\partial L}{\\partial \\dot q^i}\\right) - \\frac{\\partial L}{\\partial q^i}=0",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F008",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3502,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.1 拉格朗日方程：一条路为什么会被系统选中",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "E_{show} \\Rightarrow \\text{合法驻留路径} \\Rightarrow \\delta S=0 \\Rightarrow \\text{Euler-Lagrange 方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "manifestation_gate",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "phi",
+        "Omega",
+        "Delta_sigma",
+        "tau",
+        "Pi"
+      ],
+      "output_variables": [
+        "E_show_gate_value",
+        "manifestation_status"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F009",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3564,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.2 哈密顿方程：系统每一刻怎样带着账本继续走",
+        "物性论为什么会需要它"
+      ],
+      "formula": "p_i=\\frac{\\partial L}{\\partial \\dot q^i}",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F010",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3572,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.2 哈密顿方程：系统每一刻怎样带着账本继续走",
+        "物性论为什么会需要它"
+      ],
+      "formula": "H(q,p,t)=p_i\\dot q^i-L(q,\\dot q,t)",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F011",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3582,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.2 哈密顿方程：系统每一刻怎样带着账本继续走",
+        "公式出现"
+      ],
+      "formula": "\\dot q^i=\\frac{\\partial H}{\\partial p_i}",
+      "category": "old_physics_reduction",
+      "operator_role": "hamiltonian_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F012",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3586,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.2 哈密顿方程：系统每一刻怎样带着账本继续走",
+        "公式出现"
+      ],
+      "formula": "\\dot p_i=-\\frac{\\partial H}{\\partial q^i}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F013",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3608,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.2 哈密顿方程：系统每一刻怎样带着账本继续走",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "Q\\text{ 核连续} \\Rightarrow (q,p)\\text{ 完整状态账本} \\Rightarrow H\\text{ 总账本} \\Rightarrow \\text{Hamilton 方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "hamiltonian_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F014",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3626,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "旧公式原来在问什么"
+      ],
+      "formula": "F=ma",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F015",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3666,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "物性论为什么会需要它"
+      ],
+      "formula": "F=-\\nabla V",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F016",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3678,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "公式出现"
+      ],
+      "formula": "L=\\frac12 m\\dot x^2 - V(x)",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F017",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3688,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "公式出现"
+      ],
+      "formula": "m\\ddot x=-\\nabla V",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F018",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3694,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "公式出现"
+      ],
+      "formula": "F=ma",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F019",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3724,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.3 牛顿第二定律：力为什么像坡度",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\Delta\\sigma \\Rightarrow V(x) \\Rightarrow -\\nabla V \\Rightarrow F \\Rightarrow F=ma",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F020",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3744,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "旧公式原来在问什么"
+      ],
+      "formula": "F=G\\frac{Mm}{r^2}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F021",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3780,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "公式出现"
+      ],
+      "formula": "\\nabla^2\\Phi=4\\pi G\\rho",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F022",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3788,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "公式出现"
+      ],
+      "formula": "\\Phi(r)=-\\frac{GM}{r}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F023",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3794,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "公式出现"
+      ],
+      "formula": "V=m\\Phi=-\\frac{GMm}{r}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F024",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3800,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "公式出现"
+      ],
+      "formula": "F=-\\nabla V=G\\frac{Mm}{r^2}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F025",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3824,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.4 万有引力：质量为什么改变周围的坡",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "Q\\text{ 能量账本} \\Rightarrow \\text{外部几何弯曲} \\Rightarrow \\Phi \\Rightarrow F=G\\frac{Mm}{r^2}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F026",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3842,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.5 爱因斯坦场方程：能量和几何为什么互相记账",
+        "旧公式原来在问什么"
+      ],
+      "formula": "G_{\\mu\\nu}+\\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F027",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3884,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.5 爱因斯坦场方程：能量和几何为什么互相记账",
+        "公式出现"
+      ],
+      "formula": "S_g=\\frac{c^4}{16\\pi G}\\int (R-2\\Lambda)\\sqrt{-g}\\,d^4x",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F028",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3898,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.5 爱因斯坦场方程：能量和几何为什么互相记账",
+        "公式出现"
+      ],
+      "formula": "G_{\\mu\\nu}+\\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F029",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3928,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.5 爱因斯坦场方程：能量和几何为什么互相记账",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\text{物性状态} \\Rightarrow g_{\\mu\\nu},T_{\\mu\\nu} \\Rightarrow \\text{几何-能量共同闭合} \\Rightarrow \\text{Einstein 场方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F030",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3978,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "物性论为什么会需要它"
+      ],
+      "formula": "\\psi(x)\\rightarrow e^{iq\\chi(x)/\\hbar}\\psi(x)",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F031",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3986,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "物性论为什么会需要它"
+      ],
+      "formula": "D_\\mu=\\partial_\\mu+\\frac{iq}{\\hbar}A_\\mu",
+      "category": "old_physics_reduction",
+      "operator_role": "electromagnetic_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F032",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 3996,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "F_{\\mu\\nu}=\\partial_\\mu A_\\nu-\\partial_\\nu A_\\mu",
+      "category": "old_physics_reduction",
+      "operator_role": "electromagnetic_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F033",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4004,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\partial_{[\\lambda}F_{\\mu\\nu]}=0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F034",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4010,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\nabla\\cdot\\mathbf B=0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F035",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4014,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\nabla\\times\\mathbf E+\\frac{\\partial\\mathbf B}{\\partial t}=0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F036",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4020,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "S_{EM}=\\int\\left(-\\frac{1}{4\\mu_0}F_{\\mu\\nu}F^{\\mu\\nu}-J^\\mu A_\\mu\\right)d^4x",
+      "category": "old_physics_reduction",
+      "operator_role": "electromagnetic_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F037",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4026,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\partial_\\mu F^{\\mu\\nu}=\\mu_0 J^\\nu",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F038",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4032,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\nabla\\cdot\\mathbf E=\\frac{\\rho}{\\varepsilon_0}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F039",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4036,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "公式出现"
+      ],
+      "formula": "\\nabla\\times\\mathbf B-\\mu_0\\varepsilon_0\\frac{\\partial\\mathbf E}{\\partial t}=\\mu_0\\mathbf J",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F040",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4064,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.6 麦克斯韦方程：电磁场为什么是相位比较规则的弯曲",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\Pi\\text{ 关系腔} \\Rightarrow U(1)\\text{ 局域相位} \\Rightarrow A_\\mu \\Rightarrow F_{\\mu\\nu} \\Rightarrow \\text{Maxwell 方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "electromagnetic_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F041",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4120,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "物性论为什么会需要它"
+      ],
+      "formula": "\\psi(x,t)=\\sqrt{\\rho(x,t)}e^{iS(x,t)/\\hbar}",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F042",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4136,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "公式出现"
+      ],
+      "formula": "E=\\frac{p^2}{2m}+V",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F043",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4142,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "公式出现"
+      ],
+      "formula": "E\\rightarrow i\\hbar\\frac{\\partial}{\\partial t}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F044",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4146,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "公式出现"
+      ],
+      "formula": "p\\rightarrow -i\\hbar\\nabla",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F045",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4152,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "公式出现"
+      ],
+      "formula": "i\\hbar\\frac{\\partial\\psi}{\\partial t} = \\left(-\\frac{\\hbar^2}{2m}\\nabla^2+V\\right)\\psi",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F046",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4162,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "公式出现"
+      ],
+      "formula": "S_\\psi=\\int\\left[ \\frac{i\\hbar}{2}(\\psi^*\\dot\\psi-\\dot\\psi^*\\psi) - \\frac{\\hbar^2}{2m}|\\nabla\\psi|^2 - V|\\psi|^2 \\right]d^3xdt",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F047",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4200,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.7 薛定谔方程：对象还没确定时，可能性云怎样演化",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\text{潜态} \\Rightarrow \\rho,S \\Rightarrow \\psi=\\sqrt\\rho e^{iS/\\hbar} \\Rightarrow \\text{Q 保范演化} \\Rightarrow \\text{Schrödinger 方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F048",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4224,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.8 狄拉克方程：量子态进入相对论后为什么需要一阶规则",
+        "旧公式原来在问什么"
+      ],
+      "formula": "E^2=p^2c^2+m^2c^4",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F049",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4258,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.8 狄拉克方程：量子态进入相对论后为什么需要一阶规则",
+        "物性论为什么会需要它"
+      ],
+      "formula": "\\{\\gamma^\\mu,\\gamma^\\nu\\}=2g^{\\mu\\nu}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F050",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4270,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.8 狄拉克方程：量子态进入相对论后为什么需要一阶规则",
+        "公式出现"
+      ],
+      "formula": "p_\\mu\\rightarrow i\\hbar D_\\mu",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F051",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4276,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.8 狄拉克方程：量子态进入相对论后为什么需要一阶规则",
+        "公式出现"
+      ],
+      "formula": "(i\\hbar c\\gamma^\\mu D_\\mu-mc^2)\\psi=0",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F052",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4296,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.8 狄拉克方程：量子态进入相对论后为什么需要一阶规则",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "Q\\text{ 态空间} + \\Omega_{rel}\\text{ 洛伦兹几何} + \\text{一阶显化} \\Rightarrow \\gamma^\\mu\\text{ Clifford 结构} \\Rightarrow \\text{Dirac 方程}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F053",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4338,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.9 质能关系：质量为什么是静止能量账本",
+        "公式出现"
+      ],
+      "formula": "E^2=p^2c^2+m^2c^4",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F054",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4344,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.9 质能关系：质量为什么是静止能量账本",
+        "公式出现"
+      ],
+      "formula": "E_0=mc^2",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F055",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4368,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.9 质能关系：质量为什么是静止能量账本",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\text{稳定结构} \\Rightarrow \\text{静止身份} \\Rightarrow \\text{能量账本} \\Rightarrow E=mc^2",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F056",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4388,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "旧公式原来在问什么"
+      ],
+      "formula": "\\Delta S_{tot}\\ge0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F057",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4428,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "公式出现"
+      ],
+      "formula": "S_B=k_B\\ln W",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F058",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4436,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "公式出现"
+      ],
+      "formula": "W(t_2)\\ge W(t_1)",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F059",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4442,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "公式出现"
+      ],
+      "formula": "S_B(t_2)-S_B(t_1) = k_B\\ln\\frac{W(t_2)}{W(t_1)} \\ge0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F060",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4451,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "公式出现"
+      ],
+      "formula": "\\Delta S_{tot}\\ge0",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F061",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4477,
+      "section_path": [
+        "第九章｜经典力学、引力、电磁、量子与热力学怎样被推出",
+        "9.10 热力学第二定律：为什么宏观世界有方向",
+        "为什么它是物性论子公式"
+      ],
+      "formula": "\\eta\\text{ 微观自由度} + Q\\text{ 微观守账} + \\Omega\\text{ 粗粒化} \\Rightarrow S=k_B\\ln W \\Rightarrow \\Delta S\\ge0",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F062",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4578,
+      "section_path": [
+        "第十章｜常数、公式与物性论的范式资格",
+        "10.3 $\\hbar$：相位和作用量之间的最小换算刻度",
+        ""
+      ],
+      "formula": "\\psi=\\sqrt\\rho e^{iS/\\hbar}",
+      "category": "old_physics_reduction",
+      "operator_role": "quantum_state_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F063",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4598,
+      "section_path": [
+        "第十章｜常数、公式与物性论的范式资格",
+        "10.4 $k_B$：微观排列和宏观热账本之间的换算",
+        ""
+      ],
+      "formula": "S=k_B\\ln W",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F064",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4624,
+      "section_path": [
+        "第十章｜常数、公式与物性论的范式资格",
+        "10.5 $\\varepsilon_0$ 与 $\\mu_0$：电磁显化腔体的单位规范",
+        ""
+      ],
+      "formula": "c^2=\\frac{1}{\\varepsilon_0\\mu_0}",
+      "category": "old_physics_reduction",
+      "operator_role": "formula_or_operator",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F065",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4636,
+      "section_path": [
+        "第十章｜常数、公式与物性论的范式资格",
+        "10.6 $G$：能量账本和几何曲率之间的耦合强度",
+        ""
+      ],
+      "formula": "G_{\\mu\\nu}+\\Lambda g_{\\mu\\nu} = \\frac{8\\pi G}{c^4}T_{\\mu\\nu}",
+      "category": "old_physics_reduction",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "standard_physics_reduction_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F066",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4845,
+      "section_path": [
+        "第十一章｜一个扰动怎样成为候选",
+        "11.2 背景海不是空白舞台",
+        ""
+      ],
+      "formula": "U_\\gamma(\\eta,\\Omega,Q)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F067",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4881,
+      "section_path": [
+        "第十一章｜一个扰动怎样成为候选",
+        "11.3 候选点是怎样出现的",
+        ""
+      ],
+      "formula": "x_0 \\sim U_\\gamma(\\eta,\\Omega,Q)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F068",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4911,
+      "section_path": [
+        "第十一章｜一个扰动怎样成为候选",
+        "11.4 生成器：候选不是静止的",
+        ""
+      ],
+      "formula": "x_{t+1}=G_\\theta(x_t;U_\\gamma,\\eta,\\Omega)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F069",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4953,
+      "section_path": [
+        "第十一章｜一个扰动怎样成为候选",
+        "11.5 短亮不是长留",
+        ""
+      ],
+      "formula": "\\forall t\\in[0,T],\\quad \\mathcal{G}_{strict}(x_t)=1",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F070",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 4997,
+      "section_path": [
+        "第十一章｜一个扰动怎样成为候选",
+        "11.6 为什么一个指标不够",
+        ""
+      ],
+      "formula": "\\mathcal{G}_{strict} = Q_{safe}\\wedge E_{safe}\\wedge C_{safe}\\wedge P_{safe}\\wedge R_{safe}\\wedge M_{safe}\\wedge B_{safe}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F071",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5130,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.2 第一道门：身份门",
+        ""
+      ],
+      "formula": "Q_{safe}:\\quad |\\Delta Q|\\le \\epsilon_Q",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F072",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5168,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.3 第二道门：能量门",
+        ""
+      ],
+      "formula": "Q_0>0",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F073",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5172,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.3 第二道门：能量门",
+        ""
+      ],
+      "formula": "\\Delta E_Q=\\frac{E_T-E_0}{Q_0}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F074",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5176,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.3 第二道门：能量门",
+        ""
+      ],
+      "formula": "E_{min}\\le \\Delta E_Q\\le E_{max}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F075",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5208,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.4 第三道门：承载门",
+        ""
+      ],
+      "formula": "C_{safe}:\\quad C_{min}\\le Cavity(x_t)\\le C_{max}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F076",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5244,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.5 第四道门：核心门",
+        ""
+      ],
+      "formula": "P_{safe}:\\quad Peak(x_t)\\le P_H",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F077",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5272,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.6 第五道门：边界门",
+        ""
+      ],
+      "formula": "R_{safe}:\\quad r_{min}\\le r(x_t)\\le r_{max}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F078",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5302,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.7 第六道门：显化门",
+        ""
+      ],
+      "formula": "E_{show}=f(\\phi,\\Omega,\\Delta\\sigma,\\tau,R)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "manifestation_gate",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "phi",
+        "Omega",
+        "Delta_sigma",
+        "tau",
+        "Pi"
+      ],
+      "output_variables": [
+        "E_show_gate_value",
+        "manifestation_status"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F079",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5342,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.8 第七道门：黑子门",
+        ""
+      ],
+      "formula": "B_{safe}:\\quad \\text{no hidden tail toxin, no backfit, no double counting}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F080",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5358,
+      "section_path": [
+        "第十二章｜候选怎样过七道门",
+        "12.9 七道门怎样组成一场生存考试",
+        ""
+      ],
+      "formula": "\\mathcal{G}_{strict} = Q_{safe}\\wedge E_{safe}\\wedge C_{safe}\\wedge P_{safe}\\wedge R_{safe}\\wedge M_{safe}\\wedge B_{safe}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "multi_gate_stability_guard",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "candidate_state",
+        "Q_safe",
+        "E_safe",
+        "C_safe",
+        "P_safe",
+        "R_safe",
+        "M_safe",
+        "B_safe"
+      ],
+      "output_variables": [
+        "strict_pass_bool"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F081",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5435,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.2 稳定脊：附近也能站住",
+        ""
+      ],
+      "formula": "\\text{StableRidge} = \\{x_i\\in\\mathcal{R}_{stable}\\mid \\exists\\mathcal{N}_\\epsilon(x_i), \\mathcal{G}_{strict}(x_j)=1 \\ \\forall x_j\\in\\mathcal{N}_\\epsilon(x_i)\\cap\\mathcal{X}_{valid} \\}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "stable_ridge_family_island_operator",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "stable_region",
+        "neighborhood",
+        "valid_state_space",
+        "strict_gate"
+      ],
+      "output_variables": [
+        "ridge_family_island_membership"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F082",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5481,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.3 稳定族：换条件还能复现",
+        ""
+      ],
+      "formula": "\\mathcal{F}_{stable}(s) = \\{(f,k,\\alpha)\\mid \\mathcal{G}_{strict}(x_{s,f,k,\\alpha})=1 \\}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "stable_ridge_family_island_operator",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "stable_region",
+        "neighborhood",
+        "valid_state_space",
+        "strict_gate"
+      ],
+      "output_variables": [
+        "ridge_family_island_membership"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F083",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5511,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.4 通过率：族强不强，要看整体",
+        ""
+      ],
+      "formula": "P_{stable} = \\frac{1}{|\\mathcal{D}|} \\sum_{(f,k,\\alpha)\\in\\mathcal{D}} \\mathbf{1}[\\mathcal{G}_{strict}(x_{s,f,k,\\alpha})=1]",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "stable_ridge_family_island_operator",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "stable_region",
+        "neighborhood",
+        "valid_state_space",
+        "strict_gate"
+      ],
+      "output_variables": [
+        "ridge_family_island_membership"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F084",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5597,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.7 内部等价类：不同状态为什么可以算同一类",
+        ""
+      ],
+      "formula": "x_i\\sim x_j \\quad\\Longleftrightarrow\\quad \\Phi_{internal}(x_i)\\approx \\Phi_{internal}(x_j)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F085",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5609,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.7 内部等价类：不同状态为什么可以算同一类",
+        ""
+      ],
+      "formula": "[x]_{HFCD} = \\{x_j\\mid x_j\\sim x\\}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F086",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5651,
+      "section_path": [
+        "第十三章｜为什么点不够，必须走向脊、族、岛",
+        "13.8 冻结：外部裁判前必须先锁定",
+        ""
+      ],
+      "formula": "\\theta_{HFCD}^{frozen}=Lock(\\theta_{HFCD})",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F087",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5746,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.3 能量账本错误逼出互斥账本",
+        ""
+      ],
+      "formula": "E_{ledger}^{wrong} = E_{\\pi,total}+E_{\\pi,phase}+E_{\\pi,radial}+\\cdots",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F088",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5755,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.3 能量账本错误逼出互斥账本",
+        ""
+      ],
+      "formula": "E_{ledger}^{clean} = E_{\\pi,phase}\\oplus E_{\\pi,radial}\\oplus E_{cavity}\\oplus E_{self}\\oplus\\cdots",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F089",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5789,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.4 半径—能量死锁逼出 RLER",
+        ""
+      ],
+      "formula": "R_{RLER}:(r,E,Q,C_{cav})\\mapsto(r',E',Q',C'_{cav})",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F090",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5795,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.4 半径—能量死锁逼出 RLER",
+        ""
+      ],
+      "formula": "Q'=Q",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F091",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5805,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.4 半径—能量死锁逼出 RLER",
+        ""
+      ],
+      "formula": "(r',E')= \\arg\\min_{r,E} [\\lambda_r\\|r-r_0\\|^2+\\lambda_E\\|E-E_0\\|^2]",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F092",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5813,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.4 半径—能量死锁逼出 RLER",
+        ""
+      ],
+      "formula": "r_{min}\\le r'\\le r_{max}, \\quad E_{min}\\le \\Delta E'_Q\\le E_{max}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F093",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5857,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.5 死稳定风险逼出 Dragon Boundary",
+        ""
+      ],
+      "formula": "Y_{transition} = \\mathbf{1}[mode(x_{t+\\Delta t})\\ne mode(x_t)]",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F094",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5869,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.5 死稳定风险逼出 Dragon Boundary",
+        ""
+      ],
+      "formula": "P_{transition}(\\phi,f,k) = \\frac{\\sum_i \\mathbf{1}[Y_{transition}^{(i)}=1]}{N(\\phi,f,k)}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F095",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5941,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.8 Q_Hopf 尾部爆炸逼出盾矛拆分",
+        ""
+      ],
+      "formula": "E_Q(\\psi)=\\psi^\\dagger Q_{Hopf}\\psi",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "positive_metric_and_buffer_shear_split",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "psi_or_Q_base",
+        "P_buffer",
+        "K_shear",
+        "B_thick",
+        "S_shear"
+      ],
+      "output_variables": [
+        "positive_metric",
+        "buffer_shear_separation"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F096",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5957,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.8 Q_Hopf 尾部爆炸逼出盾矛拆分",
+        ""
+      ],
+      "formula": "Q_{p83}=Q_{base}+B_{thick}P_{buffer}+S_{shear}K_{shear}",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "positive_metric_and_buffer_shear_split",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "psi_or_Q_base",
+        "P_buffer",
+        "K_shear",
+        "B_thick",
+        "S_shear"
+      ],
+      "output_variables": [
+        "positive_metric",
+        "buffer_shear_separation"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F097",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 5987,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.9 Tail Guard 与容量门：危险不是压力本身，而是击穿承载力",
+        ""
+      ],
+      "formula": "WZ_{guarded}=sgn(WZ_{raw})|WZ_{raw}|G_{tail}(risk)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "tail_guard_capacity_gate",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "raw_projection",
+        "load_estimate",
+        "local_capacity",
+        "temperature_or_scale"
+      ],
+      "output_variables": [
+        "guarded_projection",
+        "risk_gate"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F098",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 6005,
+      "section_path": [
+        "第十四章｜失败为什么能逼出新工具",
+        "14.9 Tail Guard 与容量门：危险不是压力本身，而是击穿承载力",
+        ""
+      ],
+      "formula": "risk_i = \\sigma\\left(\\frac{\\hat P_{load,i}-\\hat C_{local,i}}{T_i}\\right)",
+      "category": "hfcd_generation_and_pathology",
+      "operator_role": "tail_guard_capacity_gate",
+      "claim_type": "internal_generation_stability_claim",
+      "input_variables": [
+        "raw_projection",
+        "load_estimate",
+        "local_capacity",
+        "temperature_or_scale"
+      ],
+      "output_variables": [
+        "guarded_projection",
+        "risk_gate"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F099",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7076,
+      "section_path": [
+        "第十九章｜怎样继续推导公式",
+        "19.1 一条公式不是终点，而是一扇门",
+        ""
+      ],
+      "formula": "F = ma",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F100",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7142,
+      "section_path": [
+        "第十九章｜怎样继续推导公式",
+        "19.2 从生活问题进入公式",
+        ""
+      ],
+      "formula": "\\delta S = 0",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "action_principle_reduction",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F101",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7168,
+      "section_path": [
+        "第十九章｜怎样继续推导公式",
+        "19.2 从生活问题进入公式",
+        ""
+      ],
+      "formula": "\\dot q^i = \\frac{\\partial H}{\\partial p_i}, \\qquad \\dot p_i = -\\frac{\\partial H}{\\partial q^i}",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "hamiltonian_reduction",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "mother_structure",
+        "reduction_conditions",
+        "scale_Omega"
+      ],
+      "output_variables": [
+        "standard_formula"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F102",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7204,
+      "section_path": [
+        "第十九章｜怎样继续推导公式",
+        "19.3 先问“旧公式为什么有效”",
+        ""
+      ],
+      "formula": "F = ma",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "formula_or_operator",
+      "claim_type": "definition_or_operator_claim",
+      "input_variables": [
+        "state_variables"
+      ],
+      "output_variables": [
+        "operator_value"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F103",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7417,
+      "section_path": [
+        "第二十章｜怎样继续运行生成实验和外部裁判",
+        "20.4 外部裁判不是创作室，而是体检室",
+        ""
+      ],
+      "formula": "R_{res} = O_{exp} - O_{th}",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "external_covariance_court",
+      "claim_type": "external_adjudication_math_claim",
+      "input_variables": [
+        "O_exp",
+        "O_th",
+        "C_cov"
+      ],
+      "output_variables": [
+        "residual_vector",
+        "chi2",
+        "pulls"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    },
+    {
+      "formula_id": "LF25-F104",
+      "source_file": "/Users/beijisheng/Downloads/物性论72/LightFluid_SecondEdition_v2_5_CombinedManuscript.md",
+      "source_line_start": 7431,
+      "section_path": [
+        "第二十章｜怎样继续运行生成实验和外部裁判",
+        "20.4 外部裁判不是创作室，而是体检室",
+        ""
+      ],
+      "formula": "\\chi^2 = R_{res}^{T} C_{cov}^{-1} R_{res}",
+      "category": "future_roadmap_and_paradigm",
+      "operator_role": "external_covariance_court",
+      "claim_type": "external_adjudication_math_claim",
+      "input_variables": [
+        "O_exp",
+        "O_th",
+        "C_cov"
+      ],
+      "output_variables": [
+        "residual_vector",
+        "chi2",
+        "pulls"
+      ],
+      "scale_Omega": "must_be_declared_before_use",
+      "q_core_requirement": "identity_and_ledger_must_not_be_modified_after_freeze",
+      "anti_corruption_guards": [
+        "NoBackfit",
+        "NoDoubleCounting",
+        "NoTargetRead_until_unblind_if_applicable",
+        "CovarianceCourt_for_external_claims"
+      ],
+      "evidence_status": "mapped_in_LF25_002_if_available"
+    }
+  ]
+}
