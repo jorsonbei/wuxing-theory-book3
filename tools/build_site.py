@@ -189,6 +189,7 @@ def page_shell(
   <meta property="og:description" content="{safe_desc}">
   <meta property="og:type" content="book">
   <meta property="og:image" content="{base}assets/cover.jpg">
+  <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{base}assets/styles.css">
   <script>
     window.MathJax = {{
