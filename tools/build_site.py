@@ -15,6 +15,7 @@ ASSETS = ROOT / "assets"
 RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
+ASSET_VERSION = "20260706-mobile-reader"
 
 
 CN_NUM = {
@@ -192,7 +193,7 @@ def page_shell(
   <meta property="og:type" content="book">
   <meta property="og:image" content="{base}assets/cover.jpg">
   <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="{base}assets/styles.css">
+  <link rel="stylesheet" href="{base}assets/styles.css?v={ASSET_VERSION}">
   <script>
     window.MathJax = {{
       tex: {{ inlineMath: [['$', '$'], ['\\\\(', '\\\\)']], displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']] }},
@@ -200,7 +201,7 @@ def page_shell(
     }};
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <script defer src="{base}assets/site.js"></script>
+  <script defer src="{base}assets/site.js?v={ASSET_VERSION}"></script>
 </head>
 <body data-base="{base}">
 {body}
@@ -308,6 +309,12 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
         )
         body = f"""{header("../")}
 <div class="reader-shell">
+  <main class="reader-main">
+    <article class="chapter-content">
+      {article}
+    </article>
+    <nav class="chapter-pager" aria-label="章節切換">{prev_link}{next_link}</nav>
+  </main>
   <aside class="reader-nav" aria-label="章節目錄">
     <a class="back-home" href="../index.html">← 返回首頁</a>
     <label class="search-box compact">
@@ -317,12 +324,6 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
     <div id="search-results" class="search-results compact" aria-live="polite"></div>
     <nav>{aside}</nav>
   </aside>
-  <main class="reader-main">
-    <article class="chapter-content">
-      {article}
-    </article>
-    <nav class="chapter-pager" aria-label="章節切換">{prev_link}{next_link}</nav>
-  </main>
 </div>"""
         page = page_shell(
             title=f"{s['title']}｜{book_title}",

@@ -545,6 +545,8 @@ a {
 }
 
 .reader-nav {
+  grid-column: 1;
+  grid-row: 1;
   position: sticky;
   top: 58px;
   align-self: start;
@@ -594,6 +596,8 @@ a {
 }
 
 .reader-main {
+  grid-column: 2;
+  grid-row: 1;
   min-width: 0;
   padding: clamp(30px, 6vw, 78px) clamp(20px, 7vw, 96px);
 }
@@ -724,6 +728,8 @@ a {
   }
 
   .reader-nav {
+    grid-column: 1;
+    grid-row: 2;
     position: static;
     height: auto;
     max-height: none;
@@ -734,6 +740,11 @@ a {
   .reader-nav nav {
     max-height: 360px;
     overflow: auto;
+  }
+
+  .reader-main {
+    grid-column: 1;
+    grid-row: 1;
   }
 
   .catalog-grid,
