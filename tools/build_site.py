@@ -15,7 +15,7 @@ ASSETS = ROOT / "assets"
 RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
-ASSET_VERSION = "20260706-mobile-reader"
+ASSET_VERSION = "20260708-submission-final"
 
 
 CN_NUM = {
@@ -133,14 +133,14 @@ def filename_for(title: str, index: int) -> str:
         return "appendix-index.html"
     if title.startswith("後記"):
         return "afterword.html"
-    part = re.search(r"第(.+?)部", title)
-    if part:
-        n = cn_to_int(part.group(1)) or index
-        return f"part-{n:02d}.html"
     chapter = re.search(r"第(.+?)章", title)
     if chapter:
         n = cn_to_int(chapter.group(1)) or index
         return f"chapter-{n:02d}.html"
+    part = re.search(r"第(.+?)部", title)
+    if part:
+        n = cn_to_int(part.group(1)) or index
+        return f"part-{n:02d}.html"
     appendix = re.search(r"附錄([一二三四五六七八九十]+)", title)
     if appendix:
         n = cn_to_int(appendix.group(1)) or index
@@ -425,7 +425,7 @@ def build_reproduction_page(book_title: str) -> str:
     <section class="resource-grid">{card_html}</section>
     <section class="resource-note">
       <h2>如何閱讀這些入口</h2>
-      <p>不要把復演包當成「一鍵驗證真理」的軟件。真正的復演，是檢查邊界、破壞假設、尋找失敗，並確認系統是否會在不該通過的地方主動亮紅燈。</p>
+      <p>不要把復演包當成「一鍵驗證真理」的軟體。真正的復演，是檢查邊界、破壞假設、尋找失敗，並確認系統是否會在不該通過的地方主動亮紅燈。</p>
       <p>如果你只看見綠色通過，就匆忙說「理論已經被證明」，那不是復演。真正有價值的是：你能否找出它在哪裡能過、在哪裡不能過、在哪裡仍然等待後來者推開新的房間。</p>
     </section>
   </article>
