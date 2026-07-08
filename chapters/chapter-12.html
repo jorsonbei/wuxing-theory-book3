@@ -10,7 +10,7 @@
   <meta property="og:type" content="book">
   <meta property="og:image" content="../assets/cover.jpg">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../assets/styles.css?v=20260708-submission-final">
+  <link rel="stylesheet" href="../assets/styles.css?v=20260708-reader-platform-v1">
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
@@ -18,22 +18,43 @@
     };
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <script defer src="../assets/site.js?v=20260708-submission-final"></script>
+  <script defer src="../assets/site.js?v=20260708-reader-platform-v1"></script>
 </head>
 <body data-base="../">
 <header class="site-header">
-  <a class="brand" href="../index.html">宇宙是光之流體</a>
+  <a class="brand" href="../index.html">物性論閱讀平台</a>
   <nav class="top-links">
+    <a href="../index.html#library">書庫</a>
     <a href="../index.html#catalog">目錄</a>
     <a href="../resources/formula-canon.html">公式正典</a>
     <a href="../resources/reproduction.html">復演入口</a>
-    <a href="../book/wuxing-theory-book3.md">Markdown</a>
-    <a href="../book/wuxing-theory-book3.docx">DOCX</a>
+    <a href="../index.html#downloads">會員下載</a>
     <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
   </nav>
 </header>
 <div class="reader-shell">
   <main class="reader-main">
+    <section class="reader-toolbar" aria-label="閱讀設定">
+      <div class="reader-toolbar-head">
+        <div>
+          <p class="edition">閱讀器</p>
+          <h2>第十二章 ｜ 常數不是死數字，而是宇宙的轉接頭</h2>
+        </div>
+        <div class="reader-toolbar-actions">
+          <button class="button local-favorite" type="button" data-favorite-id="chapter-12.html" data-favorite-title="第十二章 ｜ 常數不是死數字，而是宇宙的轉接頭">收藏本章</button>
+          <button class="button restore-reading" type="button">回到上次</button>
+        </div>
+      </div>
+      <div class="reader-progress-track" aria-hidden="true"><span id="reader-progress"></span></div>
+      <div class="reader-controls">
+        <label><span>字體</span><select id="reader-font"><option value="serif">宋體</option><option value="sans">黑體</option><option value="kai">楷體</option></select></label>
+        <label><span>背景</span><select id="reader-theme"><option value="paper">紙張</option><option value="warm">米黃</option><option value="green">護眼</option><option value="dark">夜間</option><option value="oled">OLED</option></select></label>
+        <label><span>字號</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
+        <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
+        <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
+      </div>
+      <p class="small-note">閱讀設定、收藏與進度先保存在本機瀏覽器；雲端同步需要登入系統接入後開放。</p>
+    </section>
     <article class="chapter-content">
       <h1 id="第十二章-常數不是死數字而是宇宙的轉接頭">第十二章 ｜
 常數不是死數字，而是宇宙的轉接頭</h1>
@@ -347,6 +368,11 @@ k_B
 <hr />
 
     </article>
+    <section class="reader-comments">
+      <h2>讀者評論</h2>
+      <p>正式評論區將支援免註冊閱讀與評論，但會加入防垃圾驗證與審核。這裡先保留評論入口位，後續接入後可直接啟用。</p>
+      <button class="button gated-action" type="button" data-action-name="匿名評論">評論功能接入中</button>
+    </section>
     <nav class="chapter-pager" aria-label="章節切換"><a class="button" href="chapter-11.html">上一章</a><a class="button primary" href="part-04.html">下一章</a></nav>
   </main>
   <aside class="reader-nav" aria-label="章節目錄">

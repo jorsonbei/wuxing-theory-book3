@@ -15,7 +15,7 @@ ASSETS = ROOT / "assets"
 RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
-ASSET_VERSION = "20260708-submission-final"
+ASSET_VERSION = "20260708-reader-platform-v1"
 
 
 CN_NUM = {
@@ -212,13 +212,13 @@ def page_shell(
 
 def header(base: str = "") -> str:
     return f"""<header class="site-header">
-  <a class="brand" href="{base}index.html">宇宙是光之流體</a>
+  <a class="brand" href="{base}index.html">物性論閱讀平台</a>
   <nav class="top-links">
+    <a href="{base}index.html#library">書庫</a>
     <a href="{base}index.html#catalog">目錄</a>
     <a href="{base}resources/formula-canon.html">公式正典</a>
     <a href="{base}resources/reproduction.html">復演入口</a>
-    <a href="{base}book/wuxing-theory-book3.md">Markdown</a>
-    <a href="{base}book/wuxing-theory-book3.docx">DOCX</a>
+    <a href="{base}index.html#downloads">會員下載</a>
     <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
   </nav>
 </header>"""
@@ -237,14 +237,16 @@ def build_index(book_title: str, sections: list[dict]) -> str:
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <p class="edition">第二版 · 繁體中文公開閱讀版</p>
-      <h1>{html.escape(book_title)}</h1>
-      <p class="lead">一場從宇宙底層、物理公式、復演實驗到 AI 時代的範式重構。這不是把舊公式重新包裝，而是追問：世界究竟靠什麼承載、傳播、留下來，並接受外部審判。</p>
+      <p class="edition">物性論系列 · 公開閱讀平台</p>
+      <h1>把龐大的物性論，拆成可以反覆閱讀的系列宇宙</h1>
+      <p class="lead">這裡不只是一本書的展示頁，而是物性論長期公開閱讀、版本收藏、公式索引與復演入口。讀者可以先自由閱讀，再沿著入門、物理、AI、復演與公式正典的路線，一步一步走進整個體系。</p>
       <div class="hero-actions">
-        <a class="button primary" href="chapters/preface.html">開始閱讀</a>
-        <a class="button" href="#catalog">查看目錄</a>
+        <a class="button primary" href="chapters/preface.html">閱讀當前主書</a>
+        <a class="button" href="#library">進入書庫</a>
+        <a class="button" href="#reading-routes">選擇閱讀路線</a>
       </div>
       <div class="stats">
+        <span><strong>1</strong> 本公開主書</span>
         <span><strong>7</strong> 部</span>
         <span><strong>26</strong> 章</span>
         <a href="resources/formula-canon.html"><strong>104</strong> 條公式正典</a>
@@ -254,6 +256,80 @@ def build_index(book_title: str, sections: list[dict]) -> str:
     <figure class="cover-frame">
       <img src="assets/cover.jpg" alt="《宇宙是光之流體》封面">
     </figure>
+  </section>
+
+  <section id="library" class="library-section">
+    <div class="section-heading">
+      <p class="edition">系列書庫</p>
+      <h2>物性論不應被壓縮成一本書</h2>
+      <p>後續每一個版本、每一個分冊、每一條閱讀路線，都可以放在這裡。當前先公開主書，後續可加入入門版、AI 版、復演版、公式版與英文版。</p>
+    </div>
+    <div class="book-grid">
+      <article class="book-card featured-book">
+        <div class="book-cover-mini"><img src="assets/cover.jpg" alt="《宇宙是光之流體》封面"></div>
+        <div class="book-card-copy">
+          <p class="book-kicker">當前主書 · 投稿前總審版</p>
+          <h3>{html.escape(book_title)}</h3>
+          <p>從宇宙底層、經典公式、HFCD 復演、外部審判到物性 AI，建立一套可閱讀、可檢查、可被後來者接手的物性論主框架。</p>
+          <div class="book-meta">
+            <span>繁體中文</span>
+            <span>26 章</span>
+            <span>含公式正典與復演入口</span>
+          </div>
+          <div class="book-actions">
+            <a class="button primary" href="chapters/preface.html">開始閱讀</a>
+            <button class="button local-favorite" type="button" data-favorite-id="wuxing-theory-book3" data-favorite-title="{html.escape(book_title)}">本機收藏</button>
+            <button class="button gated-action" type="button" data-action-name="會員下載">登入後下載</button>
+          </div>
+          <p class="small-note">閱讀無需登入；本機收藏會保存在目前瀏覽器。雲端收藏與登入下載需要後端接入後正式開放。</p>
+        </div>
+      </article>
+      <article class="book-card ghost-book">
+        <p class="book-kicker">預留系列</p>
+        <h3>物性論入門版</h3>
+        <p>給第一次接觸物性論的讀者，降低公式密度，先建立世界觀、例子與核心語感。</p>
+      </article>
+      <article class="book-card ghost-book">
+        <p class="book-kicker">預留系列</p>
+        <h3>物性 AI 專卷</h3>
+        <p>集中展開狀態生成、世界模型、產業成本、幻覺治理與下一代 AI 架構。</p>
+      </article>
+      <article class="book-card ghost-book">
+        <p class="book-kicker">預留系列</p>
+        <h3>公式與復演專卷</h3>
+        <p>把 104 條公式、復演包、外部裁判與反駁入口整理成可查、可跑、可審的技術讀本。</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="reading-routes" class="route-section">
+    <div class="section-heading">
+      <p class="edition">閱讀路線</p>
+      <h2>不同讀者，不必從同一扇門進來</h2>
+      <p>物性論體系太大，讀者需要路線，而不是被一整座山壓住。</p>
+    </div>
+    <div class="route-grid">
+      <a class="route-card" href="chapters/preface.html"><strong>普通讀者</strong><span>先讀序章與第一部，用空間、光、物質、時間四個直覺入口建立底層圖像。</span></a>
+      <a class="route-card" href="chapters/chapter-09.html"><strong>科學讀者</strong><span>從第三部開始，看舊公式如何被歸根，再進入常數、物質生成與外部審判。</span></a>
+      <a class="route-card" href="chapters/chapter-22.html"><strong>AI 從業者</strong><span>直接進入第六部，看語言生成器為什麼接不住世界，以及物性 AI 怎樣轉向狀態生成。</span></a>
+      <a class="route-card" href="resources/formula-canon.html"><strong>復演與公式讀者</strong><span>從 104 條公式正典與復演入口進入，把語氣交給材料、代碼、邊界與失敗定位。</span></a>
+    </div>
+  </section>
+
+  <section class="reader-feature-section">
+    <div class="section-heading">
+      <p class="edition">閱讀工具</p>
+      <h2>先把閱讀體驗做紮實</h2>
+      <p>本版已加入本機閱讀器能力；下一步接入後端後，收藏、下載與評論就能從本機體驗升級為雲端帳號體驗。</p>
+    </div>
+    <div class="feature-grid">
+      <div><strong>閱讀不登入</strong><span>所有章節仍可直接打開，適合傳播與引用。</span></div>
+      <div><strong>閱讀器設定</strong><span>章節頁可切換字體、背景、字號、行距與版心寬度。</span></div>
+      <div><strong>本機進度</strong><span>瀏覽器會記錄上次閱讀位置，首頁和章節頁都能返回。</span></div>
+      <div><strong>本機收藏</strong><span>未登入階段先保存到本機，後續可遷移到帳號收藏。</span></div>
+      <div><strong>評論預留</strong><span>公開匿名評論區需要防垃圾與審核機制，適合接 Supabase / Turnstile。</span></div>
+      <div><strong>會員下載預留</strong><span>真正限制下載，需要私有儲存與登入後短期下載連結。</span></div>
+    </div>
   </section>
 
   <section class="search-panel" aria-labelledby="search-title">
@@ -274,11 +350,11 @@ def build_index(book_title: str, sections: list[dict]) -> str:
     <div class="catalog-grid">{cards}</div>
   </section>
 
-  <section class="open-materials">
-    <h2>公開材料</h2>
+  <section id="downloads" class="open-materials">
+    <h2>資料中心</h2>
     <div class="material-grid">
-      <a href="book/wuxing-theory-book3.md"><strong>Markdown 原稿</strong><span>適合校對、版本管理和引用。</span></a>
-      <a href="book/wuxing-theory-book3.docx"><strong>KDP DOCX 書稿</strong><span>保留出版排版版本。</span></a>
+      <button class="material-card gated-action" type="button" data-action-name="Markdown 下載"><strong>Markdown 原稿</strong><span>正式平台中將改為登入後下載，適合校對、版本管理和引用。</span></button>
+      <button class="material-card gated-action" type="button" data-action-name="DOCX 下載"><strong>KDP DOCX 書稿</strong><span>正式平台中將放入私有儲存，登入後生成短期下載連結。</span></button>
       <a href="resources/formula-canon.html"><strong>104條公式正典</strong><span>逐條展示公式、算子角色、聲明類型與防污染守衛。</span></a>
       <a href="resources/reproduction.html"><strong>公開復演入口</strong><span>復演倉庫、發佈頁、在線復演室與原始資料入口。</span></a>
       <a href="https://github.com/jorsonbei/wuxing-v32-v33-v34-reproduction"><strong>V32 / V33 / V34 復演倉庫</strong><span>公式正典、復演包與在線復演室入口。</span></a>
@@ -310,9 +386,35 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
         body = f"""{header("../")}
 <div class="reader-shell">
   <main class="reader-main">
+    <section class="reader-toolbar" aria-label="閱讀設定">
+      <div class="reader-toolbar-head">
+        <div>
+          <p class="edition">閱讀器</p>
+          <h2>{html.escape(s["title"])}</h2>
+        </div>
+        <div class="reader-toolbar-actions">
+          <button class="button local-favorite" type="button" data-favorite-id="{html.escape(s["filename"])}" data-favorite-title="{html.escape(s["title"])}">收藏本章</button>
+          <button class="button restore-reading" type="button">回到上次</button>
+        </div>
+      </div>
+      <div class="reader-progress-track" aria-hidden="true"><span id="reader-progress"></span></div>
+      <div class="reader-controls">
+        <label><span>字體</span><select id="reader-font"><option value="serif">宋體</option><option value="sans">黑體</option><option value="kai">楷體</option></select></label>
+        <label><span>背景</span><select id="reader-theme"><option value="paper">紙張</option><option value="warm">米黃</option><option value="green">護眼</option><option value="dark">夜間</option><option value="oled">OLED</option></select></label>
+        <label><span>字號</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
+        <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
+        <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
+      </div>
+      <p class="small-note">閱讀設定、收藏與進度先保存在本機瀏覽器；雲端同步需要登入系統接入後開放。</p>
+    </section>
     <article class="chapter-content">
       {article}
     </article>
+    <section class="reader-comments">
+      <h2>讀者評論</h2>
+      <p>正式評論區將支援免註冊閱讀與評論，但會加入防垃圾驗證與審核。這裡先保留評論入口位，後續接入後可直接啟用。</p>
+      <button class="button gated-action" type="button" data-action-name="匿名評論">評論功能接入中</button>
+    </section>
     <nav class="chapter-pager" aria-label="章節切換">{prev_link}{next_link}</nav>
   </main>
   <aside class="reader-nav" aria-label="章節目錄">
