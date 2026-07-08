@@ -47,9 +47,7 @@ supabase db push --linked --password "$SUPABASE_DB_PASSWORD"
 echo "Setting Edge Function secrets..."
 supabase secrets set \
   --project-ref "$SUPABASE_PROJECT_REF" \
-  "SUPABASE_URL=$SUPABASE_URL" \
-  "SUPABASE_ANON_KEY=$SUPABASE_ANON_KEY" \
-  "SUPABASE_SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" \
+  "SERVICE_ROLE_KEY=$SUPABASE_SERVICE_ROLE_KEY" \
   "PRIVATE_DOWNLOAD_BUCKET=private-downloads"
 
 echo "Deploying download Edge Function..."
@@ -57,14 +55,16 @@ supabase functions deploy download --project-ref "$SUPABASE_PROJECT_REF" --use-a
 
 echo "Uploading private manuscript files..."
 supabase storage cp "$DOCX_PATH" "ss:///private-downloads/wuxing-theory-book3/wuxing-theory-book3.docx" \
+  --experimental \
   --linked \
   --content-type "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 supabase storage cp "$MD_PATH" "ss:///private-downloads/wuxing-theory-book3/wuxing-theory-book3.md" \
+  --experimental \
   --linked \
   --content-type "text/markdown"
 
 echo "Verifying private storage objects..."
-supabase storage ls "ss:///private-downloads/wuxing-theory-book3" --linked
+supabase storage ls "ss:///private-downloads/wuxing-theory-book3" --experimental --linked
 
 echo "Enabling frontend platform config..."
 python3 - <<'PY'
