@@ -373,7 +373,8 @@ a {
 }
 
 .search-panel p,
-.section-heading p {
+.section-heading p,
+.open-materials > p {
   margin: 0 0 22px;
   color: var(--muted);
   font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
@@ -638,6 +639,36 @@ a {
   margin: 0 0 16px;
   font-size: 19px;
   line-height: 1.9;
+}
+
+.topic-body {
+  margin-top: 30px;
+}
+
+.topic-body p {
+  margin: 0 0 20px;
+  font-size: 20px;
+  line-height: 1.95;
+}
+
+.topic-keywords ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-keywords li {
+  padding: 8px 12px;
+  border: 1px solid rgba(23, 77, 120, 0.14);
+  border-radius: 999px;
+  background: #fffdf8;
+  color: var(--blue-2);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
 }
 
 .formula-list {

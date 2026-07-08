@@ -6,6 +6,7 @@ import json
 import os
 import re
 import subprocess
+from datetime import date
 from pathlib import Path
 
 
@@ -17,6 +18,112 @@ RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
 ASSET_VERSION = "20260708-platform-backend-v1"
+BOOK_AUTHORS = ["景龍鎖", "貝記勝"]
+BOOK_DESCRIPTION = "《宇宙是光之流體：物性論作為新的科學範式》公開閱讀網站，提供完整章節、104條公式正典、HFCD復演入口與物性AI框架。"
+CORE_SEO_KEYWORDS = [
+    "物性論",
+    "宇宙是光之流體",
+    "光之流體",
+    "新科學範式",
+    "宇宙不是空的",
+    "背景海",
+    "狀態接力",
+    "結構化停頓",
+    "勢差",
+    "關係腔",
+    "顯化之門",
+    "觀察刻度",
+    "物性 AI",
+    "狀態生成",
+    "AI 幻覺",
+    "HFCD",
+    "104條公式正典",
+    "復演包",
+    "W 玻色子",
+    "標準模型",
+    "EWPO",
+    "Higgs",
+]
+TOPIC_PAGES = [
+    {
+        "filename": "what-is-wuxing-theory.html",
+        "title": "物性論是什麼",
+        "subtitle": "從空房間、光子小球與時間河流之外，重新理解宇宙如何生成穩定結構。",
+        "description": "物性論是《宇宙是光之流體》提出的新科學範式，從背景海、狀態接力、結構化停頓、關係腔與顯化之門重新理解物質、時間、公式與智能。",
+        "keywords": ["物性論", "物性論是什麼", "宇宙是光之流體", "背景海", "新科學範式"],
+        "paragraphs": [
+            "物性論不是把某一個公式改寫成新的符號，也不是在舊世界觀上增加一個漂亮比喻。它首先拆開的是我們習以為常的直覺：世界不是一個空盒子，光不是被丟出去的小球，物質不是天然死硬的磚塊，時間也不是把一切推向前方的河流。",
+            "在這套語言裡，宇宙更像一片能承載狀態、傳播擾動、留下穩定結構的背景海。能留下來的東西，不是因為它被宇宙特別偏愛，而是因為它在身份、能量、承載、核心、邊界、顯化與黑點審查中一次次沒有崩潰。",
+            "因此，物性論真正關心的不是一句口號，而是一條生成路徑：狀態如何被激發，如何被鄰近結構接住，如何在關係腔中獲得位置，如何穿過觀察刻度並被世界記錄。",
+        ],
+        "links": [("從序章開始閱讀", "chapters/preface.html"), ("第一章：世界不是空房間", "chapters/chapter-01.html"), ("104條公式正典", "resources/formula-canon.html")],
+    },
+    {
+        "filename": "universe-light-fluid.html",
+        "title": "宇宙不是空的：光、物質與時間的物性入口",
+        "subtitle": "用普通讀者能進入的方式，理解世界不是空房間、光是狀態接力、物質是結構化停頓。",
+        "description": "從物性論前三章進入《宇宙是光之流體》：宇宙不是空房間，光不是小球快遞，物質是一場結構化的停頓，時間則是事件留下的賬本。",
+        "keywords": ["宇宙不是空的", "光不是小球快遞", "狀態接力", "結構化停頓", "時間不是河流"],
+        "paragraphs": [
+            "很多人理解宇宙時，會先想像一個巨大空房間，裡面擺著星球、粒子、光線與生命。物性論的第一步，是把這個房間模型拆掉：如果宇宙底層真的只是空，狀態就沒有地方被傳遞，關係也沒有地方被承載。",
+            "光在這裡不再只是穿越虛無的小球，而是一場狀態接力。它像體育場裡的人浪，真正移動的不是某個人從頭跑到尾，而是一個狀態被附近的人接住、翻譯、再傳給下一個位置。",
+            "物質也不再被理解成死硬磚塊，而是流動中的穩定停頓。像河流中的漩渦，它內部每一秒都在運動，卻能長時間保持可辨認的形狀。這正是物性論理解物質、生命與秩序的入口。",
+        ],
+        "links": [("第一章：世界不是空房間", "chapters/chapter-01.html"), ("第二章：光不是小球快遞", "chapters/chapter-02.html"), ("第三章：物質的真相", "chapters/chapter-03.html")],
+    },
+    {
+        "filename": "physics-formulas-constants.html",
+        "title": "物理公式與常數：物性論如何重讀舊公式",
+        "subtitle": "從牛頓、麥克斯韋、薛定諤、愛因斯坦到常數，尋找公式背後共同的母結構。",
+        "description": "物性論從公式形狀與常數角色重讀牛頓、麥克斯韋、薛定諤、愛因斯坦與熱力學，把物理公式放回共同的生成結構中理解。",
+        "keywords": ["物理公式", "物理常數", "牛頓", "麥克斯韋", "薛定諤", "愛因斯坦", "物性歸根"],
+        "paragraphs": [
+            "一本真正有力量的新範式，不能只會否定舊理論。物性論對舊公式的態度，不是燒掉舊地圖，而是追問：為什麼這些公式會長成這種形狀？它們背後是否共享更深的結構？",
+            "牛頓公式中的力，物性論會重讀為坡度和勢差；麥克斯韋方程中的場，會被放回關係腔的局域彎曲；薛定諤方程中的波函數，會被放進可能性、相位與顯化之門的邏輯裡。",
+            "常數也不再只是表格裡冰冷的數字。光速、普朗克常數、引力常數與玻爾茲曼常數，更像宇宙不同賬本之間的轉接頭，規定時間、空間、能量、相位、熱與幾何如何彼此換算。",
+        ],
+        "links": [("第九章：新範式與舊公式", "chapters/chapter-09.html"), ("第十章：牛頓與引力", "chapters/chapter-10.html"), ("第十二章：常數不是死數字", "chapters/chapter-12.html")],
+    },
+    {
+        "filename": "standard-model-w-boson-ewpo.html",
+        "title": "物性論與標準模型：W 玻色子、Higgs 與 EWPO",
+        "subtitle": "從外部審判看一套理論如何面對標準模型、協方差、Higgs 靜默與 Flavour 邊界。",
+        "description": "物性論第五部進入標準模型外部審判，討論W玻色子質量、EWPO協方差、Higgs靜默與Flavour隔離腔體如何檢查新範式。",
+        "keywords": ["標準模型", "W 玻色子", "EWPO", "Higgs", "Flavour", "外部審判"],
+        "paragraphs": [
+            "如果一套新範式只在自己的語言裡漂亮，它還沒有真正走上科學的法庭。物性論第五部把問題推到外部：標準模型、W 玻色子質量、EWPO 協方差、Higgs 與 Flavour 邊界，都是世界拿出來的硬尺。",
+            "這裡的重點不是用華麗語氣宣告勝利，而是看一套內部生成邏輯能不能在外部讀數面前保持克制。命中不是終點，邊界同樣重要。哪裡能通過，哪裡不能亂動，哪裡必須隔離，都要被清楚標出。",
+            "這種寫法也讓嚴肅讀者知道：物性論不是只把物理名詞當裝飾，而是在把自己的主張推向可檢查、可反駁、可被後來者追問的地方。",
+        ],
+        "links": [("第十七章：標準模型白盒化", "chapters/chapter-17.html"), ("第十八章：W 玻色子精準盲測", "chapters/chapter-18.html"), ("第十九章：EWPO 協方差", "chapters/chapter-19.html")],
+    },
+    {
+        "filename": "wuxing-ai-state-generation.html",
+        "title": "物性 AI 是什麼：從詞語預測走向狀態生成",
+        "subtitle": "為什麼大模型看起來懂，卻常常沒有接住世界？物性 AI 試圖把智能重新接回狀態與外部裁判。",
+        "description": "物性AI把AI幻覺、大模型成本、世界模型與狀態生成放在同一條路徑中理解，討論下一代AI如何從詞語預測走向物性狀態生成。",
+        "keywords": ["物性 AI", "狀態生成", "AI 幻覺", "大模型", "世界模型", "詞語預測"],
+        "paragraphs": [
+            "大模型最迷人的地方，是它太會接話；大模型最危險的地方，也是它太會接話。它能把語言接得流暢，卻不一定真正接住世界的狀態。這就是物性 AI 要拆開的問題。",
+            "在物性論裡，智能不能只被理解為下一個詞的預測。真正可靠的智能，要能辨認狀態、承載關係、通過外部裁判、記錄失敗，並在錯誤成本很高的現場減少走錯路。",
+            "因此，物性 AI 的核心不是再做一個漂亮聊天界面，而是把 AI 從語言表面的順滑，推向狀態生成、世界校驗、成本控制與可復演的行動路徑。",
+        ],
+        "links": [("第二十二章：會接話的鸚鵡", "chapters/chapter-22.html"), ("第二十三章：大模型的真實賬單", "chapters/chapter-23.html"), ("第二十四章：物性 AI 六層架構", "chapters/chapter-24.html")],
+    },
+    {
+        "filename": "hfcd-reproduction-formula-canon.html",
+        "title": "HFCD 復演與 104 條公式正典",
+        "subtitle": "把信任從語氣交給材料、流程、代碼、公式、邊界與失敗定位。",
+        "description": "物性論公開HFCD復演入口、V32/V33/V34復演包、104條公式正典與FormulaOperatorCanon.json，方便讀者檢查、重跑與反駁。",
+        "keywords": ["HFCD", "復演包", "104條公式正典", "FormulaOperatorCanon", "開源復演"],
+        "paragraphs": [
+            "對一套龐大的理論來說，最危險的不是被人反駁，而是只能靠作者的語氣活著。物性論把公式正典、復演包與在線復演入口公開出來，就是要讓讀者看見材料，而不只是聽見宣告。",
+            "104 條公式正典不是把公式堆成裝飾，而是逐條標出身份、角色、來源、聲明類型與防污染守衛。這讓每一條公式都必須承認自己能說什麼、不能說什麼。",
+            "HFCD 復演入口則把檢查變成公共路徑。讀者可以從倉庫、發佈頁、在線復演室與 JSON 正典進入，追問每一步如何產生、如何通過、如何失敗。",
+        ],
+        "links": [("104條公式正典", "resources/formula-canon.html"), ("公開復演入口", "resources/reproduction.html"), ("第二十六章：公式正典與證據矩陣", "chapters/chapter-26.html")],
+    },
+]
 
 
 CN_NUM = {
@@ -55,6 +162,110 @@ def plain_text(markdown: str) -> str:
     text = re.sub(r"[$*_>#~\\-]+", " ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
+
+
+def absolute_url(path: str = "") -> str:
+    return SITE_URL + path.lstrip("/")
+
+
+def compact_text(value: str, limit: int = 156) -> str:
+    text = re.sub(r"\s+", " ", value).strip()
+    if len(text) <= limit:
+        return text
+    cut = text[: limit - 1].rstrip("，。、；：,. ")
+    return cut + "…"
+
+
+def extract_keywords(*texts: str, extra: list[str] | None = None, limit: int = 12) -> list[str]:
+    joined = " ".join(texts)
+    keywords: list[str] = []
+    for item in extra or []:
+        if item and item not in keywords:
+            keywords.append(item)
+    for item in CORE_SEO_KEYWORDS:
+        if item in joined and item not in keywords:
+            keywords.append(item)
+    for item in CORE_SEO_KEYWORDS:
+        if item not in keywords:
+            keywords.append(item)
+        if len(keywords) >= limit:
+            break
+    return keywords[:limit]
+
+
+def author_schema() -> list[dict]:
+    return [{"@type": "Person", "name": name} for name in BOOK_AUTHORS]
+
+
+def book_schema(book_title: str) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": book_title,
+        "alternateName": ["宇宙是光之流體", "物性論3"],
+        "description": BOOK_DESCRIPTION,
+        "inLanguage": "zh-Hant",
+        "author": author_schema(),
+        "url": SITE_URL,
+        "image": absolute_url("assets/cover.jpg"),
+        "keywords": CORE_SEO_KEYWORDS,
+        "workExample": {
+            "@type": "Book",
+            "bookFormat": "https://schema.org/EBook",
+            "url": SITE_URL,
+            "inLanguage": "zh-Hant",
+        },
+    }
+
+
+def breadcrumb_schema(items: list[tuple[str, str]]) -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": idx,
+                "name": name,
+                "item": absolute_url(url),
+            }
+            for idx, (name, url) in enumerate(items, 1)
+        ],
+    }
+
+
+def article_schema(
+    *,
+    headline: str,
+    description: str,
+    url: str,
+    keywords: list[str],
+    book_title: str,
+    position: int | None = None,
+) -> dict:
+    data = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": headline,
+        "description": description,
+        "inLanguage": "zh-Hant",
+        "author": author_schema(),
+        "isPartOf": {"@type": "Book", "name": book_title, "url": SITE_URL},
+        "mainEntityOfPage": absolute_url(url),
+        "url": absolute_url(url),
+        "image": absolute_url("assets/cover.jpg"),
+        "keywords": keywords,
+    }
+    if position is not None:
+        data["position"] = position
+    return data
+
+
+def json_ld_block(data: dict | list[dict] | None) -> str:
+    if not data:
+        return ""
+    payload = json.dumps(data, ensure_ascii=False, indent=2).replace("</", "<\\/")
+    return f'  <script type="application/ld+json">\n{payload}\n  </script>\n'
 
 
 def pandoc_fragment(markdown: str) -> str:
@@ -178,10 +389,21 @@ def page_shell(
     title: str,
     body: str,
     base: str = "",
-    description: str = "《宇宙是光之流體：物性論作為新的科學範式》公開閱讀網站。",
+    description: str = BOOK_DESCRIPTION,
+    canonical_url: str | None = None,
+    og_type: str = "website",
+    keywords: list[str] | None = None,
+    structured_data: dict | list[dict] | None = None,
 ) -> str:
     safe_title = html.escape(title)
+    description = compact_text(description, 160)
     safe_desc = html.escape(description)
+    canonical_url = canonical_url or SITE_URL
+    safe_canonical = html.escape(canonical_url)
+    keyword_meta = ""
+    if keywords:
+        keyword_meta = f'  <meta name="keywords" content="{html.escape(", ".join(keywords))}">\n'
+    schema = json_ld_block(structured_data)
     return f"""<!doctype html>
 <html lang="zh-Hant">
 <head>
@@ -189,12 +411,21 @@ def page_shell(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{safe_title}</title>
   <meta name="description" content="{safe_desc}">
+{keyword_meta}  <link rel="canonical" href="{safe_canonical}">
   <meta property="og:title" content="{safe_title}">
   <meta property="og:description" content="{safe_desc}">
-  <meta property="og:type" content="book">
-  <meta property="og:image" content="{base}assets/cover.jpg">
+  <meta property="og:type" content="{html.escape(og_type)}">
+  <meta property="og:url" content="{safe_canonical}">
+  <meta property="og:site_name" content="物性論閱讀平台">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="{absolute_url("assets/cover.jpg")}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{safe_title}">
+  <meta name="twitter:description" content="{safe_desc}">
+  <meta name="twitter:image" content="{absolute_url("assets/cover.jpg")}">
   <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{base}assets/styles.css?v={ASSET_VERSION}">
+{schema}  <script>
   <script>
     window.MathJax = {{
       tex: {{ inlineMath: [['$', '$'], ['\\\\(', '\\\\)']], displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']] }},
@@ -261,6 +492,13 @@ def build_index(book_title: str, sections: list[dict]) -> str:
   <strong>{html.escape(s['title'])}</strong>
 </a>"""
         for s in sections
+    )
+    topic_cards = "\n".join(
+        f"""<a class="resource-card" href="resources/{html.escape(topic['filename'])}">
+  <strong>{html.escape(topic['title'])}</strong>
+  <span>{html.escape(topic['description'])}</span>
+</a>"""
+        for topic in TOPIC_PAGES
     )
     body = f"""{header("")}
 <main>
@@ -340,6 +578,12 @@ def build_index(book_title: str, sections: list[dict]) -> str:
     <div id="search-results" class="search-results" aria-live="polite"></div>
   </section>
 
+  <section id="topics" class="open-materials topic-index">
+    <h2>主題索引</h2>
+    <p>把書中最容易被搜尋、引用與分享的入口整理成獨立頁面，方便新讀者先抓住核心問題。</p>
+    <div class="resource-grid">{topic_cards}</div>
+  </section>
+
   <section id="catalog" class="catalog">
     <div class="section-heading">
       <h2>完整目錄</h2>
@@ -362,7 +606,20 @@ def build_index(book_title: str, sections: list[dict]) -> str:
 <footer class="site-footer">
   <p>Copyright © 景龍鎖・貝記勝. All rights reserved. 本倉庫公開閱讀，不代表放棄著作權。</p>
 </footer>"""
-    return page_shell(title=book_title, body=body, base="")
+    keywords = extract_keywords(book_title, BOOK_DESCRIPTION, extra=["物性論公開閱讀", "物性論3"])
+    return page_shell(
+        title=f"{book_title}｜物性論公開閱讀",
+        body=body,
+        base="",
+        description=BOOK_DESCRIPTION,
+        canonical_url=SITE_URL,
+        og_type="book",
+        keywords=keywords,
+        structured_data=[
+            book_schema(book_title),
+            breadcrumb_schema([("首頁", "")]),
+        ],
+    )
 
 
 def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
@@ -431,11 +688,29 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
     <nav>{aside}</nav>
   </aside>
 </div>"""
+        section_text = plain_text(s["markdown"])
+        desc = compact_text(f"閱讀《{s['title']}》：{section_text}", 155)
+        keywords = extract_keywords(s["title"], section_text)
+        page_url = f"chapters/{s['filename']}"
         page = page_shell(
             title=f"{s['title']}｜{book_title}",
             body=body,
             base="../",
-            description=plain_text(s["markdown"])[:150],
+            description=desc,
+            canonical_url=absolute_url(page_url),
+            og_type="article",
+            keywords=keywords,
+            structured_data=[
+                article_schema(
+                    headline=s["title"],
+                    description=desc,
+                    url=page_url,
+                    keywords=keywords,
+                    book_title=book_title,
+                    position=i + 1,
+                ),
+                breadcrumb_schema([("首頁", ""), ("章節", "index.html#catalog"), (s["title"], page_url)]),
+            ],
         )
         (CHAPTERS / s["filename"]).write_text(page, encoding="utf-8")
 
@@ -484,11 +759,26 @@ def build_formula_page(book_title: str) -> str:
     </section>
   </article>
 </main>"""
+    desc = "《物性論》104條公式正典，包含公式、算子角色、聲明類型、來源位置與防污染守衛。"
+    keywords = extract_keywords(desc, extra=["104條公式正典", "FormulaOperatorCanon", "公式算子正典庫"])
     return page_shell(
         title=f"104條公式正典｜{book_title}",
         body=body,
         base="../",
-        description="《物性論》104條公式正典，包含公式、算子角色、聲明類型與防污染守衛。",
+        description=desc,
+        canonical_url=absolute_url("resources/formula-canon.html"),
+        og_type="article",
+        keywords=keywords,
+        structured_data=[
+            article_schema(
+                headline="104條公式正典",
+                description=desc,
+                url="resources/formula-canon.html",
+                keywords=keywords,
+                book_title=book_title,
+            ),
+            breadcrumb_schema([("首頁", ""), ("資料中心", "index.html#downloads"), ("104條公式正典", "resources/formula-canon.html")]),
+        ],
     )
 
 
@@ -536,11 +826,26 @@ def build_reproduction_page(book_title: str) -> str:
     </section>
   </article>
 </main>"""
+    desc = "《物性論》V32 / V33 / V34 復演倉庫、發佈頁、在線復演室與公式正典入口。"
+    keywords = extract_keywords(desc, extra=["HFCD 復演", "V32 V33 V34", "公開復演入口", "復演包"])
     return page_shell(
         title=f"公開復演入口｜{book_title}",
         body=body,
         base="../",
-        description="《物性論》V32 / V33 / V34 復演倉庫、發佈頁、在線復演室與公式正典入口。",
+        description=desc,
+        canonical_url=absolute_url("resources/reproduction.html"),
+        og_type="article",
+        keywords=keywords,
+        structured_data=[
+            article_schema(
+                headline="公開復演入口",
+                description=desc,
+                url="resources/reproduction.html",
+                keywords=keywords,
+                book_title=book_title,
+            ),
+            breadcrumb_schema([("首頁", ""), ("資料中心", "index.html#downloads"), ("公開復演入口", "resources/reproduction.html")]),
+        ],
     )
 
 
@@ -552,6 +857,56 @@ def build_resource_pages(book_title: str) -> None:
     (RESOURCES / "reproduction.html").write_text(
         build_reproduction_page(book_title), encoding="utf-8"
     )
+    build_topic_pages(book_title)
+
+
+def build_topic_pages(book_title: str) -> None:
+    for topic in TOPIC_PAGES:
+        links = "\n".join(
+            f'<a class="resource-card" href="../{html.escape(href)}"><strong>{html.escape(label)}</strong><span>進入相關章節或公開材料。</span></a>'
+            for label, href in topic["links"]
+        )
+        paragraphs = "\n".join(f"<p>{html.escape(p)}</p>" for p in topic["paragraphs"])
+        keyword_list = "".join(f"<li>{html.escape(k)}</li>" for k in topic["keywords"])
+        body = f"""{header("../")}
+<main class="standalone-page">
+  <article class="resource-content topic-content">
+    <p class="edition">物性論專題入口</p>
+    <h1>{html.escape(topic["title"])}</h1>
+    <p class="resource-lead">{html.escape(topic["subtitle"])}</p>
+    <section class="topic-body">{paragraphs}</section>
+    <section class="topic-links">
+      <h2>延伸閱讀</h2>
+      <div class="resource-grid">{links}</div>
+    </section>
+    <section class="topic-keywords" aria-label="相關關鍵詞">
+      <h2>相關關鍵詞</h2>
+      <ul>{keyword_list}</ul>
+    </section>
+  </article>
+</main>"""
+        url = f"resources/{topic['filename']}"
+        keywords = extract_keywords(topic["title"], topic["description"], extra=topic["keywords"])
+        page = page_shell(
+            title=f"{topic['title']}｜{book_title}",
+            body=body,
+            base="../",
+            description=topic["description"],
+            canonical_url=absolute_url(url),
+            og_type="article",
+            keywords=keywords,
+            structured_data=[
+                article_schema(
+                    headline=topic["title"],
+                    description=topic["description"],
+                    url=url,
+                    keywords=keywords,
+                    book_title=book_title,
+                ),
+                breadcrumb_schema([("首頁", ""), ("物性論專題", "index.html#topics"), (topic["title"], url)]),
+            ],
+        )
+        (RESOURCES / topic["filename"]).write_text(page, encoding="utf-8")
 
 
 def write_assets(sections: list[dict]) -> None:
@@ -580,20 +935,34 @@ def write_assets(sections: list[dict]) -> None:
             },
         ]
     )
+    search.extend(
+        {
+            "title": topic["title"],
+            "url": "resources/" + topic["filename"],
+            "text": " ".join([topic["title"], topic["subtitle"], topic["description"], *topic["keywords"], *topic["paragraphs"]]),
+            "excerpt": topic["description"],
+        }
+        for topic in TOPIC_PAGES
+    )
     (ASSETS / "search-index.json").write_text(
         json.dumps(search, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     sitemap = [SITE_URL]
     sitemap += [SITE_URL + "chapters/" + s["filename"] for s in sections]
+    sitemap += [SITE_URL + "resources/" + topic["filename"] for topic in TOPIC_PAGES]
     sitemap += [
         SITE_URL + "resources/formula-canon.html",
         SITE_URL + "resources/reproduction.html",
         SITE_URL + "resources/FormulaOperatorCanon.json",
     ]
+    lastmod = date.today().isoformat()
     (ROOT / "sitemap.xml").write_text(
         '<?xml version="1.0" encoding="UTF-8"?>\n'
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-        + "\n".join(f"  <url><loc>{html.escape(url)}</loc></url>" for url in sitemap)
+        + "\n".join(
+            f"  <url><loc>{html.escape(url)}</loc><lastmod>{lastmod}</lastmod></url>"
+            for url in sitemap
+        )
         + "\n</urlset>\n",
         encoding="utf-8",
     )
