@@ -10,15 +10,17 @@
   <meta property="og:type" content="book">
   <meta property="og:image" content="assets/cover.jpg">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/styles.css?v=20260708-reader-platform-v1">
+  <link rel="stylesheet" href="assets/styles.css?v=20260708-platform-backend-v1">
   <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
       svg: { fontCache: 'global' }
     };
   </script>
+  <script defer src="assets/platform-config.js?v=20260708-platform-backend-v1"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-  <script defer src="assets/site.js?v=20260708-reader-platform-v1"></script>
+  <script defer src="assets/site.js?v=20260708-platform-backend-v1"></script>
 </head>
 <body data-base="">
 <header class="site-header">
@@ -30,6 +32,9 @@
     <a href="resources/reproduction.html">復演入口</a>
     <a href="index.html#downloads">會員下載</a>
     <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
+    <button class="top-link-button favorite-list-open" type="button">我的收藏</button>
+    <button class="top-link-button auth-open" type="button">登入</button>
+    <button class="top-link-button auth-signout" type="button" hidden>登出</button>
   </nav>
 </header>
 <main>
@@ -76,10 +81,10 @@
           </div>
           <div class="book-actions">
             <a class="button primary" href="chapters/preface.html">開始閱讀</a>
-            <button class="button local-favorite" type="button" data-favorite-id="wuxing-theory-book3" data-favorite-title="宇宙是光之流體：物性論作為新的科學範式">本機收藏</button>
-            <button class="button gated-action" type="button" data-action-name="會員下載">登入後下載</button>
+            <button class="button local-favorite" type="button" data-favorite-id="wuxing-theory-book3" data-favorite-type="book" data-favorite-url="chapters/preface.html" data-favorite-title="宇宙是光之流體：物性論作為新的科學範式">收藏到帳號</button>
+            <button class="button gated-action" type="button" data-action-name="DOCX 下載" data-download-book-id="wuxing-theory-book3" data-download-format="docx">登入後下載</button>
           </div>
-          <p class="small-note">閱讀無需登入；本機收藏會保存在目前瀏覽器。雲端收藏與登入下載需要後端接入後正式開放。</p>
+          <p class="small-note">閱讀無需登入；雲端收藏與下載需要登入。若後端尚未配置，系統會保留入口並提示管理員啟用。</p>
         </div>
       </article>
       <article class="book-card ghost-book">
@@ -124,9 +129,9 @@
       <div><strong>閱讀不登入</strong><span>所有章節仍可直接打開，適合傳播與引用。</span></div>
       <div><strong>閱讀器設定</strong><span>章節頁可切換字體、背景、字號、行距與版心寬度。</span></div>
       <div><strong>本機進度</strong><span>瀏覽器會記錄上次閱讀位置，首頁和章節頁都能返回。</span></div>
-      <div><strong>本機收藏</strong><span>未登入階段先保存到本機，後續可遷移到帳號收藏。</span></div>
-      <div><strong>評論預留</strong><span>公開匿名評論區需要防垃圾與審核機制，適合接 Supabase / Turnstile。</span></div>
-      <div><strong>會員下載預留</strong><span>真正限制下載，需要私有儲存與登入後短期下載連結。</span></div>
+      <div><strong>雲端收藏</strong><span>登入後收藏寫入資料庫，不再只停留在本機瀏覽器。</span></div>
+      <div><strong>公開評論</strong><span>讀者可免登入送出評論，先進入待審狀態，審核後公開顯示。</span></div>
+      <div><strong>會員下載</strong><span>下載文件放入私有儲存，登入後由後端生成短期下載連結。</span></div>
     </div>
   </section>
 
@@ -306,8 +311,8 @@
   <section id="downloads" class="open-materials">
     <h2>資料中心</h2>
     <div class="material-grid">
-      <button class="material-card gated-action" type="button" data-action-name="Markdown 下載"><strong>Markdown 原稿</strong><span>正式平台中將改為登入後下載，適合校對、版本管理和引用。</span></button>
-      <button class="material-card gated-action" type="button" data-action-name="DOCX 下載"><strong>KDP DOCX 書稿</strong><span>正式平台中將放入私有儲存，登入後生成短期下載連結。</span></button>
+      <button class="material-card gated-action" type="button" data-action-name="Markdown 下載" data-download-book-id="wuxing-theory-book3" data-download-format="markdown"><strong>Markdown 原稿</strong><span>登入後由私有儲存生成短期下載連結，適合校對、版本管理和引用。</span></button>
+      <button class="material-card gated-action" type="button" data-action-name="DOCX 下載" data-download-book-id="wuxing-theory-book3" data-download-format="docx"><strong>KDP DOCX 書稿</strong><span>登入後由私有儲存生成短期下載連結，保留出版排版版本。</span></button>
       <a href="resources/formula-canon.html"><strong>104條公式正典</strong><span>逐條展示公式、算子角色、聲明類型與防污染守衛。</span></a>
       <a href="resources/reproduction.html"><strong>公開復演入口</strong><span>復演倉庫、發佈頁、在線復演室與原始資料入口。</span></a>
       <a href="https://github.com/jorsonbei/wuxing-v32-v33-v34-reproduction"><strong>V32 / V33 / V34 復演倉庫</strong><span>公式正典、復演包與在線復演室入口。</span></a>
@@ -317,5 +322,28 @@
 <footer class="site-footer">
   <p>Copyright © 景龍鎖・貝記勝. All rights reserved. 本倉庫公開閱讀，不代表放棄著作權。</p>
 </footer>
+<div class="auth-modal" id="auth-modal" hidden>
+  <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <button class="auth-close" type="button" aria-label="關閉登入視窗">×</button>
+    <p class="edition">會員系統</p>
+    <h2 id="auth-title">登入或註冊</h2>
+    <p>輸入 Email 後，系統會寄出登入連結。登入後可以雲端收藏與下載會員文件。</p>
+    <form class="auth-form">
+      <label><span>Email</span><input id="auth-email-input" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <button class="button primary" type="submit">寄出登入連結</button>
+    </form>
+    <p class="auth-status" aria-live="polite"></p>
+  </div>
+</div>
+<div class="auth-modal" id="favorites-modal" hidden>
+  <div class="auth-modal-panel favorites-panel" role="dialog" aria-modal="true" aria-labelledby="favorites-title">
+    <button class="auth-close favorites-close" type="button" aria-label="關閉收藏視窗">×</button>
+    <p class="edition">雲端收藏</p>
+    <h2 id="favorites-title">我的收藏</h2>
+    <p>登入後，收藏會保存到雲端帳號；後端尚未啟用時，這裡會顯示本機暫存收藏。</p>
+    <p class="favorite-status" aria-live="polite"></p>
+    <div class="favorite-list" data-favorite-list></div>
+  </div>
+</div>
 </body>
 </html>

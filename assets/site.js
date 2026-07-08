@@ -1,6 +1,24 @@
 (function () {
   const STORAGE_PREFIX = "wuxing-reader:";
   const base = document.body?.dataset?.base || "";
+  const config = window.WUXING_PLATFORM_CONFIG || {};
+  let supabaseClient = null;
+  let currentSession = null;
+
+  function platformEnabled() {
+    return Boolean(
+      config.enabled &&
+      config.supabaseUrl &&
+      config.supabaseAnonKey &&
+      window.supabase?.createClient
+    );
+  }
+
+  function getDownloadFunctionUrl() {
+    if (config.downloadFunctionUrl) return config.downloadFunctionUrl;
+    if (!config.supabaseUrl) return "";
+    return `${config.supabaseUrl.replace(/\/$/, "")}/functions/v1/download`;
+  }
 
   function readJson(key, fallback) {
     try {
@@ -37,7 +55,7 @@
     node.textContent = message;
     node.classList.add("show");
     window.clearTimeout(node._hideTimer);
-    node._hideTimer = window.setTimeout(() => node.classList.remove("show"), 2600);
+    node._hideTimer = window.setTimeout(() => node.classList.remove("show"), 3000);
   }
 
   async function initSearch() {
@@ -169,28 +187,22 @@
       const scrollable = Math.max(article.offsetHeight - window.innerHeight * 0.65, 1);
       const raw = (window.scrollY - articleTop) / scrollable;
       const percent = Math.min(100, Math.max(0, Math.round(raw * 100)));
-      return { articleTop, percent };
+      return { percent };
     }
 
     function update() {
       const { percent } = metrics();
       if (progressBar) progressBar.style.width = `${percent}%`;
-      writeJson(key, {
+      const record = {
         y: Math.max(0, Math.round(window.scrollY)),
         percent,
         title: getCurrentTitle(),
         path: location.pathname,
         href: currentRelativeHref(),
         updatedAt: new Date().toISOString(),
-      });
-      writeJson("lastRead", {
-        y: Math.max(0, Math.round(window.scrollY)),
-        percent,
-        title: getCurrentTitle(),
-        path: location.pathname,
-        href: currentRelativeHref(),
-        updatedAt: new Date().toISOString(),
-      });
+      };
+      writeJson(key, record);
+      writeJson("lastRead", record);
     }
 
     let ticking = false;
@@ -227,46 +239,356 @@
     heroActions.appendChild(link);
   }
 
-  function initFavorites() {
-    const buttons = document.querySelectorAll(".local-favorite");
-    if (!buttons.length) return;
+  function setAuthStatus(message) {
+    const node = document.querySelector(".auth-status");
+    if (node) node.textContent = message || "";
+  }
 
-    function favorites() {
-      return readJson("favorites", []);
+  function openAuthModal(message) {
+    const modal = document.getElementById("auth-modal");
+    if (!modal) return;
+    if (message) setAuthStatus(message);
+    modal.hidden = false;
+    const input = document.getElementById("auth-email-input");
+    if (input) input.focus();
+  }
+
+  function closeAuthModal() {
+    const modal = document.getElementById("auth-modal");
+    if (modal) modal.hidden = true;
+  }
+
+  function openFavoritesModal() {
+    const modal = document.getElementById("favorites-modal");
+    if (modal) modal.hidden = false;
+  }
+
+  function closeFavoritesModal() {
+    const modal = document.getElementById("favorites-modal");
+    if (modal) modal.hidden = true;
+  }
+
+  function resolveRelativeLink(href) {
+    if (!href) return base || "index.html";
+    if (/^(https?:)?\/\//.test(href) || href.startsWith("#")) return href;
+    return `${base}${href}`.replace(/\/{2,}/g, "/");
+  }
+
+  function renderFavoriteList(items, statusText) {
+    const status = document.querySelector(".favorite-status");
+    const list = document.querySelector("[data-favorite-list]");
+    if (status) status.textContent = statusText || "";
+    if (!list) return;
+    if (!items.length) {
+      list.innerHTML = '<p class="comment-empty">目前還沒有收藏。</p>';
+      return;
     }
+    list.innerHTML = items.map((item) => {
+      const title = item.item_title || item.title || "未命名收藏";
+      const type = item.item_type || item.type || "chapter";
+      const href = item.item_url || item.href || item.path || "";
+      const updated = item.updated_at || item.savedAt || "";
+      const date = updated ? new Date(updated).toLocaleDateString("zh-Hant") : "";
+      return `<a class="favorite-item" href="${escapeHtml(resolveRelativeLink(href))}">
+        <strong>${escapeHtml(title)}</strong>
+        <span>${escapeHtml(type === "book" ? "書籍" : type === "resource" ? "資料" : "章節")}${date ? ` · ${escapeHtml(date)}` : ""}</span>
+      </a>`;
+    }).join("");
+  }
 
-    function saveFavorite(item) {
-      const list = favorites().filter((entry) => entry.id !== item.id);
-      list.unshift({ ...item, savedAt: new Date().toISOString() });
-      writeJson("favorites", list.slice(0, 80));
+  async function loadFavoriteList() {
+    if (!platformEnabled()) {
+      renderFavoriteList(readJson("favorites", []), "後端尚未啟用，這裡顯示本機收藏。");
+      openFavoritesModal();
+      return;
     }
+    if (!currentSession?.user) {
+      openAuthModal("查看雲端收藏需要登入。");
+      return;
+    }
+    openFavoritesModal();
+    renderFavoriteList([], "正在載入雲端收藏...");
+    const { data, error } = await supabaseClient
+      .from("user_favorites")
+      .select("item_id,item_type,item_title,item_url,updated_at")
+      .order("updated_at", { ascending: false })
+      .limit(100);
+    if (error) {
+      renderFavoriteList([], `收藏載入失敗：${error.message}`);
+      return;
+    }
+    renderFavoriteList(data || [], data?.length ? "" : "雲端帳號目前還沒有收藏。");
+  }
 
-    buttons.forEach((button) => {
+  function updateAuthUi() {
+    const signedIn = Boolean(currentSession?.user);
+    document.querySelectorAll(".auth-open").forEach((button) => {
+      button.hidden = signedIn;
+      button.textContent = signedIn ? currentSession.user.email : "登入";
+    });
+    document.querySelectorAll(".auth-signout").forEach((button) => {
+      button.hidden = !signedIn;
+    });
+    document.body.dataset.platform = platformEnabled() ? "enabled" : "disabled";
+    document.body.dataset.auth = signedIn ? "signed-in" : "signed-out";
+  }
+
+  async function initPlatform() {
+    if (!platformEnabled()) {
+      updateAuthUi();
+      return;
+    }
+    supabaseClient = window.supabase.createClient(config.supabaseUrl, config.supabaseAnonKey);
+    const { data } = await supabaseClient.auth.getSession();
+    currentSession = data.session;
+    updateAuthUi();
+
+    supabaseClient.auth.onAuthStateChange((_event, session) => {
+      currentSession = session;
+      updateAuthUi();
+      loadComments();
+    });
+  }
+
+  function initAuthUi() {
+    document.querySelectorAll(".auth-open").forEach((button) => {
       button.addEventListener("click", () => {
-        const id = button.dataset.favoriteId || location.pathname;
-        const title = button.dataset.favoriteTitle || getCurrentTitle();
-        saveFavorite({ id, title, path: location.pathname, href: currentRelativeHref() });
-        button.textContent = "已收藏";
-        toast("已保存到本機收藏。正式帳號收藏需要後端接入。");
+        if (!platformEnabled()) {
+          toast("會員系統尚未配置 Supabase。請先填寫 assets/platform-config.js 並部署後端。");
+          return;
+        }
+        openAuthModal("");
       });
     });
+    document.querySelectorAll(".auth-signout").forEach((button) => {
+      button.addEventListener("click", async () => {
+        if (supabaseClient) await supabaseClient.auth.signOut();
+        currentSession = null;
+        updateAuthUi();
+        toast("已登出。");
+      });
+    });
+    document.querySelectorAll(".auth-close").forEach((button) => button.addEventListener("click", closeAuthModal));
+    document.getElementById("auth-modal")?.addEventListener("click", (event) => {
+      if (event.target?.id === "auth-modal") closeAuthModal();
+    });
+    document.querySelectorAll(".favorite-list-open").forEach((button) => {
+      button.addEventListener("click", loadFavoriteList);
+    });
+    document.querySelectorAll(".favorites-close").forEach((button) => button.addEventListener("click", closeFavoritesModal));
+    document.getElementById("favorites-modal")?.addEventListener("click", (event) => {
+      if (event.target?.id === "favorites-modal") closeFavoritesModal();
+    });
+    document.querySelector(".auth-form")?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!supabaseClient) {
+        setAuthStatus("會員系統尚未啟用。");
+        return;
+      }
+      const email = new FormData(event.currentTarget).get("email");
+      setAuthStatus("正在寄出登入連結...");
+      const { error } = await supabaseClient.auth.signInWithOtp({
+        email,
+        options: { emailRedirectTo: window.location.href },
+      });
+      setAuthStatus(error ? `寄送失敗：${error.message}` : "登入連結已寄出，請到 Email 信箱確認。");
+    });
+  }
+
+  async function saveCloudFavorite(item) {
+    const user = currentSession?.user;
+    if (!supabaseClient || !user) return { needsAuth: true };
+    const payload = {
+      user_id: user.id,
+      item_id: item.id,
+      item_type: item.type || "chapter",
+      item_title: item.title,
+      item_url: item.href || item.path || "",
+      updated_at: new Date().toISOString(),
+    };
+    const { error } = await supabaseClient
+      .from("user_favorites")
+      .upsert(payload, { onConflict: "user_id,item_id" });
+    return { error };
+  }
+
+  function saveLocalFavorite(item) {
+    const list = readJson("favorites", []).filter((entry) => entry.id !== item.id);
+    list.unshift({ ...item, savedAt: new Date().toISOString() });
+    writeJson("favorites", list.slice(0, 80));
+  }
+
+  function initFavorites() {
+    document.querySelectorAll(".local-favorite").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const item = {
+          id: button.dataset.favoriteId || location.pathname,
+          type: button.dataset.favoriteType || "chapter",
+          title: button.dataset.favoriteTitle || getCurrentTitle(),
+          path: location.pathname,
+          href: button.dataset.favoriteUrl || currentRelativeHref(),
+        };
+        if (!platformEnabled()) {
+          saveLocalFavorite(item);
+          button.textContent = "已本機收藏";
+          toast("後端尚未啟用，已暫存到本機收藏。");
+          return;
+        }
+        if (!currentSession?.user) {
+          openAuthModal("收藏需要登入。登入後會保存到雲端帳號。");
+          return;
+        }
+        const result = await saveCloudFavorite(item);
+        if (result.error) {
+          toast(`收藏失敗：${result.error.message}`);
+          return;
+        }
+        button.textContent = "已收藏";
+        toast("已保存到雲端收藏。");
+      });
+    });
+  }
+
+  async function handleDownload(button) {
+    const bookId = button.dataset.downloadBookId || config.bookId || "wuxing-theory-book3";
+    const format = button.dataset.downloadFormat || "docx";
+    if (!platformEnabled()) {
+      toast("會員下載尚未啟用：請先配置 Supabase、私有 Storage 與下載 Edge Function。");
+      return;
+    }
+    if (!currentSession?.access_token) {
+      openAuthModal("下載需要登入。登入後系統會生成短期下載連結。");
+      return;
+    }
+    button.disabled = true;
+    const originalText = button.textContent;
+    button.textContent = "正在生成連結...";
+    try {
+      const response = await fetch(getDownloadFunctionUrl(), {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${currentSession.access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ bookId, format }),
+      });
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok || !data.signedUrl) {
+        throw new Error(data.error || "下載連結生成失敗");
+      }
+      window.open(data.signedUrl, "_blank", "noopener,noreferrer");
+      toast("下載連結已生成，請在新視窗下載。");
+    } catch (error) {
+      toast(`下載失敗：${error.message}`);
+    } finally {
+      button.disabled = false;
+      button.textContent = originalText;
+    }
   }
 
   function initGatedActions() {
     document.querySelectorAll(".gated-action").forEach((button) => {
       button.addEventListener("click", () => {
-        const action = button.dataset.actionName || "此功能";
-        toast(`${action} 需要登入系統與私有儲存接入。當前版本先保留入口位。`);
+        if (button.dataset.downloadFormat) {
+          handleDownload(button);
+          return;
+        }
+        if (!platformEnabled()) {
+          toast("此功能需要先配置 Supabase 後端。");
+          return;
+        }
+        if (!currentSession?.user) {
+          openAuthModal(`${button.dataset.actionName || "此功能"} 需要登入。`);
+          return;
+        }
+        toast("你已登入，此功能後端已準備接入。");
       });
     });
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
+  function renderComments(container, comments) {
+    const list = container.querySelector("[data-comment-list]");
+    if (!list) return;
+    if (!comments.length) {
+      list.innerHTML = '<p class="comment-empty">目前還沒有公開評論。</p>';
+      return;
+    }
+    list.innerHTML = comments.map((comment) => `
+      <article class="comment-item">
+        <strong>${escapeHtml(comment.visitor_name || "匿名讀者")}</strong>
+        <time>${escapeHtml(new Date(comment.created_at).toLocaleDateString("zh-Hant"))}</time>
+        <p>${escapeHtml(comment.body)}</p>
+      </article>
+    `).join("");
+  }
+
+  async function loadComments() {
+    const container = document.querySelector(".reader-comments");
+    if (!container) return;
+    const status = container.querySelector(".comment-status");
+    if (!platformEnabled() || !supabaseClient) {
+      if (status) status.textContent = "評論後端尚未啟用；請配置 Supabase 後開放讀者評論。";
+      return;
+    }
+    const { data, error } = await supabaseClient
+      .from("book_comments")
+      .select("id,visitor_name,body,created_at")
+      .eq("book_id", container.dataset.bookId)
+      .eq("chapter_path", container.dataset.chapterPath)
+      .eq("status", "approved")
+      .order("created_at", { ascending: false })
+      .limit(30);
+    if (status) status.textContent = error ? `評論載入失敗：${error.message}` : "";
+    if (!error) renderComments(container, data || []);
+  }
+
+  function initComments() {
+    const container = document.querySelector(".reader-comments");
+    if (!container) return;
+    loadComments();
+    const form = container.querySelector(".comment-form");
+    const status = container.querySelector(".comment-status");
+    form?.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!platformEnabled() || !supabaseClient) {
+        if (status) status.textContent = "評論後端尚未啟用。";
+        return;
+      }
+      const formData = new FormData(form);
+      const body = String(formData.get("body") || "").trim();
+      const visitorName = String(formData.get("visitor_name") || "匿名讀者").trim();
+      if (body.length < 2) {
+        if (status) status.textContent = "評論內容太短。";
+        return;
+      }
+      if (status) status.textContent = "正在送出評論...";
+      const { error } = await supabaseClient.from("book_comments").insert({
+        book_id: container.dataset.bookId,
+        chapter_path: container.dataset.chapterPath,
+        chapter_title: container.dataset.chapterTitle,
+        visitor_name: visitorName.slice(0, 80),
+        body: body.slice(0, 2000),
+        status: "pending",
+        user_id: currentSession?.user?.id || null,
+      });
+      if (status) {
+        status.textContent = error
+          ? `評論送出失敗：${error.message}`
+          : "評論已送出，等待審核後公開。";
+      }
+      if (!error) form.reset();
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async () => {
     initSearch();
     initReaderSettings();
     initProgress();
     initLastReadLink();
+    initAuthUi();
+    await initPlatform();
     initFavorites();
     initGatedActions();
+    initComments();
   });
 })();

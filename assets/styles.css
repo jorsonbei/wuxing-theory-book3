@@ -64,12 +64,22 @@ a {
   font-size: 14px;
 }
 
-.top-links a {
+.top-links a,
+.top-link-button {
   color: var(--muted);
   text-decoration: none;
 }
 
-.top-links a:hover {
+.top-link-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  cursor: pointer;
+}
+
+.top-links a:hover,
+.top-link-button:hover {
   color: var(--blue);
 }
 
@@ -165,6 +175,141 @@ a {
 .site-toast.show {
   opacity: 1;
   transform: translateY(0);
+}
+
+.auth-modal[hidden] {
+  display: none;
+}
+
+.auth-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(10, 16, 22, 0.52);
+}
+
+.auth-modal-panel {
+  position: relative;
+  width: min(100%, 460px);
+  padding: 28px;
+  border: 1px solid rgba(23, 77, 120, 0.18);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.22);
+}
+
+.favorites-panel {
+  width: min(100%, 620px);
+}
+
+.auth-modal-panel h2 {
+  margin: 0 0 12px;
+  color: var(--blue-2);
+  font-size: 30px;
+  line-height: 1.25;
+}
+
+.auth-modal-panel p {
+  margin: 0 0 16px;
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  line-height: 1.7;
+}
+
+.auth-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 22px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.auth-form {
+  display: grid;
+  gap: 12px;
+}
+
+.auth-form label,
+.comment-form label {
+  display: grid;
+  gap: 6px;
+  color: var(--blue-2);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-weight: 700;
+}
+
+.auth-form input,
+.comment-form input,
+.comment-form textarea {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: #151718;
+  font: inherit;
+}
+
+.comment-form textarea {
+  min-height: 118px;
+  resize: vertical;
+}
+
+.auth-status,
+.favorite-status,
+.comment-status,
+.comment-empty {
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.favorite-list {
+  display: grid;
+  gap: 10px;
+  max-height: min(52vh, 440px);
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.favorite-item {
+  display: grid;
+  gap: 5px;
+  padding: 13px 14px;
+  border: 1px solid rgba(23, 77, 120, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.62);
+  color: var(--blue-2);
+  text-decoration: none;
+}
+
+.favorite-item:hover {
+  border-color: rgba(23, 77, 120, 0.34);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.favorite-item strong {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.favorite-item span {
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 13px;
 }
 
 .stats {
@@ -736,6 +881,42 @@ a {
   line-height: 1.75;
 }
 
+.comment-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.comment-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.comment-item {
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(255, 253, 248, 0.72);
+}
+
+.comment-item strong {
+  color: var(--blue-2);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+
+.comment-item time {
+  margin-left: 8px;
+  color: var(--muted);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  font-size: 13px;
+}
+
+.comment-item p {
+  margin: 8px 0 0;
+  color: var(--ink);
+}
+
 .small-note {
   margin: 12px 0 0;
   color: var(--muted);
@@ -1045,11 +1226,18 @@ body[data-reader-theme="oled"] .search-result {
 
 body[data-reader-theme="dark"] input,
 body[data-reader-theme="dark"] select,
+body[data-reader-theme="dark"] textarea,
 body[data-reader-theme="oled"] input,
-body[data-reader-theme="oled"] select {
+body[data-reader-theme="oled"] select,
+body[data-reader-theme="oled"] textarea {
   border-color: var(--line);
   background: #111820;
   color: var(--ink);
+}
+
+body[data-reader-theme="dark"] .comment-item,
+body[data-reader-theme="oled"] .comment-item {
+  background: rgba(255, 255, 255, 0.04);
 }
 
 body[data-reader-theme="dark"] .nav-item,

@@ -13,9 +13,30 @@ https://jorsonbei.github.io/wuxing-theory-book3/
 - `resources/formula-canon.html`：104條公式正典網頁版
 - `resources/reproduction.html`：公開復演入口
 - `resources/FormulaOperatorCanon.json`：104條公式正典 JSON
-- `book/wuxing-theory-book3.md`：Markdown 原稿
-- `book/wuxing-theory-book3.docx`：KDP DOCX 書稿
+- `book/README.md`：私有下載文件說明
 - `assets/`：封面、樣式與搜尋索引
+- `supabase/schema.sql`：登入、收藏、評論、下載記錄的資料表與 RLS
+- `supabase/functions/download/`：登入後生成私有文件短期下載連結
+- `docs/supabase-setup.md`：Supabase 後端啟用步驟
+
+## 平台功能
+
+- 公開閱讀：不需要登入
+- 閱讀器設定：字體、背景、字號、行距、版心寬度
+- 閱讀進度：本機保存
+- 收藏：後端啟用後需要登入並保存到雲端
+- 評論：可匿名提交，進入待審狀態，審核後公開
+- 會員下載：後端啟用後需要登入，由私有 Storage 生成短期下載連結
+
+> 注意：DOCX / Markdown 原稿不應提交到公開 GitHub Pages 倉庫，否則任何人都能繞過前端登入按鈕直接下載。下載文件應放入 Supabase private Storage。
+
+## 後端啟用
+
+見：
+
+```text
+docs/supabase-setup.md
+```
 
 ## 復演材料
 

@@ -3,19 +3,20 @@ from __future__ import annotations
 
 import html
 import json
+import os
 import re
 import subprocess
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "book" / "wuxing-theory-book3.md"
+SOURCE = Path(os.environ.get("WUXING_SOURCE_MD", ROOT / "book" / "wuxing-theory-book3.md"))
 CHAPTERS = ROOT / "chapters"
 ASSETS = ROOT / "assets"
 RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
-ASSET_VERSION = "20260708-reader-platform-v1"
+ASSET_VERSION = "20260708-platform-backend-v1"
 
 
 CN_NUM = {
@@ -200,11 +201,36 @@ def page_shell(
       svg: {{ fontCache: 'global' }}
     }};
   </script>
+  <script defer src="{base}assets/platform-config.js?v={ASSET_VERSION}"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <script defer src="{base}assets/site.js?v={ASSET_VERSION}"></script>
 </head>
 <body data-base="{base}">
 {body}
+<div class="auth-modal" id="auth-modal" hidden>
+  <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <button class="auth-close" type="button" aria-label="關閉登入視窗">×</button>
+    <p class="edition">會員系統</p>
+    <h2 id="auth-title">登入或註冊</h2>
+    <p>輸入 Email 後，系統會寄出登入連結。登入後可以雲端收藏與下載會員文件。</p>
+    <form class="auth-form">
+      <label><span>Email</span><input id="auth-email-input" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <button class="button primary" type="submit">寄出登入連結</button>
+    </form>
+    <p class="auth-status" aria-live="polite"></p>
+  </div>
+</div>
+<div class="auth-modal" id="favorites-modal" hidden>
+  <div class="auth-modal-panel favorites-panel" role="dialog" aria-modal="true" aria-labelledby="favorites-title">
+    <button class="auth-close favorites-close" type="button" aria-label="關閉收藏視窗">×</button>
+    <p class="edition">雲端收藏</p>
+    <h2 id="favorites-title">我的收藏</h2>
+    <p>登入後，收藏會保存到雲端帳號；後端尚未啟用時，這裡會顯示本機暫存收藏。</p>
+    <p class="favorite-status" aria-live="polite"></p>
+    <div class="favorite-list" data-favorite-list></div>
+  </div>
+</div>
 </body>
 </html>
 """
@@ -220,6 +246,9 @@ def header(base: str = "") -> str:
     <a href="{base}resources/reproduction.html">復演入口</a>
     <a href="{base}index.html#downloads">會員下載</a>
     <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
+    <button class="top-link-button favorite-list-open" type="button">我的收藏</button>
+    <button class="top-link-button auth-open" type="button">登入</button>
+    <button class="top-link-button auth-signout" type="button" hidden>登出</button>
   </nav>
 </header>"""
 
@@ -278,10 +307,10 @@ def build_index(book_title: str, sections: list[dict]) -> str:
           </div>
           <div class="book-actions">
             <a class="button primary" href="chapters/preface.html">開始閱讀</a>
-            <button class="button local-favorite" type="button" data-favorite-id="wuxing-theory-book3" data-favorite-title="{html.escape(book_title)}">本機收藏</button>
-            <button class="button gated-action" type="button" data-action-name="會員下載">登入後下載</button>
+            <button class="button local-favorite" type="button" data-favorite-id="wuxing-theory-book3" data-favorite-type="book" data-favorite-url="chapters/preface.html" data-favorite-title="{html.escape(book_title)}">收藏到帳號</button>
+            <button class="button gated-action" type="button" data-action-name="DOCX 下載" data-download-book-id="wuxing-theory-book3" data-download-format="docx">登入後下載</button>
           </div>
-          <p class="small-note">閱讀無需登入；本機收藏會保存在目前瀏覽器。雲端收藏與登入下載需要後端接入後正式開放。</p>
+          <p class="small-note">閱讀無需登入；雲端收藏與下載需要登入。若後端尚未配置，系統會保留入口並提示管理員啟用。</p>
         </div>
       </article>
       <article class="book-card ghost-book">
@@ -326,9 +355,9 @@ def build_index(book_title: str, sections: list[dict]) -> str:
       <div><strong>閱讀不登入</strong><span>所有章節仍可直接打開，適合傳播與引用。</span></div>
       <div><strong>閱讀器設定</strong><span>章節頁可切換字體、背景、字號、行距與版心寬度。</span></div>
       <div><strong>本機進度</strong><span>瀏覽器會記錄上次閱讀位置，首頁和章節頁都能返回。</span></div>
-      <div><strong>本機收藏</strong><span>未登入階段先保存到本機，後續可遷移到帳號收藏。</span></div>
-      <div><strong>評論預留</strong><span>公開匿名評論區需要防垃圾與審核機制，適合接 Supabase / Turnstile。</span></div>
-      <div><strong>會員下載預留</strong><span>真正限制下載，需要私有儲存與登入後短期下載連結。</span></div>
+      <div><strong>雲端收藏</strong><span>登入後收藏寫入資料庫，不再只停留在本機瀏覽器。</span></div>
+      <div><strong>公開評論</strong><span>讀者可免登入送出評論，先進入待審狀態，審核後公開顯示。</span></div>
+      <div><strong>會員下載</strong><span>下載文件放入私有儲存，登入後由後端生成短期下載連結。</span></div>
     </div>
   </section>
 
@@ -353,8 +382,8 @@ def build_index(book_title: str, sections: list[dict]) -> str:
   <section id="downloads" class="open-materials">
     <h2>資料中心</h2>
     <div class="material-grid">
-      <button class="material-card gated-action" type="button" data-action-name="Markdown 下載"><strong>Markdown 原稿</strong><span>正式平台中將改為登入後下載，適合校對、版本管理和引用。</span></button>
-      <button class="material-card gated-action" type="button" data-action-name="DOCX 下載"><strong>KDP DOCX 書稿</strong><span>正式平台中將放入私有儲存，登入後生成短期下載連結。</span></button>
+      <button class="material-card gated-action" type="button" data-action-name="Markdown 下載" data-download-book-id="wuxing-theory-book3" data-download-format="markdown"><strong>Markdown 原稿</strong><span>登入後由私有儲存生成短期下載連結，適合校對、版本管理和引用。</span></button>
+      <button class="material-card gated-action" type="button" data-action-name="DOCX 下載" data-download-book-id="wuxing-theory-book3" data-download-format="docx"><strong>KDP DOCX 書稿</strong><span>登入後由私有儲存生成短期下載連結，保留出版排版版本。</span></button>
       <a href="resources/formula-canon.html"><strong>104條公式正典</strong><span>逐條展示公式、算子角色、聲明類型與防污染守衛。</span></a>
       <a href="resources/reproduction.html"><strong>公開復演入口</strong><span>復演倉庫、發佈頁、在線復演室與原始資料入口。</span></a>
       <a href="https://github.com/jorsonbei/wuxing-v32-v33-v34-reproduction"><strong>V32 / V33 / V34 復演倉庫</strong><span>公式正典、復演包與在線復演室入口。</span></a>
@@ -393,7 +422,7 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
           <h2>{html.escape(s["title"])}</h2>
         </div>
         <div class="reader-toolbar-actions">
-          <button class="button local-favorite" type="button" data-favorite-id="{html.escape(s["filename"])}" data-favorite-title="{html.escape(s["title"])}">收藏本章</button>
+          <button class="button local-favorite" type="button" data-favorite-id="{html.escape(s["filename"])}" data-favorite-type="chapter" data-favorite-url="chapters/{html.escape(s["filename"])}" data-favorite-title="{html.escape(s["title"])}">收藏本章</button>
           <button class="button restore-reading" type="button">回到上次</button>
         </div>
       </div>
@@ -405,15 +434,21 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
         <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
         <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
       </div>
-      <p class="small-note">閱讀設定、收藏與進度先保存在本機瀏覽器；雲端同步需要登入系統接入後開放。</p>
+      <p class="small-note">閱讀設定與進度保存在本機瀏覽器；登入後可把章節收藏寫入雲端帳號。</p>
     </section>
     <article class="chapter-content">
       {article}
     </article>
-    <section class="reader-comments">
+    <section class="reader-comments" data-book-id="wuxing-theory-book3" data-chapter-path="{html.escape(s["filename"])}" data-chapter-title="{html.escape(s["title"])}">
       <h2>讀者評論</h2>
-      <p>正式評論區將支援免註冊閱讀與評論，但會加入防垃圾驗證與審核。這裡先保留評論入口位，後續接入後可直接啟用。</p>
-      <button class="button gated-action" type="button" data-action-name="匿名評論">評論功能接入中</button>
+      <p>閱讀與評論不需要登入。評論送出後會先進入待審狀態，審核通過後公開顯示。</p>
+      <form class="comment-form">
+        <label><span>稱呼</span><input name="visitor_name" maxlength="80" placeholder="你的稱呼"></label>
+        <label><span>評論</span><textarea name="body" maxlength="2000" required placeholder="寫下你的問題、感受或反駁"></textarea></label>
+        <button class="button primary" type="submit">送出評論</button>
+      </form>
+      <p class="comment-status" aria-live="polite"></p>
+      <div class="comment-list" data-comment-list></div>
     </section>
     <nav class="chapter-pager" aria-label="章節切換">{prev_link}{next_link}</nav>
   </main>

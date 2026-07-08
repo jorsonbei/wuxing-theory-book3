@@ -1,0 +1,3 @@
+book/*.md
+book/*.docx
+!book/README.md
