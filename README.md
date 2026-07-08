@@ -16,8 +16,10 @@ https://jorsonbei.github.io/wuxing-theory-book3/
 - `book/README.md`：私有下載文件說明
 - `assets/`：封面、樣式與搜尋索引
 - `supabase/schema.sql`：登入、收藏、評論、下載記錄的資料表與 RLS
+- `supabase/migrations/`：可由 Supabase CLI 直接推送的資料庫 migration
 - `supabase/functions/download/`：登入後生成私有文件短期下載連結
-- `docs/supabase-setup.md`：Supabase 後端啟用步驟
+- `tools/launch_supabase_backend.sh`：後端上線、私有檔案上傳、前端配置與推送的一鍵腳本
+- `docs/supabase-setup.md`：Supabase 後端上線協作說明
 
 ## 平台功能
 
@@ -32,7 +34,13 @@ https://jorsonbei.github.io/wuxing-theory-book3/
 
 ## 後端啟用
 
-見：
+作者只處理帳號登入、郵箱驗證、付費確認等本人動作。實際部署由 Codex 使用腳本完成：
+
+```text
+tools/launch_supabase_backend.sh
+```
+
+協作分工見：
 
 ```text
 docs/supabase-setup.md

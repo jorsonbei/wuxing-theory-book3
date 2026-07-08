@@ -1,46 +1,116 @@
-# Supabase 後端啟用指南
+# Supabase 上線協作說明
 
-本網站目前是 GitHub Pages 靜態站。公開閱讀不需要後端；但「註冊登入、雲端收藏、會員下載、評論審核」需要 Supabase。
+這份文件不是讓作者自己研究技術部署，而是給項目留檔。實際開發、配置、部署、檢查由 Codex 負責；作者只處理必須本人完成的帳號與授權動作。
 
-## 1. 建立 Supabase 專案
+## 目前狀態
 
-在 Supabase 建立新專案後，記下：
+網站已經具備以下前端入口：
 
-- Project URL
-- anon public key
-- service role key
+- 公開閱讀：所有章節不需要登入
+- 登入 / 註冊入口
+- 我的收藏
+- 會員下載
+- 讀者評論
 
-前端只放 `anon public key`。`service role key` 只能放在 Edge Function secrets，不能放進 GitHub Pages。
+真正的雲端功能需要接上 Supabase：
 
-## 2. 執行資料庫 SQL
+- 收藏寫入雲端帳號
+- 評論寫入資料庫，先待審，審核後公開
+- DOCX / Markdown 放入私有 Storage
+- 登入後由 Edge Function 生成短期下載連結
 
-在 Supabase SQL Editor 執行：
+## 作者只需要做的事
 
-```sql
--- repo file:
--- supabase/schema.sql
+### 1. 登入或註冊 Supabase
+
+打開：
+
+```text
+https://supabase.com/
 ```
 
-這會建立：
+用你的 Email / GitHub / Google 登入。需要驗證郵箱或手機時，由你本人完成。
 
-- `books`
-- `user_favorites`
-- `book_comments`
-- `download_requests`
-- 私有 Storage bucket：`private-downloads`
-- RLS policies
+### 2. 建立 Supabase access token
 
-權限設計：
+登入後打開：
 
-- 閱讀網站：不登入
-- 評論：匿名可提交，但只進入 `pending`
-- 公開評論：只讀 `approved`
-- 收藏：登入後只讀寫自己的收藏
-- 下載：登入後由 Edge Function 生成短期連結
+```text
+https://supabase.com/dashboard/account/tokens
+```
 
-## 3. 上傳會員下載文件
+建立一個 access token。這個 token 只用來讓本機 Supabase CLI 連上你的帳號。
 
-把下載文件放入 Supabase Storage 的 `private-downloads` bucket：
+你可以選擇兩種方式之一：
+
+- 把 token 給 Codex，Codex 執行 `supabase login --token ...`
+- 或你自己在終端執行 `supabase login`，完成瀏覽器登入
+
+### 3. 確認是否允許建立 Supabase 專案
+
+登入後，Codex 可以列出你的 organization，並幫你建立專案。若 Supabase 要求選擇免費 / 付費方案、綁卡、付款，這一步需要你本人確認。
+
+建議專案設定：
+
+```text
+Project name: wuxing-theory-book3
+Region: ap-southeast-1
+Size: nano
+```
+
+## Codex 負責做的事
+
+作者完成登入後，Codex 會接手：
+
+1. 建立或連接 Supabase project
+2. 取得 Project URL、anon key、service role key
+3. 執行資料庫 migration
+4. 建立資料表、RLS 權限與私有 Storage bucket
+5. 部署 `download` Edge Function
+6. 上傳私有下載文件
+7. 更新網站 `assets/platform-config.js`
+8. 重建網站
+9. 提交並推送 GitHub Pages
+10. 線上測試登入、收藏、評論與會員下載
+
+## 本地自動部署腳本
+
+Codex 準備好的腳本是：
+
+```text
+tools/launch_supabase_backend.sh
+```
+
+它會一次完成：
+
+- link Supabase project
+- push database migrations
+- set Edge Function secrets
+- deploy download function
+- upload private DOCX / Markdown
+- enable frontend config
+- rebuild site
+- run basic checks
+- commit and push
+
+敏感資料不會提交到 GitHub。實際部署時會使用本機文件：
+
+```text
+.env.deploy.local
+```
+
+這個文件已被 `.gitignore` 忽略。
+
+## 私有下載文件
+
+目前本機書稿文件位置：
+
+```text
+/Users/beijisheng/Downloads/物性論3_投稿前總審版.docx
+/Users/beijisheng/Downloads/物性論3_投稿前總審版.md
+```
+
+上線後，它們會被上傳到 Supabase private Storage：
 
 ```text
 private-downloads/
@@ -49,103 +119,20 @@ private-downloads/
     wuxing-theory-book3.md
 ```
 
-目前本地最終稿可使用：
+GitHub Pages 公開倉庫不再保存這兩個文件，否則讀者可以繞過登入直接下載。
+
+## 評論審核
+
+讀者送出評論後，資料庫狀態是：
 
 ```text
-/Users/beijisheng/Downloads/物性論3_投稿前總審版.docx
-/Users/beijisheng/Downloads/物性論3_投稿前總審版.md
+pending
 ```
 
-上傳後不要把 DOCX / MD 放回公開 GitHub Pages 目錄，否則仍可被直鏈下載。
-
-## 4. 部署下載 Edge Function
-
-安裝並登入 Supabase CLI 後：
-
-```bash
-supabase login
-supabase link --project-ref <PROJECT_REF>
-supabase secrets set SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY>
-supabase secrets set PRIVATE_DOWNLOAD_BUCKET=private-downloads
-supabase functions deploy download
-```
-
-Supabase 通常會自帶 `SUPABASE_URL` 和 `SUPABASE_ANON_KEY`。如果你的環境沒有，補設：
-
-```bash
-supabase secrets set SUPABASE_URL=<PROJECT_URL>
-supabase secrets set SUPABASE_ANON_KEY=<ANON_PUBLIC_KEY>
-```
-
-## 5. 啟用前端配置
-
-編輯：
+審核通過後改成：
 
 ```text
-assets/platform-config.js
+approved
 ```
 
-改成：
-
-```js
-window.WUXING_PLATFORM_CONFIG = {
-  enabled: true,
-  supabaseUrl: "https://YOUR_PROJECT.supabase.co",
-  supabaseAnonKey: "YOUR_ANON_PUBLIC_KEY",
-  downloadFunctionUrl: "https://YOUR_PROJECT.supabase.co/functions/v1/download",
-  bookId: "wuxing-theory-book3"
-};
-```
-
-然後重建並推送：
-
-```bash
-python3 tools/build_site.py
-git add assets/platform-config.js index.html chapters resources assets tools
-git commit -m "Enable Supabase backend"
-git push origin main
-```
-
-## 6. 設定登入回跳網址
-
-在 Supabase Auth URL Configuration 中加入：
-
-```text
-https://jorsonbei.github.io/wuxing-theory-book3/
-https://jorsonbei.github.io/wuxing-theory-book3/**
-```
-
-本地測試可加入：
-
-```text
-http://127.0.0.1:8123/**
-```
-
-## 7. 評論審核
-
-讀者提交後，評論狀態是 `pending`。審核通過時，在 Supabase Table Editor 或 SQL 裡改：
-
-```sql
-update public.book_comments
-set status = 'approved',
-    approved_at = now()
-where id = '<COMMENT_ID>';
-```
-
-拒絕則改成：
-
-```sql
-update public.book_comments
-set status = 'rejected'
-where id = '<COMMENT_ID>';
-```
-
-## 8. 後續建議
-
-匿名評論正式開放後，建議再加：
-
-- Cloudflare Turnstile 防垃圾評論
-- 管理員審核後台
-- 下載頻率限制
-- 多書籍 `books` 管理界面
-- 郵件訂閱與新書通知
+之後可以再做一個管理後台，讓作者不用進 Supabase 後台也能審核評論。

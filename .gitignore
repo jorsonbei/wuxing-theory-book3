@@ -1,3 +1,6 @@
+.DS_Store
+.env.deploy.local
+.env.local
 book/*.md
 book/*.docx
 !book/README.md
