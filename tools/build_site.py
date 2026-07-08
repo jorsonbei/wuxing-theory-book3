@@ -426,7 +426,6 @@ def page_shell(
   <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{base}assets/styles.css?v={ASSET_VERSION}">
 {schema}  <script>
-  <script>
     window.MathJax = {{
       tex: {{ inlineMath: [['$', '$'], ['\\\\(', '\\\\)']], displayMath: [['$$', '$$'], ['\\\\[', '\\\\]']] }},
       svg: {{ fontCache: 'global' }}
@@ -474,10 +473,10 @@ def header(base: str = "") -> str:
     <a href="{base}index.html#library">書庫</a>
     <a href="{base}index.html#catalog">目錄</a>
     <a href="{base}resources/formula-canon.html">公式正典</a>
-    <a href="{base}resources/reproduction.html">復演入口</a>
-    <a href="{base}index.html#downloads">會員下載</a>
-    <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
-    <button class="top-link-button favorite-list-open" type="button">我的收藏</button>
+    <a href="{base}resources/reproduction.html">復演</a>
+    <a class="top-link-secondary" href="{base}index.html#downloads">下載</a>
+    <a class="top-link-secondary" href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
+    <button class="top-link-button favorite-list-open" type="button">收藏</button>
     <button class="top-link-button auth-open" type="button">登入</button>
     <button class="top-link-button auth-signout" type="button" hidden>登出</button>
   </nav>
@@ -504,17 +503,14 @@ def build_index(book_title: str, sections: list[dict]) -> str:
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <p class="edition">物性論系列 · 公開閱讀平台</p>
-      <h1>把龐大的物性論，拆成可以反覆閱讀的系列宇宙</h1>
-      <p class="lead">這裡不只是一本書的展示頁，而是物性論長期公開閱讀、版本收藏、公式索引與復演入口。讀者可以先自由閱讀，再沿著入門、物理、AI、復演與公式正典的路線，一步一步走進整個體系。</p>
+      <h1>宇宙是光之流體</h1>
+      <p class="lead">物性論公開閱讀平台。從宇宙底層、公式、AI 到復演，把龐大的體系拆成可閱讀、可檢查、可收藏的系列文本。</p>
       <div class="hero-actions">
-        <a class="button primary" href="chapters/preface.html">閱讀當前主書</a>
-        <a class="button" href="#library">進入書庫</a>
+        <a class="button primary" href="chapters/preface.html">開始閱讀</a>
+        <a class="button" href="resources/what-is-wuxing-theory.html">物性論是什麼</a>
       </div>
       <div class="stats">
-        <span><strong>1</strong> 本公開主書</span>
-        <span><strong>7</strong> 部</span>
-        <span><strong>26</strong> 章</span>
+        <span><strong>26</strong> 章完整主書</span>
         <a href="resources/formula-canon.html"><strong>104</strong> 條公式正典</a>
         <a href="resources/reproduction.html"><strong>公開</strong> 復演入口</a>
       </div>
@@ -527,10 +523,10 @@ def build_index(book_title: str, sections: list[dict]) -> str:
   <section id="library" class="library-section">
     <div class="section-heading">
       <p class="edition">系列書庫</p>
-      <h2>物性論不應被壓縮成一本書</h2>
-      <p>後續每一個版本、每一個分冊，都可以放在這裡。當前先公開主書，後續可加入入門版、AI 版、復演版、公式版與英文版。</p>
+      <h2>當前公開主書</h2>
+      <p>這一版先承擔主入口：讀者可以直接閱讀全文，也可以從公式、復演、AI 與主題頁切入。後續分冊會在成熟後加入書庫。</p>
     </div>
-    <div class="book-grid">
+    <div class="book-grid single-book-grid">
       <article class="book-card featured-book">
         <div class="book-cover-mini"><img src="assets/cover.jpg" alt="《宇宙是光之流體》封面"></div>
         <div class="book-card-copy">
@@ -549,21 +545,6 @@ def build_index(book_title: str, sections: list[dict]) -> str:
           </div>
           <p class="small-note">閱讀無需登入；雲端收藏與下載需要登入。若後端尚未配置，系統會保留入口並提示管理員啟用。</p>
         </div>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>物性論入門版</h3>
-        <p>給第一次接觸物性論的讀者，降低公式密度，先建立世界觀、例子與核心語感。</p>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>物性 AI 專卷</h3>
-        <p>集中展開狀態生成、世界模型、產業成本、幻覺治理與下一代 AI 架構。</p>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>公式與復演專卷</h3>
-        <p>把 104 條公式、復演包、外部裁判與反駁入口整理成可查、可跑、可審的技術讀本。</p>
       </article>
     </div>
   </section>
@@ -638,6 +619,16 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
             if next_s
             else ""
         )
+        toolbar_prev_link = (
+            f'<a class="button" href="{html.escape(prev_s["filename"])}">上一章</a>'
+            if prev_s
+            else ""
+        )
+        toolbar_next_link = (
+            f'<a class="button primary" href="{html.escape(next_s["filename"])}">下一章</a>'
+            if next_s
+            else ""
+        )
         body = f"""{header("../")}
 <div class="reader-shell">
   <main class="reader-main">
@@ -648,19 +639,24 @@ def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
           <h2>{html.escape(s["title"])}</h2>
         </div>
         <div class="reader-toolbar-actions">
+          {toolbar_prev_link}
+          {toolbar_next_link}
           <button class="button local-favorite" type="button" data-favorite-id="{html.escape(s["filename"])}" data-favorite-type="chapter" data-favorite-url="chapters/{html.escape(s["filename"])}" data-favorite-title="{html.escape(s["title"])}">收藏本章</button>
           <button class="button restore-reading" type="button">回到上次</button>
         </div>
       </div>
       <div class="reader-progress-track" aria-hidden="true"><span id="reader-progress"></span></div>
-      <div class="reader-controls">
-        <label><span>字體</span><select id="reader-font"><option value="serif">宋體</option><option value="sans">黑體</option><option value="kai">楷體</option></select></label>
-        <label><span>背景</span><select id="reader-theme"><option value="paper">紙張</option><option value="warm">米黃</option><option value="green">護眼</option><option value="dark">夜間</option><option value="oled">OLED</option></select></label>
-        <label><span>字號</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
-        <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
-        <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
-      </div>
-      <p class="small-note">閱讀設定與進度保存在本機瀏覽器；登入後可把章節收藏寫入雲端帳號。</p>
+      <details class="reader-settings-panel">
+        <summary>閱讀設定</summary>
+        <div class="reader-controls">
+          <label><span>字體</span><select id="reader-font"><option value="serif">宋體</option><option value="sans">黑體</option><option value="kai">楷體</option></select></label>
+          <label><span>背景</span><select id="reader-theme"><option value="paper">紙張</option><option value="warm">米黃</option><option value="green">護眼</option><option value="dark">夜間</option><option value="oled">OLED</option></select></label>
+          <label><span>字號</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
+          <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
+          <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
+        </div>
+        <p class="small-note">閱讀設定與進度保存在本機瀏覽器；登入後可把章節收藏寫入雲端帳號。</p>
+      </details>
     </section>
     <article class="chapter-content">
       {article}

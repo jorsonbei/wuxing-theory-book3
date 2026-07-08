@@ -90,7 +90,6 @@
 ]
   </script>
   <script>
-  <script>
     window.MathJax = {
       tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
       svg: { fontCache: 'global' }
@@ -108,10 +107,10 @@
     <a href="index.html#library">書庫</a>
     <a href="index.html#catalog">目錄</a>
     <a href="resources/formula-canon.html">公式正典</a>
-    <a href="resources/reproduction.html">復演入口</a>
-    <a href="index.html#downloads">會員下載</a>
-    <a href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
-    <button class="top-link-button favorite-list-open" type="button">我的收藏</button>
+    <a href="resources/reproduction.html">復演</a>
+    <a class="top-link-secondary" href="index.html#downloads">下載</a>
+    <a class="top-link-secondary" href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
+    <button class="top-link-button favorite-list-open" type="button">收藏</button>
     <button class="top-link-button auth-open" type="button">登入</button>
     <button class="top-link-button auth-signout" type="button" hidden>登出</button>
   </nav>
@@ -119,17 +118,14 @@
 <main>
   <section class="hero">
     <div class="hero-copy">
-      <p class="edition">物性論系列 · 公開閱讀平台</p>
-      <h1>把龐大的物性論，拆成可以反覆閱讀的系列宇宙</h1>
-      <p class="lead">這裡不只是一本書的展示頁，而是物性論長期公開閱讀、版本收藏、公式索引與復演入口。讀者可以先自由閱讀，再沿著入門、物理、AI、復演與公式正典的路線，一步一步走進整個體系。</p>
+      <h1>宇宙是光之流體</h1>
+      <p class="lead">物性論公開閱讀平台。從宇宙底層、公式、AI 到復演，把龐大的體系拆成可閱讀、可檢查、可收藏的系列文本。</p>
       <div class="hero-actions">
-        <a class="button primary" href="chapters/preface.html">閱讀當前主書</a>
-        <a class="button" href="#library">進入書庫</a>
+        <a class="button primary" href="chapters/preface.html">開始閱讀</a>
+        <a class="button" href="resources/what-is-wuxing-theory.html">物性論是什麼</a>
       </div>
       <div class="stats">
-        <span><strong>1</strong> 本公開主書</span>
-        <span><strong>7</strong> 部</span>
-        <span><strong>26</strong> 章</span>
+        <span><strong>26</strong> 章完整主書</span>
         <a href="resources/formula-canon.html"><strong>104</strong> 條公式正典</a>
         <a href="resources/reproduction.html"><strong>公開</strong> 復演入口</a>
       </div>
@@ -142,10 +138,10 @@
   <section id="library" class="library-section">
     <div class="section-heading">
       <p class="edition">系列書庫</p>
-      <h2>物性論不應被壓縮成一本書</h2>
-      <p>後續每一個版本、每一個分冊，都可以放在這裡。當前先公開主書，後續可加入入門版、AI 版、復演版、公式版與英文版。</p>
+      <h2>當前公開主書</h2>
+      <p>這一版先承擔主入口：讀者可以直接閱讀全文，也可以從公式、復演、AI 與主題頁切入。後續分冊會在成熟後加入書庫。</p>
     </div>
-    <div class="book-grid">
+    <div class="book-grid single-book-grid">
       <article class="book-card featured-book">
         <div class="book-cover-mini"><img src="assets/cover.jpg" alt="《宇宙是光之流體》封面"></div>
         <div class="book-card-copy">
@@ -164,21 +160,6 @@
           </div>
           <p class="small-note">閱讀無需登入；雲端收藏與下載需要登入。若後端尚未配置，系統會保留入口並提示管理員啟用。</p>
         </div>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>物性論入門版</h3>
-        <p>給第一次接觸物性論的讀者，降低公式密度，先建立世界觀、例子與核心語感。</p>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>物性 AI 專卷</h3>
-        <p>集中展開狀態生成、世界模型、產業成本、幻覺治理與下一代 AI 架構。</p>
-      </article>
-      <article class="book-card ghost-book">
-        <p class="book-kicker">預留系列</p>
-        <h3>公式與復演專卷</h3>
-        <p>把 104 條公式、復演包、外部裁判與反駁入口整理成可查、可跑、可審的技術讀本。</p>
       </article>
     </div>
   </section>
