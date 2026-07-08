@@ -272,7 +272,6 @@ def build_index(book_title: str, sections: list[dict]) -> str:
       <div class="hero-actions">
         <a class="button primary" href="chapters/preface.html">閱讀當前主書</a>
         <a class="button" href="#library">進入書庫</a>
-        <a class="button" href="#reading-routes">選擇閱讀路線</a>
       </div>
       <div class="stats">
         <span><strong>1</strong> 本公開主書</span>
@@ -291,7 +290,7 @@ def build_index(book_title: str, sections: list[dict]) -> str:
     <div class="section-heading">
       <p class="edition">系列書庫</p>
       <h2>物性論不應被壓縮成一本書</h2>
-      <p>後續每一個版本、每一個分冊、每一條閱讀路線，都可以放在這裡。當前先公開主書，後續可加入入門版、AI 版、復演版、公式版與英文版。</p>
+      <p>後續每一個版本、每一個分冊，都可以放在這裡。當前先公開主書，後續可加入入門版、AI 版、復演版、公式版與英文版。</p>
     </div>
     <div class="book-grid">
       <article class="book-card featured-book">
@@ -328,36 +327,6 @@ def build_index(book_title: str, sections: list[dict]) -> str:
         <h3>公式與復演專卷</h3>
         <p>把 104 條公式、復演包、外部裁判與反駁入口整理成可查、可跑、可審的技術讀本。</p>
       </article>
-    </div>
-  </section>
-
-  <section id="reading-routes" class="route-section">
-    <div class="section-heading">
-      <p class="edition">閱讀路線</p>
-      <h2>不同讀者，不必從同一扇門進來</h2>
-      <p>物性論體系太大，讀者需要路線，而不是被一整座山壓住。</p>
-    </div>
-    <div class="route-grid">
-      <a class="route-card" href="chapters/preface.html"><strong>普通讀者</strong><span>先讀序章與第一部，用空間、光、物質、時間四個直覺入口建立底層圖像。</span></a>
-      <a class="route-card" href="chapters/chapter-09.html"><strong>科學讀者</strong><span>從第三部開始，看舊公式如何被歸根，再進入常數、物質生成與外部審判。</span></a>
-      <a class="route-card" href="chapters/chapter-22.html"><strong>AI 從業者</strong><span>直接進入第六部，看語言生成器為什麼接不住世界，以及物性 AI 怎樣轉向狀態生成。</span></a>
-      <a class="route-card" href="resources/formula-canon.html"><strong>復演與公式讀者</strong><span>從 104 條公式正典與復演入口進入，把語氣交給材料、代碼、邊界與失敗定位。</span></a>
-    </div>
-  </section>
-
-  <section class="reader-feature-section">
-    <div class="section-heading">
-      <p class="edition">閱讀工具</p>
-      <h2>先把閱讀體驗做紮實</h2>
-      <p>本版已加入本機閱讀器能力；下一步接入後端後，收藏、下載與評論就能從本機體驗升級為雲端帳號體驗。</p>
-    </div>
-    <div class="feature-grid">
-      <div><strong>閱讀不登入</strong><span>所有章節仍可直接打開，適合傳播與引用。</span></div>
-      <div><strong>閱讀器設定</strong><span>章節頁可切換字體、背景、字號、行距與版心寬度。</span></div>
-      <div><strong>本機進度</strong><span>瀏覽器會記錄上次閱讀位置，首頁和章節頁都能返回。</span></div>
-      <div><strong>雲端收藏</strong><span>登入後收藏寫入資料庫，不再只停留在本機瀏覽器。</span></div>
-      <div><strong>公開評論</strong><span>讀者可免登入送出評論，先進入待審狀態，審核後公開顯示。</span></div>
-      <div><strong>會員下載</strong><span>下載文件放入私有儲存，登入後由後端生成短期下載連結。</span></div>
     </div>
   </section>
 
