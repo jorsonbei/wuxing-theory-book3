@@ -25,8 +25,8 @@ require_var SUPABASE_URL
 require_var SUPABASE_ANON_KEY
 require_var SUPABASE_SERVICE_ROLE_KEY
 
-DOCX_PATH="${DOCX_PATH:-/Users/beijisheng/Downloads/物性論3_投稿前總審版.docx}"
-MD_PATH="${MD_PATH:-/Users/beijisheng/Downloads/物性論3_投稿前總審版.md}"
+DOCX_PATH="${DOCX_PATH:-$ROOT/book/wuxing-theory-book3.docx}"
+MD_PATH="${MD_PATH:-$ROOT/book/wuxing-theory-book3.md}"
 
 if [[ ! -f "$DOCX_PATH" ]]; then
   echo "DOCX not found: $DOCX_PATH" >&2
@@ -53,15 +53,32 @@ supabase secrets set \
 echo "Deploying download Edge Function..."
 supabase functions deploy download --project-ref "$SUPABASE_PROJECT_REF" --use-api
 
+upload_private_file() {
+  local file="$1"
+  local object_path="$2"
+  local content_type="$3"
+  local code
+
+  code=$(/usr/bin/curl -sS -o /tmp/wuxing_supabase_upload_response.json -w "%{http_code}" \
+    -X POST "$SUPABASE_URL/storage/v1/object/private-downloads/$object_path" \
+    -H "Authorization: Bearer $SUPABASE_SERVICE_ROLE_KEY" \
+    -H "apikey: $SUPABASE_SERVICE_ROLE_KEY" \
+    -H "x-upsert: true" \
+    -H "Content-Type: $content_type" \
+    --data-binary "@$file")
+
+  if [[ "$code" != "200" && "$code" != "201" ]]; then
+    echo "Upload failed for $object_path, HTTP $code" >&2
+    sed -n '1,120p' /tmp/wuxing_supabase_upload_response.json >&2
+    exit 1
+  fi
+
+  echo "Uploaded $object_path"
+}
+
 echo "Uploading private manuscript files..."
-supabase storage cp "$DOCX_PATH" "ss:///private-downloads/wuxing-theory-book3/wuxing-theory-book3.docx" \
-  --experimental \
-  --linked \
-  --content-type "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-supabase storage cp "$MD_PATH" "ss:///private-downloads/wuxing-theory-book3/wuxing-theory-book3.md" \
-  --experimental \
-  --linked \
-  --content-type "text/markdown"
+upload_private_file "$DOCX_PATH" "wuxing-theory-book3/wuxing-theory-book3.docx" "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+upload_private_file "$MD_PATH" "wuxing-theory-book3/wuxing-theory-book3.md" "text/markdown"
 
 echo "Verifying private storage objects..."
 supabase storage ls "ss:///private-downloads/wuxing-theory-book3" --experimental --linked

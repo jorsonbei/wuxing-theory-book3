@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>第三部技術夾層 ｜ 舊物理公式的約化推導閉包｜宇宙是光之流體：物性論作為新的科學範式</title>
+  <meta name="description" content="閱讀《第三部技術夾層 ｜ 舊物理公式的約化推導閉包》：第三部技術夾層 ｜ 舊物理公式的約化推導閉包 如果只把牛頓、電磁、量子與相對論重新命名為物性語言，這還不夠硬。真正能面對挑戰的新範式，必須把舊公式如何從更底層的狀態、刻度、守恆核與作用量中降維顯化，逐步推給讀者看。 因此，本夾層放在第三部之後、第四部之前…">
+  <meta name="keywords" content="物性論, 背景海, 狀態接力, 關係腔, 標準模型, 宇宙是光之流體, 光之流體, 新科學範式, 宇宙不是空的, 結構化停頓, 勢差, 顯化之門">
+  <link rel="canonical" href="https://jorsonbei.github.io/wuxing-theory-book3/chapters/technical-derivation-closure.html">
+  <meta property="og:title" content="第三部技術夾層 ｜ 舊物理公式的約化推導閉包｜宇宙是光之流體：物性論作為新的科學範式">
+  <meta property="og:description" content="閱讀《第三部技術夾層 ｜ 舊物理公式的約化推導閉包》：第三部技術夾層 ｜ 舊物理公式的約化推導閉包 如果只把牛頓、電磁、量子與相對論重新命名為物性語言，這還不夠硬。真正能面對挑戰的新範式，必須把舊公式如何從更底層的狀態、刻度、守恆核與作用量中降維顯化，逐步推給讀者看。 因此，本夾層放在第三部之後、第四部之前…">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://jorsonbei.github.io/wuxing-theory-book3/chapters/technical-derivation-closure.html">
+  <meta property="og:site_name" content="物性論閱讀平台">
+  <meta property="og:locale" content="zh_TW">
+  <meta property="og:image" content="https://jorsonbei.github.io/wuxing-theory-book3/assets/cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="第三部技術夾層 ｜ 舊物理公式的約化推導閉包｜宇宙是光之流體：物性論作為新的科學範式">
+  <meta name="twitter:description" content="閱讀《第三部技術夾層 ｜ 舊物理公式的約化推導閉包》：第三部技術夾層 ｜ 舊物理公式的約化推導閉包 如果只把牛頓、電磁、量子與相對論重新命名為物性語言，這還不夠硬。真正能面對挑戰的新範式，必須把舊公式如何從更底層的狀態、刻度、守恆核與作用量中降維顯化，逐步推給讀者看。 因此，本夾層放在第三部之後、第四部之前…">
+  <meta name="twitter:image" content="https://jorsonbei.github.io/wuxing-theory-book3/assets/cover.jpg">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/styles.css?v=20260708-platform-backend-v1">
+  <script type="application/ld+json">
+[
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "第三部技術夾層 ｜ 舊物理公式的約化推導閉包",
+    "description": "閱讀《第三部技術夾層 ｜ 舊物理公式的約化推導閉包》：第三部技術夾層 ｜ 舊物理公式的約化推導閉包 如果只把牛頓、電磁、量子與相對論重新命名為物性語言，這還不夠硬。真正能面對挑戰的新範式，必須把舊公式如何從更底層的狀態、刻度、守恆核與作用量中降維顯化，逐步推給讀者看。 因此，本夾層放在第三部之後、第四部之前…",
+    "inLanguage": "zh-Hant",
+    "author": [
+      {
+        "@type": "Person",
+        "name": "景龍鎖"
+      },
+      {
+        "@type": "Person",
+        "name": "貝記勝"
+      }
+    ],
+    "isPartOf": {
+      "@type": "Book",
+      "name": "宇宙是光之流體：物性論作為新的科學範式",
+      "url": "https://jorsonbei.github.io/wuxing-theory-book3/"
+    },
+    "mainEntityOfPage": "https://jorsonbei.github.io/wuxing-theory-book3/chapters/technical-derivation-closure.html",
+    "url": "https://jorsonbei.github.io/wuxing-theory-book3/chapters/technical-derivation-closure.html",
+    "image": "https://jorsonbei.github.io/wuxing-theory-book3/assets/cover.jpg",
+    "keywords": [
+      "物性論",
+      "背景海",
+      "狀態接力",
+      "關係腔",
+      "標準模型",
+      "宇宙是光之流體",
+      "光之流體",
+      "新科學範式",
+      "宇宙不是空的",
+      "結構化停頓",
+      "勢差",
+      "顯化之門"
+    ],
+    "position": 17
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "首頁",
+        "item": "https://jorsonbei.github.io/wuxing-theory-book3/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "章節",
+        "item": "https://jorsonbei.github.io/wuxing-theory-book3/index.html#catalog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "第三部技術夾層 ｜ 舊物理公式的約化推導閉包",
+        "item": "https://jorsonbei.github.io/wuxing-theory-book3/chapters/technical-derivation-closure.html"
+      }
+    ]
+  }
+]
+  </script>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="../assets/platform-config.js?v=20260708-platform-backend-v1"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <script defer src="../assets/site.js?v=20260708-platform-backend-v1"></script>
+</head>
+<body data-base="../">
+<header class="site-header">
+  <a class="brand" href="../index.html">物性論閱讀平台</a>
+  <nav class="top-links">
+    <a href="../index.html#library">書庫</a>
+    <a href="../index.html#catalog">目錄</a>
+    <a href="../resources/formula-canon.html">公式正典</a>
+    <a href="../resources/reproduction.html">復演</a>
+    <a class="top-link-secondary" href="../index.html#downloads">下載</a>
+    <a class="top-link-secondary" href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
+    <button class="top-link-button favorite-list-open" type="button">收藏</button>
+    <button class="top-link-button auth-open" type="button">登入</button>
+    <button class="top-link-button auth-signout" type="button" hidden>登出</button>
+  </nav>
+</header>
+<div class="reader-shell">
+  <main class="reader-main">
+    <section class="reader-toolbar" aria-label="閱讀設定">
+      <div class="reader-toolbar-head">
+        <div>
+          <p class="edition">閱讀器</p>
+          <h2>第三部技術夾層 ｜ 舊物理公式的約化推導閉包</h2>
+        </div>
+        <div class="reader-toolbar-actions">
+          <a class="button" href="chapter-12.html">上一章</a>
+          <a class="button primary" href="part-04.html">下一章</a>
+          <button class="button local-favorite" type="button" data-favorite-id="technical-derivation-closure.html" data-favorite-type="chapter" data-favorite-url="chapters/technical-derivation-closure.html" data-favorite-title="第三部技術夾層 ｜ 舊物理公式的約化推導閉包">收藏本章</button>
+          <button class="button restore-reading" type="button">回到上次</button>
+        </div>
+      </div>
+      <div class="reader-progress-track" aria-hidden="true"><span id="reader-progress"></span></div>
+      <details class="reader-settings-panel">
+        <summary>閱讀設定</summary>
+        <div class="reader-controls">
+          <label><span>字體</span><select id="reader-font"><option value="serif">宋體</option><option value="sans">黑體</option><option value="kai">楷體</option></select></label>
+          <label><span>背景</span><select id="reader-theme"><option value="paper">紙張</option><option value="warm">米黃</option><option value="green">護眼</option><option value="dark">夜間</option><option value="oled">OLED</option></select></label>
+          <label><span>字號</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
+          <label><span>行距</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
+          <label><span>版心</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
+        </div>
+        <p class="small-note">閱讀設定與進度保存在本機瀏覽器；登入後可把章節收藏寫入雲端帳號。</p>
+      </details>
+    </section>
+    <article class="chapter-content">
+      <h1 id="第三部技術夾層-舊物理公式的約化推導閉包">第三部技術夾層 ｜
+舊物理公式的約化推導閉包</h1>
+<p>如果只把牛頓、電磁、量子與相對論重新命名為物性語言，這還不夠硬。真正能面對挑戰的新範式，必須把舊公式如何從更底層的狀態、刻度、守恆核與作用量中降維顯化，逐步推給讀者看。</p>
+<p>因此，本夾層放在第三部之後、第四部之前。第三部已經完成「歸根」：告訴我們舊物理不是廢墟，而是母結構在特定
+Ω
+刻度下留下的穩定投影。這一節再往前走一步：把可以推導的推導乾淨，把還不能宣稱終局閉合的地方明確標成邊界。</p>
+<p>不需要數學細節的讀者，可以把本夾層當成硬核附錄略讀；需要檢查理論骨架的讀者，請從這裡開始審問《物性論》是否真的敢把自己交給公式。</p>
+<h3 id="一推導閉包的四個等級">一、推導閉包的四個等級</h3>
+<p>本書採用四級閉包，避免把讀者入口、條件約化、標準推導與終局證明混成一團。</p>
+<p>• D0 語義歸根：能解釋公式在物性論中的角色，可以作為讀者入口。</p>
+<p>• D1 條件約化：在給定 Q、Ω、Π、Δσ 條件下，可以推出標準形式。</p>
+<p>• D2
+標準變分推導：從明確作用量或哈密頓量推出方程，可以說推導乾淨。</p>
+<p>• D3
+母方程終局推出：從唯一物性母方程推出數值常數、完整粒子譜與全部邊界；本書目前不宣稱完成。</p>
+<p>所以，所謂「推乾淨」，不是把所有未解題硬寫成已解，而是每一條公式都按同一條路徑過關：</p>
+<blockquote>
+<p>母結構假設 → Ω 刻度與 Q 守恆 → 有效作用量 / 哈密頓量 → 變分或極值條件
+→ 標準公式 → 成立窗口 → 未閉合邊界</p>
+</blockquote>
+<h3 id="二從物性穩定包推出-f-ma">二、從物性穩定包推出 F = ma</h3>
+<h4 id="宏觀約化">1. 宏觀約化</h4>
+<p>設一個物體不是孤立磚塊，而是背景海中的局域穩定包。它在宏觀刻度 Ω
+下有可記錄中心：</p>
+<figure>
+<img src="../assets/formula-derivations/image1.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>其中 q(x,t) 是該穩定包的守恆密度，Q = ∫ q(x,t)d³x 是 Q 核守恆量。當 Q
+核守恆、低速、內部形變可忽略時，複雜物性狀態可以約化成一個宏觀自由度
+X(t)。</p>
+<h4 id="有效作用量">2. 有效作用量</h4>
+<p>在低速、宏觀、方向無偏的條件下，中心運動的最低階有效拉格朗日量只能寫成：</p>
+<figure>
+<img src="../assets/formula-derivations/image2.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>為了讓推導更乾淨，下文記 m* 表示有效質量，V*
+表示有效勢函數；星號只表示「有效量」，不是新的假設。</p>
+<h4 id="變分">3. 變分</h4>
+<figure>
+<img src="../assets/formula-derivations/image3.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image4.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image5.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image6.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對任意 δX 成立，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image7.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image8.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image9.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這就是 F = ma。若有效質量隨時間變化，更一般的形式是 F = d(m* v) /
+dt；只有當 m* 近似恆定時，才退化為 F = ma。</p>
+<h3
+id="三從關係勢場推出牛頓反平方律">三、從關係勢場推出牛頓反平方律</h3>
+<p>在宏觀弱場刻度下，兩個穩定包之間的長程關係腔可壓縮為標量勢
+Φ(x)。質量密度 ρ(x) 是 Q 核存在成本在宏觀刻度下的密度投影。</p>
+<figure>
+<img src="../assets/formula-derivations/image10.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對 Φ 變分：</p>
+<figure>
+<img src="../assets/formula-derivations/image11.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image12.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image13.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對點質量 M，ρ(x)=Mδ³(x)。利用三維格林函數
+∇²(1/r)=−4πδ³(x)，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image14.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image15.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image16.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這就是牛頓萬有引力反平方律。它在三維、靜態、弱場、長程關係腔可標量化的宏觀
+Ω 刻度下成立；它沒有推出 G 的數值，也沒有完成強場或量子引力。</p>
+<h3
+id="四從局域狀態接力推出波動方程與-c-的角色">四、從局域狀態接力推出波動方程與
+c 的角色</h3>
+<p>前文說過，光不是小球快遞，而是狀態接力。離散形式可以寫成：</p>
+<figure>
+<img src="../assets/formula-derivations/image17.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>只保留一階時間變化時，連續極限給出擴散/耗散型方程：</p>
+<figure>
+<img src="../assets/formula-derivations/image18.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>但光速傳播不是普通擴散。要得到可逆波動，關係腔必須保留二階時間結構：</p>
+<figure>
+<img src="../assets/formula-derivations/image19.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image20.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image21.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>代入平面波 a=a0 exp[i(k·x-ωt)]，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image22.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image23.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>因此，c
+是關係腔中可逆局域擾動的最大轉譯速率，是因果接力的硬邊界；本書不把它的實驗數值偽裝成母方程終局推出。</p>
+<h3 id="五從關係腔連接推出-maxwell-方程">五、從關係腔連接推出 Maxwell
+方程</h3>
+<p>把電磁場理解為關係腔中的 U(1) 連接。定義四維勢與場強張量：</p>
+<figure>
+<img src="../assets/formula-derivations/image24.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image25.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>取規範不變作用量：</p>
+<figure>
+<img src="../assets/formula-derivations/image26.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對四維勢變分並分部積分，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image27.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這對應 Maxwell 的非齊次方程：</p>
+<figure>
+<img src="../assets/formula-derivations/image28.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image29.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image30.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>由於 F=dA，自動滿足 Bianchi 恆等式：</p>
+<figure>
+<img src="../assets/formula-derivations/image31.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image32.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image33.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這完成了「關係腔連接 → 規範場 → Maxwell 方程」的 D2
+推導；但尚未從唯一母方程推出 U(1) 的終局來源與 e、ε0、μ0
+的全部數值。</p>
+<h3 id="六從作用量相位推出-schrödinger-方程">六、從作用量相位推出
+Schrödinger 方程</h3>
+<p>量子態不是神秘雲霧，而是狀態幅度與作用量相位的合成：</p>
+<figure>
+<img src="../assets/formula-derivations/image34.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>在固定 Q 核、低速、外勢 V(x) 下，取非相對論哈密頓量：</p>
+<figure>
+<img src="../assets/formula-derivations/image35.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image36.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image37.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>取復場作用量：</p>
+<figure>
+<img src="../assets/formula-derivations/image38.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對 ψ* 變分，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image39.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這就是 Schrödinger 方程。這一推導說明 ψ 是潛態在 Ω_quantum
+下的相位-密度賬本；它沒有終局解決測量問題，也沒有推出 ℏ 的數值。</p>
+<h3 id="七從相對論能量殼推出-dirac-方程">七、從相對論能量殼推出 Dirac
+方程</h3>
+<p>相對論穩定包滿足：</p>
+<figure>
+<img src="../assets/formula-derivations/image40.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>若要求一階時間、一階空間的局域演化，需寫成：</p>
+<figure>
+<img src="../assets/formula-derivations/image41.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>要求哈密頓量平方回到相對論能量殼：</p>
+<figure>
+<img src="../assets/formula-derivations/image42.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>矩陣必須滿足：</p>
+<figure>
+<img src="../assets/formula-derivations/image43.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image44.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image45.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>引入 gamma 矩陣後，得到協變形式：</p>
+<figure>
+<img src="../assets/formula-derivations/image46.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這就是 Dirac 方程。它說明相對論 Q
+核不能再被壓成單一標量，必須展開為旋量結構。它沒有推出所有費米子代際質量，也沒有推出完整標準模型表示。</p>
+<h3
+id="八從幾何關係腔推出-einstein-場方程與牛頓弱場">八、從幾何關係腔推出
+Einstein 場方程與牛頓弱場</h3>
+<p>在大尺度強關係腔中，背景不再只是舞台，而是參與結算的幾何對象。用度規表示宏觀關係腔，取
+Einstein-Hilbert 作用量加物質作用量：</p>
+<figure>
+<img src="../assets/formula-derivations/image47.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>對度規變分，幾何項給出：</p>
+<figure>
+<img src="../assets/formula-derivations/image48.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>物質項定義應力能量張量。若 x0=ct，可寫成：</p>
+<figure>
+<img src="../assets/formula-derivations/image49.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>令總變分為零，得到：</p>
+<figure>
+<img src="../assets/formula-derivations/image50.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>這就是 Einstein 場方程。弱場、低速、靜態條件下：</p>
+<figure>
+<img src="../assets/formula-derivations/image51.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image52.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image13.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>於是回收牛頓弱場。這一推導完成幾何作用量到場方程的 D2
+閉包，但沒有完成量子引力，也沒有證明 Einstein-Hilbert
+形式是唯一可能的終局母作用量。</p>
+<h3 id="九從相對論作用量推出-e-mc²">九、從相對論作用量推出 E = mc²</h3>
+<p>對自由穩定包，取相對論不變作用量：</p>
+<figure>
+<img src="../assets/formula-derivations/image53.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image54.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image55.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>動量與能量為：</p>
+<figure>
+<img src="../assets/formula-derivations/image56.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image57.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image58.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>當 v=0：</p>
+<figure>
+<img src="../assets/formula-derivations/image59.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>因此，質量不是死標籤，而是穩定包維持 Q 核的存在成本；c²
+是該存在成本與能量賬本之間的兌換倍率。</p>
+<h3 id="十四個基本常數的可推導層級">十、四個基本常數的可推導層級</h3>
+<h4 id="c">c</h4>
+<p>• 已推乾淨：c 是局域可逆擾動的最大傳播速度，是 Lorentz
+結構中的因果錐邊界，也是 Maxwell 約化中的電磁波速度。</p>
+<p>• 未閉合：尚未從唯一物性母方程推出 c 的無量綱數值。</p>
+<h4 id="ℏ">ℏ</h4>
+<p>• 已推乾淨：ℏ 是作用量 S 到相位 exp(iS/ℏ) 的兌換刻度，控制
+Schrödinger/Dirac 方程中的相位演化與動量算符。</p>
+<p>• 未閉合：尚未從 Book1 母結構推出 ℏ 的實驗數值。</p>
+<h4 id="g">G</h4>
+<p>• 已推乾淨：G 是長程關係腔/幾何腔體的耦合強度，出現在 Poisson 方程與
+Einstein-Hilbert 作用量中。</p>
+<p>• 未閉合：尚未從 Book1 母結構推出 G
+的數值，也沒有完成量子引力閉合。</p>
+<h4 id="k_b">k_B</h4>
+<p>熱力學中：</p>
+<figure>
+<img src="../assets/formula-derivations/image60.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<figure>
+<img src="../assets/formula-derivations/image61.png" alt="公式" />
+<figcaption aria-hidden="true">公式</figcaption>
+</figure>
+<p>所以 k_B 是微觀狀態計數 ln W 與宏觀熱賬 S/T/E 之間的兌換常數。Book1
+可以推出它的賬本角色，不能推出其 SI 數值來源。</p>
+<h3 id="十一推導閉包總判決">十一、推導閉包總判決</h3>
+<p>• F=ma：D2。由穩定包有效作用量變分推出，成立於固定
+Q、低速、宏觀、有效質量近似恆定。</p>
+<p>• Newton 引力：D2。由靜態關係勢作用量推出 Poisson 方程與反平方律；G
+數值未閉合。</p>
+<p>• 局域傳播與 c：D1/D2。可推出波方程與 c
+的結構角色；數值未由母方程推出。</p>
+<p>• Maxwell 方程：D2。由 U(1) 連接與規範作用量推出；U(1) 終局來源與
+e、ε0、μ0 數值未推出。</p>
+<p>• Schrödinger 方程：D2。由非相對論復場作用量推出；測量問題與 ℏ
+數值未閉合。</p>
+<p>• Dirac
+方程：D2。由相對論能量殼與一階局域演化推出；代際質量譜與完整標準模型表示未閉合。</p>
+<p>• Einstein
+場方程：D2。由幾何作用量推出並回收牛頓弱場；量子引力與強場終局閉合未完成。</p>
+<p>• E=mc²：D2。由相對論自由穩定包作用量推出；依賴 c
+作為因果速度邊界。</p>
+<p>• 本夾層完成 D1-D2 級推導閉包；仍不能宣稱
+D3：全部常數數值、完整粒子質量譜、量子引力與全外部等價尚未完成。</p>
+<p>到這裡，第三部真正完成了自己的任務：不是把舊物理燒掉，而是把它們放回母結構，推清楚它們為什麼會在自己的
+Ω
+窗口內成立；同時也把尚未攻下的城門標在地圖上。下一頁開始，理論不再停留在推導室裡，它要進入第四部的淬火實驗。</p>
+
+    </article>
+    <section class="reader-comments" data-book-id="wuxing-theory-book3" data-chapter-path="technical-derivation-closure.html" data-chapter-title="第三部技術夾層 ｜ 舊物理公式的約化推導閉包">
+      <h2>讀者評論</h2>
+      <p>閱讀與評論不需要登入。評論送出後會先進入待審狀態，審核通過後公開顯示。</p>
+      <form class="comment-form">
+        <label><span>稱呼</span><input name="visitor_name" maxlength="80" placeholder="你的稱呼"></label>
+        <label><span>評論</span><textarea name="body" maxlength="2000" required placeholder="寫下你的問題、感受或反駁"></textarea></label>
+        <button class="button primary" type="submit">送出評論</button>
+      </form>
+      <p class="comment-status" aria-live="polite"></p>
+      <div class="comment-list" data-comment-list></div>
+    </section>
+    <nav class="chapter-pager" aria-label="章節切換"><a class="button" href="chapter-12.html">上一章</a><a class="button primary" href="part-04.html">下一章</a></nav>
+  </main>
+  <aside class="reader-nav" aria-label="章節目錄">
+    <a class="back-home" href="../index.html">← 返回首頁</a>
+    <label class="search-box compact">
+      <span>搜尋</span>
+      <input id="site-search" type="search" placeholder="搜尋全書">
+    </label>
+    <div id="search-results" class="search-results compact" aria-live="polite"></div>
+    <nav><a class="nav-item preface" href="../chapters/preface.html">序章 ｜ 不是一種觀點，而是一套新範式</a>
+<a class="nav-item part" href="../chapters/part-01.html">第一部 ｜ 宇宙不是空的</a>
+<a class="nav-item chapter" href="../chapters/chapter-01.html">第一章 ｜ 世界不是空房間</a>
+<a class="nav-item chapter" href="../chapters/chapter-02.html">第二章 ｜ 光不是小球快遞，而是狀態接力</a>
+<a class="nav-item chapter" href="../chapters/chapter-03.html">第三章 ｜ 物質的真相：一場「結構化的停頓」</a>
+<a class="nav-item chapter" href="../chapters/chapter-04.html">第四章 ｜ 時間的幻象：宇宙不提供河流，只提供賬本</a>
+<a class="nav-item part" href="../chapters/part-02.html">第二部 ｜ 造物：宇宙發動機的八個齒輪</a>
+<a class="nav-item chapter" href="../chapters/chapter-05.html">第五章 ｜ 發動機的點火：勢差（Δσ）與合法意外（η）</a>
+<a class="nav-item chapter" href="../chapters/chapter-06.html">第六章 ｜ 承載萬物的溫床：關係腔（Π）與守恆核（Q）</a>
+<a class="nav-item chapter" href="../chapters/chapter-07.html">第七章 ｜ 最冷酷的審查：顯化之門（E_show）與觀察刻度（Ω）</a>
+<a class="nav-item chapter" href="../chapters/chapter-08.html">第八章 ｜ 宇宙的終極會計學：黑子（B_σ）與正性成果（Σ⁺）</a>
+<a class="nav-item part" href="../chapters/part-03.html">第三部 ｜ 歸根：舊物理的尋根之旅</a>
+<a class="nav-item chapter" href="../chapters/chapter-09.html">第九章 ｜ 新範式不是燒掉舊地圖，而是找到共同的山脈</a>
+<a class="nav-item chapter" href="../chapters/chapter-10.html">第十章 ｜ 力不是小手，是坡度——牛頓與引力的物性歸根</a>
+<a class="nav-item chapter" href="../chapters/chapter-11.html">第十一章 ｜ 幽靈的舞步：可能性雲與關係腔的局域彎曲（薛定諤與麥克斯韋的物性歸根）</a>
+<a class="nav-item chapter" href="../chapters/chapter-12.html">第十二章 ｜ 常數不是死數字，而是宇宙的轉接頭</a>
+<a class="nav-item technical active" href="../chapters/technical-derivation-closure.html">第三部技術夾層 ｜ 舊物理公式的約化推導閉包</a>
+<a class="nav-item part" href="../chapters/part-04.html">第四部 ｜ 淬火：物質如何從背景海中活下來</a>
+<a class="nav-item chapter" href="../chapters/chapter-13.html">第十三章 ｜ 短亮不是長留：一個擾動的七道生死門（HFCD 的誕生）</a>
+<a class="nav-item chapter" href="../chapters/chapter-14.html">第十四章 ｜ 從一塊墊腳石，走到一片新大陸：點、脊、族、島的偉大跋涉</a>
+<a class="nav-item chapter" href="../chapters/chapter-15.html">第十五章 ｜ 外部審判的入場規則</a>
+<a class="nav-item chapter" href="../chapters/chapter-16.html">第十六章 ｜ 盾與矛的決裂：隱藏保護與可見顯化的分道揚鑣</a>
+<a class="nav-item part" href="../chapters/part-05.html">第五部 ｜ 升堂：走上世界最高物理審判臺</a>
+<a class="nav-item chapter" href="../chapters/chapter-17.html">第十七章 ｜ 裁判室不能是黑箱：標準模型的白盒化</a>
+<a class="nav-item chapter" href="../chapters/chapter-18.html">第十八章 ｜ 第一把硬尺子：W 玻色子的精準盲測</a>
+<a class="nav-item chapter" href="../chapters/chapter-19.html">第十九章 ｜ 28 維的全球體檢表：走進 EWPO 協方差的星空巨網</a>
+<a class="nav-item chapter" href="../chapters/chapter-20.html">第二十章 ｜ 真正的高手知道哪裡不該動：Higgs 靜默與 Flavour 隔離腔體的智慧</a>
+<a class="nav-item chapter" href="../chapters/chapter-21.html">第二十一章 ｜ 閉合的真相：新範式如何克制地宣告勝利</a>
+<a class="nav-item part" href="../chapters/part-06.html">第六部 ｜ 躍遷：AI 時代與文明的新賬本</a>
+<a class="nav-item chapter" href="../chapters/chapter-22.html">第二十二章 ｜ 一隻會接話的鸚鵡，永遠不懂下雨的寒冷</a>
+<a class="nav-item chapter" href="../chapters/chapter-23.html">第二十三章 ｜ 大模型的真實賬單：文明最貴的成本，是「走錯路」</a>
+<a class="nav-item chapter" href="../chapters/chapter-24.html">第二十四章 ｜ 物性 AI：從「詞語預測」走向「狀態生成」的六層鋼鐵架構</a>
+<a class="nav-item chapter" href="../chapters/chapter-25.html">第二十五章 ｜ 社會與組織的物性診斷：從 KPI 假光到多門同閉</a>
+<a class="nav-item part" href="../chapters/part-07.html">第七部 ｜ 長存：把道路交給後來者</a>
+<a class="nav-item chapter" href="../chapters/chapter-26.html">第二十六章 ｜ 科學不能只靠作者的聲音活著：公式正典與證據矩陣的「開源」史詩</a>
+<a class="nav-item appendix" href="../chapters/appendix-index.html">附錄與後記 ｜ 留給未來的尺子與星圖</a>
+<a class="nav-item appendix" href="../chapters/appendix-01.html">附錄一 ｜ 拒絕裸奔的真理：104條公式正典的「閱讀指南」</a>
+<a class="nav-item appendix" href="../chapters/appendix-02.html">附錄二 ｜ 啟動發動機的鑰匙：V32 / V33 / V34 復演包與在線復演室</a>
+<a class="nav-item appendix" href="../chapters/appendix-03.html">附錄三 ｜ 留給未來的一百年的星圖：五大開放考題</a>
+<a class="nav-item afterword" href="../chapters/afterword.html">後記 ｜ 降落：從泥土裡長出的蒼穹，與三個現實的錨點</a></nav>
+  </aside>
+</div>
+<div class="auth-modal" id="auth-modal" hidden>
+  <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title">
+    <button class="auth-close" type="button" aria-label="關閉登入視窗">×</button>
+    <p class="edition">會員系統</p>
+    <h2 id="auth-title">登入或註冊</h2>
+    <p>輸入 Email 後，系統會寄出登入連結。登入後可以雲端收藏與下載會員文件。</p>
+    <form class="auth-form">
+      <label><span>Email</span><input id="auth-email-input" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <button class="button primary" type="submit">寄出登入連結</button>
+    </form>
+    <p class="auth-status" aria-live="polite"></p>
+  </div>
+</div>
+<div class="auth-modal" id="favorites-modal" hidden>
+  <div class="auth-modal-panel favorites-panel" role="dialog" aria-modal="true" aria-labelledby="favorites-title">
+    <button class="auth-close favorites-close" type="button" aria-label="關閉收藏視窗">×</button>
+    <p class="edition">雲端收藏</p>
+    <h2 id="favorites-title">我的收藏</h2>
+    <p>登入後，收藏會保存到雲端帳號；後端尚未啟用時，這裡會顯示本機暫存收藏。</p>
+    <p class="favorite-status" aria-live="polite"></p>
+    <div class="favorite-list" data-favorite-list></div>
+  </div>
+</div>
+</body>
+</html>

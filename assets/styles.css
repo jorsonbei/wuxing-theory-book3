@@ -481,6 +481,7 @@ a {
 }
 
 .chapter-card.part,
+.chapter-card.technical,
 .chapter-card.appendix,
 .chapter-card.afterword {
   background: var(--soft-blue);
@@ -799,6 +800,7 @@ a {
 }
 
 .nav-item.part,
+.nav-item.technical,
 .nav-item.appendix,
 .nav-item.afterword {
   margin-top: 10px;
@@ -1046,6 +1048,30 @@ a {
   font-size: 0.9em;
 }
 
+.chapter-content img {
+  display: block;
+  max-width: min(100%, 620px);
+  height: auto;
+  margin: 0 auto;
+}
+
+.chapter-content figure {
+  margin: 24px 0 26px;
+  padding: 18px 20px;
+  border-left: 4px solid var(--blue);
+  border-radius: 6px;
+  background: #f2f6f9;
+  overflow-x: auto;
+}
+
+.chapter-content figure img {
+  max-width: none;
+}
+
+.chapter-content figure figcaption {
+  display: none;
+}
+
 .chapter-content p.formula-line {
   margin: 24px 0 26px;
   padding: 18px 20px;
@@ -1059,6 +1085,16 @@ a {
   overflow-x: auto;
   text-indent: 0;
   white-space: nowrap;
+}
+
+.chapter-content p.formula-image {
+  overflow-x: auto;
+  text-align: center;
+  white-space: normal;
+}
+
+.chapter-content p.formula-image img {
+  max-width: none;
 }
 
 .chapter-content pre {

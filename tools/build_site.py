@@ -76,13 +76,13 @@ TOPIC_PAGES = [
         "title": "物理公式與常數：物性論如何重讀舊公式",
         "subtitle": "從牛頓、麥克斯韋、薛定諤、愛因斯坦到常數，尋找公式背後共同的母結構。",
         "description": "物性論從公式形狀與常數角色重讀牛頓、麥克斯韋、薛定諤、愛因斯坦與熱力學，把物理公式放回共同的生成結構中理解。",
-        "keywords": ["物理公式", "物理常數", "牛頓", "麥克斯韋", "薛定諤", "愛因斯坦", "物性歸根"],
+        "keywords": ["物理公式", "物理常數", "牛頓", "麥克斯韋", "薛定諤", "愛因斯坦", "物性歸根", "推導閉包"],
         "paragraphs": [
             "一本真正有力量的新範式，不能只會否定舊理論。物性論對舊公式的態度，不是燒掉舊地圖，而是追問：為什麼這些公式會長成這種形狀？它們背後是否共享更深的結構？",
             "牛頓公式中的力，物性論會重讀為坡度和勢差；麥克斯韋方程中的場，會被放回關係腔的局域彎曲；薛定諤方程中的波函數，會被放進可能性、相位與顯化之門的邏輯裡。",
             "常數也不再只是表格裡冰冷的數字。光速、普朗克常數、引力常數與玻爾茲曼常數，更像宇宙不同賬本之間的轉接頭，規定時間、空間、能量、相位、熱與幾何如何彼此換算。",
         ],
-        "links": [("第九章：新範式與舊公式", "chapters/chapter-09.html"), ("第十章：牛頓與引力", "chapters/chapter-10.html"), ("第十二章：常數不是死數字", "chapters/chapter-12.html")],
+        "links": [("第九章：新範式與舊公式", "chapters/chapter-09.html"), ("第十章：牛頓與引力", "chapters/chapter-10.html"), ("第十二章：常數不是死數字", "chapters/chapter-12.html"), ("技術夾層：舊物理公式推導閉包", "chapters/technical-derivation-closure.html")],
     },
     {
         "filename": "standard-model-w-boson-ewpo.html",
@@ -158,6 +158,7 @@ def plain_text(markdown: str) -> str:
     text = re.sub(r"```.*?```", " ", markdown, flags=re.S)
     text = re.sub(r"`([^`]+)`", r"\1", text)
     text = re.sub(r"!\[[^\]]*\]\([^)]*\)", " ", text)
+    text = re.sub(r"\{width=\"[^\"]+\"\s+height=\"[^\"]+\"\}", " ", text)
     text = re.sub(r"\[([^\]]+)\]\([^)]*\)", r"\1", text)
     text = re.sub(r"[$*_>#~\\-]+", " ", text)
     text = re.sub(r"\s+", " ", text)
@@ -292,6 +293,8 @@ def mark_formula_paragraphs(html_text: str) -> str:
         inner = match.group(1)
         stripped = re.sub(r"<[^>]+>", "", inner)
         stripped = html.unescape(stripped).strip()
+        if "<img" in inner and not stripped:
+            return f'<p class="formula-line formula-image">{inner}</p>'
         has_chinese = re.search(r"[\u4e00-\u9fff]", stripped) is not None
         looks_like_formula = (
             "=" in stripped
@@ -341,6 +344,8 @@ def split_sections(markdown: str) -> tuple[str, list[dict]]:
 def filename_for(title: str, index: int) -> str:
     if title.startswith("序章"):
         return "preface.html"
+    if "技術夾層" in title:
+        return "technical-derivation-closure.html"
     if title.startswith("附錄與後記"):
         return "appendix-index.html"
     if title.startswith("後記"):
@@ -361,6 +366,8 @@ def filename_for(title: str, index: int) -> str:
 
 
 def category(title: str) -> str:
+    if "技術夾層" in title:
+        return "technical"
     if title.startswith("第") and "部" in title and "章" not in title:
         return "part"
     if title.startswith("附錄"):
