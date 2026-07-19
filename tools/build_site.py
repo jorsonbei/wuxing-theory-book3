@@ -44,6 +44,8 @@ BOOK_AUTHORS = ["景龍鎖", "貝記勝"]
 BOOK_DESCRIPTION = "《宇宙是光之流體：物性論作為新的科學範式》公開閱讀網站，提供完整章節、104條公式正典、HFCD復演入口與物性AI框架。"
 EN_BOOK_TITLE = "LightFluid Awakening: Shattering the Empty Room"
 EN_BOOK_DESCRIPTION = "The English edition of LightFluid Awakening, a chapter-by-chapter rewrite of the first volume on the Light-Nature Background Sea, Core-Mode, HFCD, and the physics of creation."
+ZH_COVER_IMAGE = "assets/cover.jpg"
+EN_COVER_IMAGE = "assets/cover-en.jpg"
 EN_SEO_KEYWORDS = [
     "LightFluid Awakening",
     "Light-Nature Background Sea",
@@ -269,7 +271,7 @@ def english_book_schema() -> dict:
         "inLanguage": "en",
         "author": author_schema(),
         "url": absolute_url("en/"),
-        "image": absolute_url("assets/cover.jpg"),
+        "image": absolute_url(EN_COVER_IMAGE),
         "keywords": EN_SEO_KEYWORDS,
         "workExample": {
             "@type": "Book",
@@ -306,6 +308,7 @@ def article_schema(
     position: int | None = None,
     lang: str = "zh-Hant",
 ) -> dict:
+    image_path = EN_COVER_IMAGE if lang == "en" else ZH_COVER_IMAGE
     data = {
         "@context": "https://schema.org",
         "@type": "Article",
@@ -316,7 +319,7 @@ def article_schema(
         "isPartOf": {"@type": "Book", "name": book_title, "url": SITE_URL},
         "mainEntityOfPage": absolute_url(url),
         "url": absolute_url(url),
-        "image": absolute_url("assets/cover.jpg"),
+        "image": absolute_url(image_path),
         "keywords": keywords,
     }
     if position is not None:
@@ -514,6 +517,7 @@ def page_shell(
     alternate_url: str | None = None,
     og_type: str = "website",
     keywords: list[str] | None = None,
+    og_image_path: str | None = None,
     structured_data: dict | list[dict] | None = None,
 ) -> str:
     safe_title = html.escape(title)
@@ -521,6 +525,7 @@ def page_shell(
     safe_desc = html.escape(description)
     canonical_url = canonical_url or SITE_URL
     safe_canonical = html.escape(canonical_url)
+    og_image_url = absolute_url(og_image_path or (EN_COVER_IMAGE if lang == "en" else ZH_COVER_IMAGE))
     keyword_meta = ""
     if keywords:
         keyword_meta = f'  <meta name="keywords" content="{html.escape(", ".join(keywords))}">\n'
@@ -571,11 +576,11 @@ def page_shell(
   <meta property="og:url" content="{safe_canonical}">
   <meta property="og:site_name" content="物性論閱讀平台">
   <meta property="og:locale" content="{locale}">
-  <meta property="og:image" content="{absolute_url("assets/cover.jpg")}">
+  <meta property="og:image" content="{og_image_url}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{safe_title}">
   <meta name="twitter:description" content="{safe_desc}">
-  <meta name="twitter:image" content="{absolute_url("assets/cover.jpg")}">
+  <meta name="twitter:image" content="{og_image_url}">
   <link rel="icon" href="{base}assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="{base}assets/styles.css?v={ASSET_VERSION}">
 {schema}  <script>
@@ -755,7 +760,7 @@ def build_index(book_title: str, sections: list[dict]) -> str:
         </div>
       </article>
       <article class="book-card featured-book">
-        <div class="book-cover-mini"><img src="assets/cover.jpg" alt="LightFluid Awakening cover"></div>
+        <div class="book-cover-mini"><img src="assets/cover-en.jpg" alt="LightFluid Awakening cover"></div>
         <div class="book-card-copy">
           <p class="book-kicker">英文分冊 · 第一部出版重寫版</p>
           <h3>LightFluid Awakening: Shattering the Empty Room</h3>
@@ -872,7 +877,7 @@ def build_english_index(book_title: str, sections: list[dict]) -> str:
       </div>
     </div>
     <figure class="cover-frame">
-      <img src="../assets/cover.jpg" alt="LightFluid Awakening cover">
+      <img src="../assets/cover-en.jpg" alt="LightFluid Awakening cover">
     </figure>
   </section>
 
@@ -884,7 +889,7 @@ def build_english_index(book_title: str, sections: list[dict]) -> str:
     </div>
     <div class="book-grid single-book-grid">
       <article class="book-card featured-book">
-        <div class="book-cover-mini"><img src="../assets/cover.jpg" alt="LightFluid Awakening cover"></div>
+        <div class="book-cover-mini"><img src="../assets/cover-en.jpg" alt="LightFluid Awakening cover"></div>
         <div class="book-card-copy">
           <p class="book-kicker">English · First Volume</p>
           <h3>{html.escape(book_title)}</h3>
