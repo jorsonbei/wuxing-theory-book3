@@ -1,9 +1,88 @@
 (function () {
   const STORAGE_PREFIX = "wuxing-reader:";
   const base = document.body?.dataset?.base || "";
+  const pageLang = document.body?.dataset?.lang || "zh-Hant";
+  const isEnglishPage = pageLang === "en";
   const config = window.WUXING_PLATFORM_CONFIG || {};
   let supabaseClient = null;
   let currentSession = null;
+  const UI = {
+    zh: {
+      searchLoadFail: "搜尋索引暫時無法載入。",
+      searchEmpty: "沒有找到相關章節。",
+      searchHint: "換一個更短或更核心的關鍵詞試試。",
+      noFavorites: "目前還沒有收藏。",
+      favoriteLocalMode: "後端尚未啟用，這裡顯示本機收藏。",
+      favoriteNeedLogin: "查看雲端收藏需要登入。",
+      favoriteLoading: "正在載入雲端收藏...",
+      favoriteEmptyCloud: "雲端帳號目前還沒有收藏。",
+      book: "書籍",
+      resource: "資料",
+      chapter: "章節",
+      signIn: "登入",
+      platformNotReady: "會員系統尚未配置 Supabase。請先填寫 assets/platform-config.js 並部署後端。",
+      signedOut: "已登出。",
+      authNotReady: "會員系統尚未啟用。",
+      sendingLink: "正在寄出登入連結...",
+      linkSent: "登入連結已寄出，請到 Email 信箱確認。",
+      favoriteSavedLocal: "後端尚未啟用，已暫存到本機收藏。",
+      favoriteNeedsLogin: "收藏需要登入。登入後會保存到雲端帳號。",
+      savedCloud: "已保存到雲端收藏。",
+      savedLocalButton: "已本機收藏",
+      savedButton: "已收藏",
+      downloadNotReady: "會員下載尚未啟用：請先配置 Supabase、私有 Storage 與下載 Edge Function。",
+      downloadNeedsLogin: "下載需要登入。登入後系統會生成短期下載連結。",
+      generatingLink: "正在生成連結...",
+      downloadReady: "下載連結已生成，請在新視窗下載。",
+      featureNeedsBackend: "此功能需要先配置 Supabase 後端。",
+      signedInFeatureReady: "你已登入，此功能後端已準備接入。",
+      commentsDisabled: "評論後端尚未啟用；請配置 Supabase 後開放讀者評論。",
+      commentEmpty: "目前還沒有公開評論。",
+      anonymous: "匿名讀者",
+      commentBackendDisabled: "評論後端尚未啟用。",
+      commentTooShort: "評論內容太短。",
+      commentSending: "正在送出評論...",
+      commentSent: "評論已送出，等待審核後公開。",
+    },
+    en: {
+      searchLoadFail: "Search index is temporarily unavailable.",
+      searchEmpty: "No matching chapter found.",
+      searchHint: "Try a shorter or more central keyword.",
+      noFavorites: "No favorites yet.",
+      favoriteLocalMode: "Backend is not enabled. Local browser favorites are shown here.",
+      favoriteNeedLogin: "Sign in to view cloud favorites.",
+      favoriteLoading: "Loading cloud favorites...",
+      favoriteEmptyCloud: "This account has no cloud favorites yet.",
+      book: "Book",
+      resource: "Resource",
+      chapter: "Chapter",
+      signIn: "Sign in",
+      platformNotReady: "Member access is not configured yet. Please enable Supabase and deploy the backend.",
+      signedOut: "Signed out.",
+      authNotReady: "Member access is not enabled yet.",
+      sendingLink: "Sending sign-in link...",
+      linkSent: "Sign-in link sent. Please check your email.",
+      favoriteSavedLocal: "Backend is not enabled. Saved to local browser favorites.",
+      favoriteNeedsLogin: "Sign in to save this favorite to your cloud account.",
+      savedCloud: "Saved to cloud favorites.",
+      savedLocalButton: "Saved locally",
+      savedButton: "Saved",
+      downloadNotReady: "Member downloads are not enabled yet. Supabase, private storage, and the download function must be configured first.",
+      downloadNeedsLogin: "Sign in to generate a short-lived download link.",
+      generatingLink: "Generating link...",
+      downloadReady: "Download link generated. Please download in the new window.",
+      featureNeedsBackend: "This feature requires the Supabase backend.",
+      signedInFeatureReady: "You are signed in. This backend feature is ready to connect.",
+      commentsDisabled: "Comment backend is not enabled yet.",
+      commentEmpty: "No public comments yet.",
+      anonymous: "Anonymous reader",
+      commentBackendDisabled: "Comment backend is not enabled yet.",
+      commentTooShort: "Comment is too short.",
+      commentSending: "Submitting comment...",
+      commentSent: "Comment submitted. It will appear after review.",
+    },
+  };
+  const T = UI[isEnglishPage ? "en" : "zh"];
 
   function platformEnabled() {
     return Boolean(
@@ -34,6 +113,63 @@
       localStorage.setItem(STORAGE_PREFIX + key, JSON.stringify(value));
     } catch {
       // Local storage may be blocked in strict privacy modes. Reading still works.
+    }
+  }
+
+  function initLanguageLinks() {
+    document.querySelectorAll("[data-lang-choice]").forEach((link) => {
+      link.addEventListener("click", () => {
+        try {
+          localStorage.setItem(STORAGE_PREFIX + "langChoice", link.dataset.langChoice || "");
+        } catch {
+          // Ignore local storage failures; navigation still works.
+        }
+      });
+    });
+  }
+
+  function rootHomePath() {
+    const path = location.pathname;
+    return /\/wuxing-theory-book3\/?$/.test(path) || /\/wuxing-theory-book3\/index\.html$/.test(path);
+  }
+
+  function browserLanguageGuess() {
+    const langs = navigator.languages?.length ? navigator.languages : [navigator.language || ""];
+    return langs.some((item) => /^zh/i.test(item)) ? "zh" : "en";
+  }
+
+  async function geoLanguageGuess() {
+    const controller = new AbortController();
+    const timer = window.setTimeout(() => controller.abort(), 1200);
+    try {
+      const response = await fetch("https://ipapi.co/json/", { signal: controller.signal });
+      const data = await response.json();
+      const country = String(data.country_code || "").toUpperCase();
+      if (["CN", "TW", "HK", "MO"].includes(country)) return "zh";
+      if (country) return "en";
+    } catch {
+      // IP lookup is best effort only. Fall back to browser language.
+    } finally {
+      window.clearTimeout(timer);
+    }
+    return browserLanguageGuess();
+  }
+
+  async function initLanguageAutoSwitch() {
+    if (!rootHomePath()) return;
+    let stored = "";
+    try {
+      stored = localStorage.getItem(STORAGE_PREFIX + "langChoice") || "";
+    } catch {
+      stored = "";
+    }
+    if (stored) {
+      if (stored === "en" && !isEnglishPage) location.replace("en/index.html");
+      return;
+    }
+    const guess = await geoLanguageGuess();
+    if (guess === "en" && !isEnglishPage) {
+      location.replace("en/index.html");
     }
   }
 
@@ -68,7 +204,7 @@
       const response = await fetch(`${base}assets/search-index.json`);
       index = await response.json();
     } catch {
-      results.innerHTML = '<p class="search-result"><strong>搜尋索引暫時無法載入。</strong></p>';
+      results.innerHTML = `<p class="search-result"><strong>${escapeHtml(T.searchLoadFail)}</strong></p>`;
       return;
     }
 
@@ -82,7 +218,7 @@
         return;
       }
       if (!items.length) {
-        results.innerHTML = '<p class="search-result"><strong>沒有找到相關章節。</strong><span>換一個更短或更核心的關鍵詞試試。</span></p>';
+        results.innerHTML = `<p class="search-result"><strong>${escapeHtml(T.searchEmpty)}</strong><span>${escapeHtml(T.searchHint)}</span></p>`;
         return;
       }
       results.innerHTML = items.slice(0, 8).map((item) => {
@@ -220,7 +356,7 @@
       restoreButton.addEventListener("click", () => {
         const saved = readJson(key, null);
         if (!saved) {
-          toast("這一章還沒有本機閱讀記錄。");
+          toast(isEnglishPage ? "No local reading position has been saved for this chapter yet." : "這一章還沒有本機閱讀記錄。");
           return;
         }
         window.scrollTo({ top: saved.y || 0, behavior: "smooth" });
@@ -280,34 +416,34 @@
     if (status) status.textContent = statusText || "";
     if (!list) return;
     if (!items.length) {
-      list.innerHTML = '<p class="comment-empty">目前還沒有收藏。</p>';
+      list.innerHTML = `<p class="comment-empty">${escapeHtml(T.noFavorites)}</p>`;
       return;
     }
     list.innerHTML = items.map((item) => {
-      const title = item.item_title || item.title || "未命名收藏";
+      const title = item.item_title || item.title || (isEnglishPage ? "Untitled favorite" : "未命名收藏");
       const type = item.item_type || item.type || "chapter";
       const href = item.item_url || item.href || item.path || "";
       const updated = item.updated_at || item.savedAt || "";
-      const date = updated ? new Date(updated).toLocaleDateString("zh-Hant") : "";
+      const date = updated ? new Date(updated).toLocaleDateString(isEnglishPage ? "en" : "zh-Hant") : "";
       return `<a class="favorite-item" href="${escapeHtml(resolveRelativeLink(href))}">
         <strong>${escapeHtml(title)}</strong>
-        <span>${escapeHtml(type === "book" ? "書籍" : type === "resource" ? "資料" : "章節")}${date ? ` · ${escapeHtml(date)}` : ""}</span>
+        <span>${escapeHtml(type === "book" ? T.book : type === "resource" ? T.resource : T.chapter)}${date ? ` · ${escapeHtml(date)}` : ""}</span>
       </a>`;
     }).join("");
   }
 
   async function loadFavoriteList() {
     if (!platformEnabled()) {
-      renderFavoriteList(readJson("favorites", []), "後端尚未啟用，這裡顯示本機收藏。");
+      renderFavoriteList(readJson("favorites", []), T.favoriteLocalMode);
       openFavoritesModal();
       return;
     }
     if (!currentSession?.user) {
-      openAuthModal("查看雲端收藏需要登入。");
+      openAuthModal(T.favoriteNeedLogin);
       return;
     }
     openFavoritesModal();
-    renderFavoriteList([], "正在載入雲端收藏...");
+    renderFavoriteList([], T.favoriteLoading);
     const { data, error } = await supabaseClient
       .from("user_favorites")
       .select("item_id,item_type,item_title,item_url,updated_at")
@@ -317,14 +453,14 @@
       renderFavoriteList([], `收藏載入失敗：${error.message}`);
       return;
     }
-    renderFavoriteList(data || [], data?.length ? "" : "雲端帳號目前還沒有收藏。");
+    renderFavoriteList(data || [], data?.length ? "" : T.favoriteEmptyCloud);
   }
 
   function updateAuthUi() {
     const signedIn = Boolean(currentSession?.user);
     document.querySelectorAll(".auth-open").forEach((button) => {
       button.hidden = signedIn;
-      button.textContent = signedIn ? currentSession.user.email : "登入";
+      button.textContent = signedIn ? currentSession.user.email : T.signIn;
     });
     document.querySelectorAll(".auth-signout").forEach((button) => {
       button.hidden = !signedIn;
@@ -354,7 +490,7 @@
     document.querySelectorAll(".auth-open").forEach((button) => {
       button.addEventListener("click", () => {
         if (!platformEnabled()) {
-          toast("會員系統尚未配置 Supabase。請先填寫 assets/platform-config.js 並部署後端。");
+          toast(T.platformNotReady);
           return;
         }
         openAuthModal("");
@@ -365,7 +501,7 @@
         if (supabaseClient) await supabaseClient.auth.signOut();
         currentSession = null;
         updateAuthUi();
-        toast("已登出。");
+        toast(T.signedOut);
       });
     });
     document.querySelectorAll(".auth-close").forEach((button) => button.addEventListener("click", closeAuthModal));
@@ -382,16 +518,16 @@
     document.querySelector(".auth-form")?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!supabaseClient) {
-        setAuthStatus("會員系統尚未啟用。");
+        setAuthStatus(T.authNotReady);
         return;
       }
       const email = new FormData(event.currentTarget).get("email");
-      setAuthStatus("正在寄出登入連結...");
+      setAuthStatus(T.sendingLink);
       const { error } = await supabaseClient.auth.signInWithOtp({
         email,
         options: { emailRedirectTo: window.location.href },
       });
-      setAuthStatus(error ? `寄送失敗：${error.message}` : "登入連結已寄出，請到 Email 信箱確認。");
+      setAuthStatus(error ? `Failed: ${error.message}` : T.linkSent);
     });
   }
 
@@ -430,12 +566,12 @@
         };
         if (!platformEnabled()) {
           saveLocalFavorite(item);
-          button.textContent = "已本機收藏";
-          toast("後端尚未啟用，已暫存到本機收藏。");
+          button.textContent = T.savedLocalButton;
+          toast(T.favoriteSavedLocal);
           return;
         }
         if (!currentSession?.user) {
-          openAuthModal("收藏需要登入。登入後會保存到雲端帳號。");
+          openAuthModal(T.favoriteNeedsLogin);
           return;
         }
         const result = await saveCloudFavorite(item);
@@ -443,8 +579,8 @@
           toast(`收藏失敗：${result.error.message}`);
           return;
         }
-        button.textContent = "已收藏";
-        toast("已保存到雲端收藏。");
+        button.textContent = T.savedButton;
+        toast(T.savedCloud);
       });
     });
   }
@@ -453,16 +589,16 @@
     const bookId = button.dataset.downloadBookId || config.bookId || "wuxing-theory-book3";
     const format = button.dataset.downloadFormat || "docx";
     if (!platformEnabled()) {
-      toast("會員下載尚未啟用：請先配置 Supabase、私有 Storage 與下載 Edge Function。");
+      toast(T.downloadNotReady);
       return;
     }
     if (!currentSession?.access_token) {
-      openAuthModal("下載需要登入。登入後系統會生成短期下載連結。");
+      openAuthModal(T.downloadNeedsLogin);
       return;
     }
     button.disabled = true;
     const originalText = button.textContent;
-    button.textContent = "正在生成連結...";
+    button.textContent = T.generatingLink;
     try {
       const response = await fetch(getDownloadFunctionUrl(), {
         method: "POST",
@@ -477,7 +613,7 @@
         throw new Error(data.error || "下載連結生成失敗");
       }
       window.open(data.signedUrl, "_blank", "noopener,noreferrer");
-      toast("下載連結已生成，請在新視窗下載。");
+      toast(T.downloadReady);
     } catch (error) {
       toast(`下載失敗：${error.message}`);
     } finally {
@@ -494,14 +630,15 @@
           return;
         }
         if (!platformEnabled()) {
-          toast("此功能需要先配置 Supabase 後端。");
+          toast(T.featureNeedsBackend);
           return;
         }
         if (!currentSession?.user) {
-          openAuthModal(`${button.dataset.actionName || "此功能"} 需要登入。`);
+          const action = button.dataset.actionName || (isEnglishPage ? "This feature" : "此功能");
+          openAuthModal(isEnglishPage ? `${action} requires sign-in.` : `${action} 需要登入。`);
           return;
         }
-        toast("你已登入，此功能後端已準備接入。");
+        toast(T.signedInFeatureReady);
       });
     });
   }
@@ -510,13 +647,13 @@
     const list = container.querySelector("[data-comment-list]");
     if (!list) return;
     if (!comments.length) {
-      list.innerHTML = '<p class="comment-empty">目前還沒有公開評論。</p>';
+      list.innerHTML = `<p class="comment-empty">${escapeHtml(T.commentEmpty)}</p>`;
       return;
     }
     list.innerHTML = comments.map((comment) => `
       <article class="comment-item">
-        <strong>${escapeHtml(comment.visitor_name || "匿名讀者")}</strong>
-        <time>${escapeHtml(new Date(comment.created_at).toLocaleDateString("zh-Hant"))}</time>
+        <strong>${escapeHtml(comment.visitor_name || T.anonymous)}</strong>
+        <time>${escapeHtml(new Date(comment.created_at).toLocaleDateString(isEnglishPage ? "en" : "zh-Hant"))}</time>
         <p>${escapeHtml(comment.body)}</p>
       </article>
     `).join("");
@@ -527,7 +664,7 @@
     if (!container) return;
     const status = container.querySelector(".comment-status");
     if (!platformEnabled() || !supabaseClient) {
-      if (status) status.textContent = "評論後端尚未啟用；請配置 Supabase 後開放讀者評論。";
+      if (status) status.textContent = T.commentsDisabled;
       return;
     }
     const { data, error } = await supabaseClient
@@ -551,17 +688,17 @@
     form?.addEventListener("submit", async (event) => {
       event.preventDefault();
       if (!platformEnabled() || !supabaseClient) {
-        if (status) status.textContent = "評論後端尚未啟用。";
+        if (status) status.textContent = T.commentBackendDisabled;
         return;
       }
       const formData = new FormData(form);
       const body = String(formData.get("body") || "").trim();
       const visitorName = String(formData.get("visitor_name") || "匿名讀者").trim();
       if (body.length < 2) {
-        if (status) status.textContent = "評論內容太短。";
+        if (status) status.textContent = T.commentTooShort;
         return;
       }
-      if (status) status.textContent = "正在送出評論...";
+      if (status) status.textContent = T.commentSending;
       const { error } = await supabaseClient.from("book_comments").insert({
         book_id: container.dataset.bookId,
         chapter_path: container.dataset.chapterPath,
@@ -574,13 +711,15 @@
       if (status) {
         status.textContent = error
           ? `評論送出失敗：${error.message}`
-          : "評論已送出，等待審核後公開。";
+          : T.commentSent;
       }
       if (!error) form.reset();
     });
   }
 
   document.addEventListener("DOMContentLoaded", async () => {
+    initLanguageLinks();
+    initLanguageAutoSwitch();
     initSearch();
     initReaderSettings();
     initProgress();

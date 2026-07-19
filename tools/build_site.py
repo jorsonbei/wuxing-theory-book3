@@ -5,6 +5,7 @@ import html
 import json
 import os
 import re
+import shutil
 import subprocess
 from datetime import date
 from pathlib import Path
@@ -12,14 +13,53 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = Path(os.environ.get("WUXING_SOURCE_MD", ROOT / "book" / "wuxing-theory-book3.md"))
+EN_SOURCE_IN = Path(
+    os.environ.get(
+        "LIGHTFLUID_EN_SOURCE_MD",
+        "/Users/beijisheng/Downloads/LightFluid_Awakening_English_Rewrite_ByChapter/LightFluid_Awakening_English_Rewritten_ByChapter.md",
+    )
+)
+EN_PDF_IN = Path(
+    os.environ.get(
+        "LIGHTFLUID_EN_SOURCE_PDF",
+        "/Users/beijisheng/Downloads/LightFluid_Awakening_English_Rewrite_ByChapter/LightFluid_Awakening_English_Rewritten_ByChapter.pdf",
+    )
+)
+EN_ASSETS_IN = Path(
+    os.environ.get(
+        "LIGHTFLUID_EN_ASSETS",
+        "/Users/beijisheng/Downloads/LightFluid_Awakening_English_Rewrite_ByChapter/assets",
+    )
+)
 CHAPTERS = ROOT / "chapters"
+EN_ROOT = ROOT / "en"
+EN_CHAPTERS = EN_ROOT / "chapters"
 ASSETS = ROOT / "assets"
+EN_ASSETS = ASSETS / "lightfluid-en"
 RESOURCES = ROOT / "resources"
 SITE_URL = "https://jorsonbei.github.io/wuxing-theory-book3/"
 FORMULA_CANON = RESOURCES / "FormulaOperatorCanon.json"
-ASSET_VERSION = "20260708-platform-backend-v1"
+ASSET_VERSION = "20260719-bilingual-v1"
 BOOK_AUTHORS = ["景龍鎖", "貝記勝"]
 BOOK_DESCRIPTION = "《宇宙是光之流體：物性論作為新的科學範式》公開閱讀網站，提供完整章節、104條公式正典、HFCD復演入口與物性AI框架。"
+EN_BOOK_TITLE = "LightFluid Awakening: Shattering the Empty Room"
+EN_BOOK_DESCRIPTION = "The English edition of LightFluid Awakening, a chapter-by-chapter rewrite of the first volume on the Light-Nature Background Sea, Core-Mode, HFCD, and the physics of creation."
+EN_SEO_KEYWORDS = [
+    "LightFluid Awakening",
+    "Light-Nature Background Sea",
+    "Core-Mode",
+    "Wuxing Theory",
+    "Thing-Nature Theory",
+    "new scientific paradigm",
+    "background sea",
+    "X topology",
+    "Delta sigma",
+    "Pi relation cavity",
+    "Q core",
+    "Sigma+",
+    "HFCD",
+    "physics of creation",
+]
 CORE_SEO_KEYWORDS = [
     "物性論",
     "宇宙是光之流體",
@@ -219,6 +259,27 @@ def book_schema(book_title: str) -> dict:
     }
 
 
+def english_book_schema() -> dict:
+    return {
+        "@context": "https://schema.org",
+        "@type": "Book",
+        "name": EN_BOOK_TITLE,
+        "alternateName": ["LightFluid Awakening", "Shattering the Empty Room"],
+        "description": EN_BOOK_DESCRIPTION,
+        "inLanguage": "en",
+        "author": author_schema(),
+        "url": absolute_url("en/"),
+        "image": absolute_url("assets/cover.jpg"),
+        "keywords": EN_SEO_KEYWORDS,
+        "workExample": {
+            "@type": "Book",
+            "bookFormat": "https://schema.org/EBook",
+            "url": absolute_url("en/"),
+            "inLanguage": "en",
+        },
+    }
+
+
 def breadcrumb_schema(items: list[tuple[str, str]]) -> dict:
     return {
         "@context": "https://schema.org",
@@ -243,13 +304,14 @@ def article_schema(
     keywords: list[str],
     book_title: str,
     position: int | None = None,
+    lang: str = "zh-Hant",
 ) -> dict:
     data = {
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": headline,
         "description": description,
-        "inLanguage": "zh-Hant",
+        "inLanguage": lang,
         "author": author_schema(),
         "isPartOf": {"@type": "Book", "name": book_title, "url": SITE_URL},
         "mainEntityOfPage": absolute_url(url),
@@ -365,10 +427,34 @@ def filename_for(title: str, index: int) -> str:
     return f"section-{index:02d}.html"
 
 
+def filename_for_english(title: str, index: int) -> str:
+    if title.startswith("Part "):
+        match = re.search(r"Part\s+([IVXLCDM]+)", title)
+        if match:
+            roman = match.group(1)
+            values = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
+            total = 0
+            prev = 0
+            for ch in reversed(roman):
+                value = values[ch]
+                if value < prev:
+                    total -= value
+                else:
+                    total += value
+                    prev = value
+            return f"part-{total:02d}.html"
+    chapter = re.search(r"Chapter\s+(\d+)", title)
+    if chapter:
+        return f"chapter-{int(chapter.group(1)):02d}.html"
+    return f"section-{index:02d}.html"
+
+
 def category(title: str) -> str:
     if "技術夾層" in title:
         return "technical"
     if title.startswith("第") and "部" in title and "章" not in title:
+        return "part"
+    if title.startswith("Part "):
         return "part"
     if title.startswith("附錄"):
         return "appendix"
@@ -376,17 +462,43 @@ def category(title: str) -> str:
         return "afterword"
     if title.startswith("序章"):
         return "preface"
+    if title.startswith("Chapter "):
+        return "chapter"
     return "chapter"
 
 
-def nav_html(sections: list[dict], current: str | None = None, base: str = "") -> str:
+def split_english_sections(markdown: str) -> tuple[str, list[dict]]:
+    matches = list(re.finditer(r"^(# Part .+|## Chapter .+)$", markdown, flags=re.M))
+    if not matches:
+        raise RuntimeError("No English Part/Chapter headings found")
+    sections: list[dict] = []
+    for i, match in enumerate(matches):
+        title = re.sub(r"^#+\s*", "", match.group(1)).strip()
+        start = match.start()
+        end = matches[i + 1].start() if i + 1 < len(matches) else len(markdown)
+        block = markdown[start:end].strip()
+        block = re.sub(r"^## Chapter ", "# Chapter ", block, count=1, flags=re.M)
+        sections.append({"title": title, "markdown": block})
+    return EN_BOOK_TITLE, sections
+
+
+def rewrite_english_assets(markdown: str, asset_prefix: str) -> str:
+    return re.sub(r"(!\[[^\]]*\]\()assets/", rf"\1{asset_prefix}", markdown)
+
+
+def nav_html(
+    sections: list[dict],
+    current: str | None = None,
+    base: str = "",
+    folder: str = "chapters/",
+) -> str:
     items = []
     for s in sections:
         cls = [category(s["title"])]
         if s["filename"] == current:
             cls.append("active")
         label = html.escape(s["title"])
-        href = html.escape(base + "chapters/" + s["filename"])
+        href = html.escape(base + folder + s["filename"])
         items.append(f'<a class="nav-item {" ".join(cls)}" href="{href}">{label}</a>')
     return "\n".join(items)
 
@@ -396,8 +508,10 @@ def page_shell(
     title: str,
     body: str,
     base: str = "",
+    lang: str = "zh-Hant",
     description: str = BOOK_DESCRIPTION,
     canonical_url: str | None = None,
+    alternate_url: str | None = None,
     og_type: str = "website",
     keywords: list[str] | None = None,
     structured_data: dict | list[dict] | None = None,
@@ -410,21 +524,53 @@ def page_shell(
     keyword_meta = ""
     if keywords:
         keyword_meta = f'  <meta name="keywords" content="{html.escape(", ".join(keywords))}">\n'
+    locale = "en_US" if lang == "en" else "zh_TW"
+    alternate_meta = ""
+    if alternate_url:
+        alternate_lang = "zh-Hant" if lang == "en" else "en"
+        alternate_meta = f'  <link rel="alternate" hreflang="{alternate_lang}" href="{html.escape(alternate_url)}">\n'
     schema = json_ld_block(structured_data)
+    if lang == "en":
+        auth_modal = {
+            "member": "Member Access",
+            "title": "Sign in or register",
+            "desc": "Enter your email and the system will send a sign-in link. After signing in, you can save favorites and access member downloads.",
+            "close": "Close sign-in window",
+            "email": "Email",
+            "button": "Send sign-in link",
+            "favorites": "Cloud Favorites",
+            "favorites_title": "My Favorites",
+            "favorites_desc": "After signing in, favorites are saved to your cloud account. If the backend is not enabled, local browser favorites will appear here.",
+            "favorites_close": "Close favorites window",
+        }
+    else:
+        auth_modal = {
+            "member": "會員系統",
+            "title": "登入或註冊",
+            "desc": "輸入 Email 後，系統會寄出登入連結。登入後可以雲端收藏與下載會員文件。",
+            "close": "關閉登入視窗",
+            "email": "Email",
+            "button": "寄出登入連結",
+            "favorites": "雲端收藏",
+            "favorites_title": "我的收藏",
+            "favorites_desc": "登入後，收藏會保存到雲端帳號；後端尚未啟用時，這裡會顯示本機暫存收藏。",
+            "favorites_close": "關閉收藏視窗",
+        }
     return f"""<!doctype html>
-<html lang="zh-Hant">
+<html lang="{html.escape(lang)}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{safe_title}</title>
   <meta name="description" content="{safe_desc}">
 {keyword_meta}  <link rel="canonical" href="{safe_canonical}">
+{alternate_meta}  <link rel="alternate" hreflang="x-default" href="{SITE_URL}">
   <meta property="og:title" content="{safe_title}">
   <meta property="og:description" content="{safe_desc}">
   <meta property="og:type" content="{html.escape(og_type)}">
   <meta property="og:url" content="{safe_canonical}">
   <meta property="og:site_name" content="物性論閱讀平台">
-  <meta property="og:locale" content="zh_TW">
+  <meta property="og:locale" content="{locale}">
   <meta property="og:image" content="{absolute_url("assets/cover.jpg")}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{safe_title}">
@@ -443,27 +589,27 @@ def page_shell(
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
   <script defer src="{base}assets/site.js?v={ASSET_VERSION}"></script>
 </head>
-<body data-base="{base}">
+<body data-base="{base}" data-lang="{html.escape(lang)}">
 {body}
 <div class="auth-modal" id="auth-modal" hidden>
   <div class="auth-modal-panel" role="dialog" aria-modal="true" aria-labelledby="auth-title">
-    <button class="auth-close" type="button" aria-label="關閉登入視窗">×</button>
-    <p class="edition">會員系統</p>
-    <h2 id="auth-title">登入或註冊</h2>
-    <p>輸入 Email 後，系統會寄出登入連結。登入後可以雲端收藏與下載會員文件。</p>
+    <button class="auth-close" type="button" aria-label="{html.escape(auth_modal['close'])}">×</button>
+    <p class="edition">{html.escape(auth_modal['member'])}</p>
+    <h2 id="auth-title">{html.escape(auth_modal['title'])}</h2>
+    <p>{html.escape(auth_modal['desc'])}</p>
     <form class="auth-form">
-      <label><span>Email</span><input id="auth-email-input" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
-      <button class="button primary" type="submit">寄出登入連結</button>
+      <label><span>{html.escape(auth_modal['email'])}</span><input id="auth-email-input" name="email" type="email" autocomplete="email" required placeholder="you@example.com"></label>
+      <button class="button primary" type="submit">{html.escape(auth_modal['button'])}</button>
     </form>
     <p class="auth-status" aria-live="polite"></p>
   </div>
 </div>
 <div class="auth-modal" id="favorites-modal" hidden>
   <div class="auth-modal-panel favorites-panel" role="dialog" aria-modal="true" aria-labelledby="favorites-title">
-    <button class="auth-close favorites-close" type="button" aria-label="關閉收藏視窗">×</button>
-    <p class="edition">雲端收藏</p>
-    <h2 id="favorites-title">我的收藏</h2>
-    <p>登入後，收藏會保存到雲端帳號；後端尚未啟用時，這裡會顯示本機暫存收藏。</p>
+    <button class="auth-close favorites-close" type="button" aria-label="{html.escape(auth_modal['favorites_close'])}">×</button>
+    <p class="edition">{html.escape(auth_modal['favorites'])}</p>
+    <h2 id="favorites-title">{html.escape(auth_modal['favorites_title'])}</h2>
+    <p>{html.escape(auth_modal['favorites_desc'])}</p>
     <p class="favorite-status" aria-live="polite"></p>
     <div class="favorite-list" data-favorite-list></div>
   </div>
@@ -473,19 +619,72 @@ def page_shell(
 """
 
 
-def header(base: str = "") -> str:
+def header(
+    base: str = "",
+    *,
+    lang: str = "zh",
+    home_href: str | None = None,
+    zh_href: str | None = None,
+    en_href: str | None = None,
+) -> str:
+    if lang == "en":
+        labels = {
+            "brand": "LightFluid Reading Platform",
+            "library": "Library",
+            "catalog": "Contents",
+            "formula": "Formula Canon",
+            "reproduction": "Reproduction",
+            "downloads": "Downloads",
+            "favorites": "Favorites",
+            "login": "Sign in",
+            "logout": "Sign out",
+        }
+        home_href = home_href or f"{base}en/index.html"
+        zh_href = zh_href or f"{base}index.html"
+        en_href = en_href or home_href
+        formula_href = f"{base}resources/formula-canon.html"
+        reproduction_href = f"{base}resources/reproduction.html"
+        catalog_href = f"{home_href}#catalog"
+        library_href = f"{home_href}#library"
+        downloads_href = f"{home_href}#downloads"
+    else:
+        labels = {
+            "brand": "物性論閱讀平台",
+            "library": "書庫",
+            "catalog": "目錄",
+            "formula": "公式正典",
+            "reproduction": "復演",
+            "downloads": "下載",
+            "favorites": "收藏",
+            "login": "登入",
+            "logout": "登出",
+        }
+        home_href = home_href or f"{base}index.html"
+        zh_href = zh_href or home_href
+        en_href = en_href or f"{base}en/index.html"
+        formula_href = f"{base}resources/formula-canon.html"
+        reproduction_href = f"{base}resources/reproduction.html"
+        catalog_href = f"{home_href}#catalog"
+        library_href = f"{home_href}#library"
+        downloads_href = f"{home_href}#downloads"
+    active_zh = " active" if lang != "en" else ""
+    active_en = " active" if lang == "en" else ""
     return f"""<header class="site-header">
-  <a class="brand" href="{base}index.html">物性論閱讀平台</a>
+  <a class="brand" href="{html.escape(home_href)}">{html.escape(labels["brand"])}</a>
   <nav class="top-links">
-    <a href="{base}index.html#library">書庫</a>
-    <a href="{base}index.html#catalog">目錄</a>
-    <a href="{base}resources/formula-canon.html">公式正典</a>
-    <a href="{base}resources/reproduction.html">復演</a>
-    <a class="top-link-secondary" href="{base}index.html#downloads">下載</a>
+    <a href="{html.escape(library_href)}">{html.escape(labels["library"])}</a>
+    <a href="{html.escape(catalog_href)}">{html.escape(labels["catalog"])}</a>
+    <a href="{html.escape(formula_href)}">{html.escape(labels["formula"])}</a>
+    <a href="{html.escape(reproduction_href)}">{html.escape(labels["reproduction"])}</a>
+    <a class="top-link-secondary" href="{html.escape(downloads_href)}">{html.escape(labels["downloads"])}</a>
     <a class="top-link-secondary" href="https://github.com/jorsonbei/wuxing-theory-book3">GitHub</a>
-    <button class="top-link-button favorite-list-open" type="button">收藏</button>
-    <button class="top-link-button auth-open" type="button">登入</button>
-    <button class="top-link-button auth-signout" type="button" hidden>登出</button>
+    <span class="language-switch" aria-label="Language">
+      <a class="lang-link{active_zh}" href="{html.escape(zh_href)}" data-lang-choice="zh">繁中</a>
+      <a class="lang-link{active_en}" href="{html.escape(en_href)}" data-lang-choice="en">EN</a>
+    </span>
+    <button class="top-link-button favorite-list-open" type="button">{html.escape(labels["favorites"])}</button>
+    <button class="top-link-button auth-open" type="button">{html.escape(labels["login"])}</button>
+    <button class="top-link-button auth-signout" type="button" hidden>{html.escape(labels["logout"])}</button>
   </nav>
 </header>"""
 
@@ -515,9 +714,11 @@ def build_index(book_title: str, sections: list[dict]) -> str:
       <div class="hero-actions">
         <a class="button primary" href="chapters/preface.html">開始閱讀</a>
         <a class="button" href="resources/what-is-wuxing-theory.html">物性論是什麼</a>
+        <a class="button" href="en/index.html">English Edition</a>
       </div>
       <div class="stats">
         <span><strong>26</strong> 章完整主書</span>
+        <a href="en/index.html"><strong>EN</strong> 英文分冊</a>
         <a href="resources/formula-canon.html"><strong>104</strong> 條公式正典</a>
         <a href="resources/reproduction.html"><strong>公開</strong> 復演入口</a>
       </div>
@@ -531,9 +732,9 @@ def build_index(book_title: str, sections: list[dict]) -> str:
     <div class="section-heading">
       <p class="edition">系列書庫</p>
       <h2>當前公開主書</h2>
-      <p>這一版先承擔主入口：讀者可以直接閱讀全文，也可以從公式、復演、AI 與主題頁切入。後續分冊會在成熟後加入書庫。</p>
+      <p>這一版先承擔主入口：讀者可以直接閱讀全文，也可以從公式、復演、AI 與主題頁切入。英文分冊已加入，後續其他版本會逐步放進書庫。</p>
     </div>
-    <div class="book-grid single-book-grid">
+    <div class="book-grid">
       <article class="book-card featured-book">
         <div class="book-cover-mini"><img src="assets/cover.jpg" alt="《宇宙是光之流體》封面"></div>
         <div class="book-card-copy">
@@ -551,6 +752,24 @@ def build_index(book_title: str, sections: list[dict]) -> str:
             <button class="button gated-action" type="button" data-action-name="DOCX 下載" data-download-book-id="wuxing-theory-book3" data-download-format="docx">登入後下載</button>
           </div>
           <p class="small-note">閱讀無需登入；雲端收藏與下載需要登入。若後端尚未配置，系統會保留入口並提示管理員啟用。</p>
+        </div>
+      </article>
+      <article class="book-card featured-book">
+        <div class="book-cover-mini"><img src="assets/cover.jpg" alt="LightFluid Awakening cover"></div>
+        <div class="book-card-copy">
+          <p class="book-kicker">英文分冊 · 第一部出版重寫版</p>
+          <h3>LightFluid Awakening: Shattering the Empty Room</h3>
+          <p>根據《第一部 ｜ 砸碎空房間：光性背景海的覺醒_出版精修版》重新英文創作，8 章、30 張輔助圖，適合英文讀者直接閱讀與下載。</p>
+          <div class="book-meta">
+            <span>English</span>
+            <span>8 chapters</span>
+            <span>PDF / Markdown</span>
+          </div>
+          <div class="book-actions">
+            <a class="button primary" href="en/index.html">進入英文版</a>
+            <a class="button" href="book/lightfluid-awakening-en.pdf">下載 PDF</a>
+            <a class="button" href="book/lightfluid-awakening-en.md">下載 Markdown</a>
+          </div>
         </div>
       </article>
     </div>
@@ -601,6 +820,7 @@ def build_index(book_title: str, sections: list[dict]) -> str:
         base="",
         description=BOOK_DESCRIPTION,
         canonical_url=SITE_URL,
+        alternate_url=absolute_url("en/"),
         og_type="book",
         keywords=keywords,
         structured_data=[
@@ -608,6 +828,233 @@ def build_index(book_title: str, sections: list[dict]) -> str:
             breadcrumb_schema([("首頁", "")]),
         ],
     )
+
+
+def copy_english_book_assets() -> None:
+    if not EN_SOURCE_IN.exists():
+        raise FileNotFoundError(EN_SOURCE_IN)
+    if not EN_PDF_IN.exists():
+        raise FileNotFoundError(EN_PDF_IN)
+    if not EN_ASSETS_IN.exists():
+        raise FileNotFoundError(EN_ASSETS_IN)
+    (ROOT / "book").mkdir(exist_ok=True)
+    shutil.copy2(EN_SOURCE_IN, ROOT / "book" / "lightfluid-awakening-en.md")
+    shutil.copy2(EN_PDF_IN, ROOT / "book" / "lightfluid-awakening-en.pdf")
+    if EN_ASSETS.exists():
+        shutil.rmtree(EN_ASSETS)
+    shutil.copytree(EN_ASSETS_IN, EN_ASSETS)
+
+
+def build_english_index(book_title: str, sections: list[dict]) -> str:
+    cards = "\n".join(
+        f"""<a class="chapter-card {category(s['title'])}" href="chapters/{html.escape(s['filename'])}">
+  <span>{html.escape(s['type_label'])}</span>
+  <strong>{html.escape(s['title'])}</strong>
+</a>"""
+        for s in sections
+    )
+    body = f"""{header("../", lang="en", home_href="index.html", zh_href="../index.html", en_href="index.html")}
+<main>
+  <section class="hero english-hero">
+    <div class="hero-copy">
+      <p class="edition">English Edition</p>
+      <h1>LightFluid Awakening</h1>
+      <p class="lead">A complete English rewrite of the first volume: the empty-room illusion, the Light-Nature Background Sea, time as ledger, relation cavities, living order, civilization, old physics, HFCD, and Sigma+.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="chapters/chapter-01.html">Start Reading</a>
+        <a class="button" href="#catalog">View Contents</a>
+        <a class="button" href="../book/lightfluid-awakening-en.pdf">Download PDF</a>
+      </div>
+      <div class="stats">
+        <span><strong>8</strong> chapters</span>
+        <span><strong>42k+</strong> English words</span>
+        <span><strong>30</strong> explanatory figures</span>
+      </div>
+    </div>
+    <figure class="cover-frame">
+      <img src="../assets/cover.jpg" alt="LightFluid Awakening cover">
+    </figure>
+  </section>
+
+  <section id="library" class="library-section">
+    <div class="section-heading">
+      <p class="edition">Series Library</p>
+      <h2>English Volume Now Online</h2>
+      <p>This edition is not a machine dump or a literal translation. It is a chapter-by-chapter English rewrite based on the polished first-volume manuscript, with explanatory diagrams embedded throughout the reading flow.</p>
+    </div>
+    <div class="book-grid single-book-grid">
+      <article class="book-card featured-book">
+        <div class="book-cover-mini"><img src="../assets/cover.jpg" alt="LightFluid Awakening cover"></div>
+        <div class="book-card-copy">
+          <p class="book-kicker">English · First Volume</p>
+          <h3>{html.escape(book_title)}</h3>
+          <p>From the death of empty space to the final ledger of Sigma+, this edition opens the Core-Mode world in direct, forceful English while preserving the conceptual blade of the original Chinese manuscript.</p>
+          <div class="book-meta">
+            <span>English</span>
+            <span>8 chapters</span>
+            <span>PDF + Markdown</span>
+          </div>
+          <div class="book-actions">
+            <a class="button primary" href="chapters/chapter-01.html">Read Online</a>
+            <a class="button" href="../book/lightfluid-awakening-en.pdf">Download PDF</a>
+            <a class="button" href="../book/lightfluid-awakening-en.md">Download Markdown</a>
+            <button class="button local-favorite" type="button" data-favorite-id="lightfluid-awakening-en" data-favorite-type="book" data-favorite-url="en/chapters/chapter-01.html" data-favorite-title="{html.escape(book_title)}">Save Favorite</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="search-panel" aria-labelledby="search-title">
+    <h2 id="search-title">Search the Platform</h2>
+    <p>Try “background sea”, “Q core”, “HFCD”, “Sigma+”, or a Chinese keyword from the main book.</p>
+    <label class="search-box">
+      <span>Search</span>
+      <input id="site-search" type="search" placeholder="Enter a keyword">
+    </label>
+    <div id="search-results" class="search-results" aria-live="polite"></div>
+  </section>
+
+  <section id="catalog" class="catalog">
+    <div class="section-heading">
+      <h2>Complete English Contents</h2>
+      <p>Each part and chapter is available as a standalone reading page, with mobile-friendly typography and local reading progress.</p>
+    </div>
+    <div class="catalog-grid">{cards}</div>
+  </section>
+
+  <section id="downloads" class="open-materials">
+    <h2>English Downloads</h2>
+    <div class="material-grid">
+      <a href="../book/lightfluid-awakening-en.pdf"><strong>PDF Edition</strong><span>6 x 9 in PDF with title page, contents, figures, and polished typography.</span></a>
+      <a href="../book/lightfluid-awakening-en.md"><strong>Markdown Source</strong><span>Full English Markdown manuscript for reading, quotation, and version tracking.</span></a>
+      <a href="https://github.com/jorsonbei/wuxing-theory-book3"><strong>GitHub Repository</strong><span>Browse the public source, website files, and downloadable editions.</span></a>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <p>Copyright © Jing Longsuo ・ Bei Jisheng. All rights reserved. Public reading does not waive copyright.</p>
+</footer>"""
+    return page_shell(
+        title=f"{book_title}｜English Edition",
+        body=body,
+        base="../",
+        lang="en",
+        description=EN_BOOK_DESCRIPTION,
+        canonical_url=absolute_url("en/"),
+        alternate_url=SITE_URL,
+        og_type="book",
+        keywords=EN_SEO_KEYWORDS,
+        structured_data=[
+            english_book_schema(),
+            breadcrumb_schema([("Home", "en/")]),
+        ],
+    )
+
+
+def build_english_chapter_pages(book_title: str, sections: list[dict]) -> None:
+    EN_CHAPTERS.mkdir(parents=True, exist_ok=True)
+    for old in EN_CHAPTERS.glob("*.html"):
+        old.unlink()
+    for i, s in enumerate(sections):
+        prev_s = sections[i - 1] if i > 0 else None
+        next_s = sections[i + 1] if i + 1 < len(sections) else None
+        section_markdown = rewrite_english_assets(s["markdown"], "../../assets/lightfluid-en/")
+        article = pandoc_fragment(section_markdown)
+        aside = nav_html(sections, current=s["filename"], base="", folder="")
+        prev_link = (
+            f'<a class="button" href="{html.escape(prev_s["filename"])}">Previous</a>'
+            if prev_s
+            else ""
+        )
+        next_link = (
+            f'<a class="button primary" href="{html.escape(next_s["filename"])}">Next</a>'
+            if next_s
+            else ""
+        )
+        body = f"""{header("../../", lang="en", home_href="../index.html", zh_href="../../index.html", en_href="../index.html")}
+<div class="reader-shell">
+  <main class="reader-main">
+    <section class="reader-toolbar" aria-label="Reader settings">
+      <div class="reader-toolbar-head">
+        <div>
+          <p class="edition">English Reader</p>
+          <h2>{html.escape(s["title"])}</h2>
+        </div>
+        <div class="reader-toolbar-actions">
+          {prev_link}
+          {next_link}
+          <button class="button local-favorite" type="button" data-favorite-id="en-{html.escape(s["filename"])}" data-favorite-type="chapter" data-favorite-url="en/chapters/{html.escape(s["filename"])}" data-favorite-title="{html.escape(s["title"])}">Save</button>
+          <button class="button restore-reading" type="button">Resume</button>
+        </div>
+      </div>
+      <div class="reader-progress-track" aria-hidden="true"><span id="reader-progress"></span></div>
+      <details class="reader-settings-panel">
+        <summary>Reader Settings</summary>
+        <div class="reader-controls">
+          <label><span>Font</span><select id="reader-font"><option value="serif">Serif</option><option value="sans">Sans</option><option value="kai">Readable</option></select></label>
+          <label><span>Background</span><select id="reader-theme"><option value="paper">Paper</option><option value="warm">Warm</option><option value="green">Soft Green</option><option value="dark">Night</option><option value="oled">OLED</option></select></label>
+          <label><span>Size</span><input id="reader-size" type="range" min="17" max="24" step="1"></label>
+          <label><span>Line</span><input id="reader-line" type="range" min="1.7" max="2.2" step="0.05"></label>
+          <label><span>Width</span><input id="reader-width" type="range" min="680" max="980" step="20"></label>
+        </div>
+        <p class="small-note">Settings and reading progress are saved in this browser. Sign-in can store favorites in the cloud once the backend is enabled.</p>
+      </details>
+    </section>
+    <article class="chapter-content english-content">
+      {article}
+    </article>
+    <section class="reader-comments" data-book-id="lightfluid-awakening-en" data-chapter-path="en/{html.escape(s["filename"])}" data-chapter-title="{html.escape(s["title"])}">
+      <h2>Reader Comments</h2>
+      <p>Reading is open. Comments are submitted for review before public display.</p>
+      <form class="comment-form">
+        <label><span>Name</span><input name="visitor_name" maxlength="80" placeholder="Your name"></label>
+        <label><span>Comment</span><textarea name="body" maxlength="2000" required placeholder="Write a question, response, or objection"></textarea></label>
+        <button class="button primary" type="submit">Submit Comment</button>
+      </form>
+      <p class="comment-status" aria-live="polite"></p>
+      <div class="comment-list" data-comment-list></div>
+    </section>
+    <nav class="chapter-pager" aria-label="Chapter navigation">{prev_link}{next_link}</nav>
+  </main>
+  <aside class="reader-nav" aria-label="Chapter contents">
+    <a class="back-home" href="../index.html">← English Home</a>
+    <label class="search-box compact">
+      <span>Search</span>
+      <input id="site-search" type="search" placeholder="Search the platform">
+    </label>
+    <div id="search-results" class="search-results compact" aria-live="polite"></div>
+    <nav>{aside}</nav>
+  </aside>
+</div>"""
+        section_text = plain_text(section_markdown)
+        desc = compact_text(f"Read {s['title']}: {section_text}", 155)
+        keywords = list(dict.fromkeys([*EN_SEO_KEYWORDS[:8], *re.findall(r"\b[A-Z][A-Za-z+_-]{2,}\b", s["title"])[:4]]))
+        page_url = f"en/chapters/{s['filename']}"
+        page = page_shell(
+            title=f"{s['title']}｜{book_title}",
+            body=body,
+            base="../../",
+            lang="en",
+            description=desc,
+            canonical_url=absolute_url(page_url),
+            alternate_url=SITE_URL,
+            og_type="article",
+            keywords=keywords,
+            structured_data=[
+                article_schema(
+                    headline=s["title"],
+                    description=desc,
+                    url=page_url,
+                    keywords=keywords,
+                    book_title=book_title,
+                    position=i + 1,
+                    lang="en",
+                ),
+                breadcrumb_schema([("Home", "en/"), ("English Chapters", "en/#catalog"), (s["title"], page_url)]),
+            ],
+        )
+        (EN_CHAPTERS / s["filename"]).write_text(page, encoding="utf-8")
 
 
 def build_chapter_pages(book_title: str, sections: list[dict]) -> None:
@@ -912,7 +1359,7 @@ def build_topic_pages(book_title: str) -> None:
         (RESOURCES / topic["filename"]).write_text(page, encoding="utf-8")
 
 
-def write_assets(sections: list[dict]) -> None:
+def write_assets(sections: list[dict], english_sections: list[dict] | None = None) -> None:
     search = [
         {
             "title": s["title"],
@@ -947,16 +1394,38 @@ def write_assets(sections: list[dict]) -> None:
         }
         for topic in TOPIC_PAGES
     )
+    for s in english_sections or []:
+        text = plain_text(s["markdown"])
+        search.append(
+            {
+                "title": s["title"],
+                "url": "en/chapters/" + s["filename"],
+                "text": text[:5000],
+                "excerpt": text[:180],
+            }
+        )
+    search.append(
+        {
+            "title": EN_BOOK_TITLE,
+            "url": "en/index.html",
+            "text": " ".join([EN_BOOK_TITLE, EN_BOOK_DESCRIPTION, *EN_SEO_KEYWORDS]),
+            "excerpt": EN_BOOK_DESCRIPTION,
+        }
+    )
     (ASSETS / "search-index.json").write_text(
         json.dumps(search, ensure_ascii=False, indent=2), encoding="utf-8"
     )
     sitemap = [SITE_URL]
     sitemap += [SITE_URL + "chapters/" + s["filename"] for s in sections]
+    sitemap += [SITE_URL + "en/"]
+    sitemap += [SITE_URL + "en/chapters/" + s["filename"] for s in english_sections or []]
     sitemap += [SITE_URL + "resources/" + topic["filename"] for topic in TOPIC_PAGES]
     sitemap += [
         SITE_URL + "resources/formula-canon.html",
         SITE_URL + "resources/reproduction.html",
         SITE_URL + "resources/FormulaOperatorCanon.json",
+        SITE_URL + "book/lightfluid-awakening-en.pdf",
+        SITE_URL + "book/lightfluid-awakening-en.md",
     ]
     lastmod = date.today().isoformat()
     (ROOT / "sitemap.xml").write_text(
@@ -974,6 +1443,9 @@ def write_assets(sections: list[dict]) -> None:
 def main() -> None:
     markdown = SOURCE.read_text(encoding="utf-8")
     book_title, sections = split_sections(markdown)
+    copy_english_book_assets()
+    english_markdown = (ROOT / "book" / "lightfluid-awakening-en.md").read_text(encoding="utf-8")
+    english_book_title, english_sections = split_english_sections(english_markdown)
     for idx, s in enumerate(sections, 1):
         s["filename"] = filename_for(s["title"], idx)
         s["type_label"] = {
@@ -982,14 +1454,23 @@ def main() -> None:
             "afterword": "後記",
             "preface": "序章",
         }.get(category(s["title"]), "章")
+    for idx, s in enumerate(english_sections, 1):
+        s["filename"] = filename_for_english(s["title"], idx)
+        s["type_label"] = "Part" if category(s["title"]) == "part" else "Chapter"
     CHAPTERS.mkdir(exist_ok=True)
     for old in CHAPTERS.glob("*.html"):
         old.unlink()
     build_chapter_pages(book_title, sections)
+    EN_ROOT.mkdir(exist_ok=True)
+    build_english_chapter_pages(english_book_title, english_sections)
+    (EN_ROOT / "index.html").write_text(
+        build_english_index(english_book_title, english_sections),
+        encoding="utf-8",
+    )
     build_resource_pages(book_title)
     (ROOT / "index.html").write_text(build_index(book_title, sections), encoding="utf-8")
-    write_assets(sections)
-    print(f"built {len(sections)} sections")
+    write_assets(sections, english_sections)
+    print(f"built {len(sections)} Chinese sections and {len(english_sections)} English sections")
 
 
 if __name__ == "__main__":

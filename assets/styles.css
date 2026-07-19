@@ -19,6 +19,7 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -27,6 +28,7 @@ body {
   color: var(--ink);
   font-family: "Songti TC", "Noto Serif TC", "Noto Serif CJK TC", "PingFang TC", "Microsoft JhengHei", serif;
   line-height: 1.78;
+  overflow-x: hidden;
 }
 
 a {
@@ -69,6 +71,29 @@ a {
 .top-link-button {
   color: var(--muted);
   text-decoration: none;
+}
+
+.language-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px;
+  border: 1px solid rgba(23, 77, 120, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.58);
+}
+
+.language-switch .lang-link {
+  padding: 3px 8px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.language-switch .lang-link.active {
+  background: var(--blue);
+  color: #fff;
 }
 
 .top-link-button {
@@ -759,6 +784,8 @@ a {
   display: grid;
   grid-template-columns: 310px minmax(0, 1fr);
   min-height: calc(100vh - 58px);
+  max-width: 100vw;
+  overflow-x: hidden;
 }
 
 .reader-nav {
@@ -797,6 +824,7 @@ a {
   font-size: 14px;
   line-height: 1.45;
   text-decoration: none;
+  overflow-wrap: anywhere;
 }
 
 .nav-item.part,
@@ -844,6 +872,7 @@ a {
   color: var(--blue-2);
   font-size: 22px;
   line-height: 1.35;
+  overflow-wrap: anywhere;
 }
 
 .reader-toolbar-actions {
@@ -982,6 +1011,7 @@ a {
 }
 
 .chapter-content {
+  width: 100%;
   max-width: var(--reader-width-dynamic, var(--reader-width));
   margin: 0 auto;
   padding: clamp(22px, 4vw, 46px);
@@ -989,6 +1019,7 @@ a {
   border-radius: 10px;
   background: var(--paper);
   box-shadow: 0 18px 60px rgba(18, 30, 42, 0.08);
+  overflow-wrap: anywhere;
 }
 
 .chapter-content h1 {
@@ -1065,7 +1096,7 @@ a {
 }
 
 .chapter-content figure img {
-  max-width: none;
+  max-width: 100%;
 }
 
 .chapter-content figure figcaption {
@@ -1095,6 +1126,15 @@ a {
 
 .chapter-content p.formula-image img {
   max-width: none;
+}
+
+.english-content {
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.english-content p,
+.english-content li {
+  text-indent: 0;
 }
 
 .chapter-content pre {
@@ -1143,7 +1183,7 @@ a {
 }
 
 .book-grid {
-  grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 0.8fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
 }
 
 .single-book-grid {
@@ -1355,9 +1395,13 @@ body[data-reader-theme="oled"] .nav-item.active {
 }
 
 @media (max-width: 940px) {
-  .hero,
-  .reader-shell {
+  .hero {
     grid-template-columns: 1fr;
+  }
+
+  .reader-shell {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .hero {
@@ -1377,6 +1421,8 @@ body[data-reader-theme="oled"] .nav-item.active {
   .reader-nav {
     grid-column: 1;
     grid-row: 2;
+    min-width: 0;
+    max-width: 100vw;
     position: static;
     height: auto;
     max-height: none;
@@ -1392,6 +1438,9 @@ body[data-reader-theme="oled"] .nav-item.active {
   .reader-main {
     grid-column: 1;
     grid-row: 1;
+    min-width: 0;
+    max-width: 100vw;
+    overflow-x: hidden;
     padding: 24px 16px;
   }
 
@@ -1479,6 +1528,8 @@ body[data-reader-theme="oled"] .nav-item.active {
 
   .reader-toolbar,
   .reader-comments {
+    width: 100%;
+    max-width: calc(100vw - 32px);
     padding: 14px;
     margin-bottom: 12px;
   }
@@ -1489,10 +1540,22 @@ body[data-reader-theme="oled"] .nav-item.active {
   }
 
   .chapter-content {
+    width: 100%;
+    max-width: calc(100vw - 32px);
     padding: 22px 18px;
     border-left: 0;
     border-right: 0;
     border-radius: 0;
+  }
+
+  .chapter-content h1 {
+    font-size: clamp(28px, 8.8vw, 36px);
+    overflow-wrap: anywhere;
+  }
+
+  .english-content h1 {
+    font-size: clamp(28px, 8.4vw, 34px);
+    line-height: 1.22;
   }
 
   .chapter-content p,
@@ -1529,6 +1592,11 @@ body[data-reader-theme="oled"] .nav-item.active {
 
   .reader-toolbar-actions {
     justify-content: flex-start;
+  }
+
+  .reader-toolbar-actions .button {
+    flex: 1 1 120px;
+    min-width: 0;
   }
 
   .book-cover-mini img {
